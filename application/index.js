@@ -9,7 +9,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //routes path
 const loginRouter = require("./src/routes/loginRoutes");
+const registerRouter = require("./src/routes/registerRoutes");
 
 app.use("/", loginRouter);
+app.use("/register", registerRouter);
+
 
 app.listen(PORT, () => console.log("server started on port", PORT));
