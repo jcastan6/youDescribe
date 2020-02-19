@@ -12,7 +12,7 @@ const loginRouter = require("./src/routes/loginRoutes");
 const registerRouter = require("./src/routes/registerRoutes");
 
 app.use("/", loginRouter);
-app.use("/register", registerRouter);
+app.use("/", registerRouter);
 
 
 app.listen(PORT, () => console.log("server started on port", PORT));
