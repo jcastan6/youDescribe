@@ -1,4 +1,5 @@
 const express = require("express");
+const db = require("../models/database.js").default;
 const router = express.Router();
 
 /* GET home page. */
