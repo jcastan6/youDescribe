@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+var expressValidator = require("express-validator");
 const PORT = 3000;
 
 // logs requests to the backend
@@ -15,6 +16,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // allows to parse body in http post requests
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
 app.use(bodyParser.json());
 
 //routes path
