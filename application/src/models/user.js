@@ -6,17 +6,18 @@ const bcrypt = require('bcryptjs');
 const db = require('./database.js');
 const saltRounds = 10;
 class User {
-    static async register(name, email, pass){
+    static async register(username, email, pass){
         const hash = bcrypt.hashSync(pass, saltRounds);
-        return db.query('Insert Into users (username, email, password) VALUES (?, ?, ?) ',
-            [name, email, hash])
+        // console.log(username);
+        return db.query('Insert Into db.users (username, email, password) VALUES (?, ?, ?) ',
+            [username, email, hash])
             .then((results) => {
                 return results[0].insertId;
             });
     }
 
     static async checkValid(email){
-        return db.query('SELECT * from users where email = ?', email)
+        return db.query('SELECT * from db.users where email = ?', email)
             .then(([rows, fields]) => {
                 if(!email) return false;
                 if(!rows || rows == null || rows.length === 0){
@@ -28,7 +29,7 @@ class User {
     }
 
     static async findUser(name, pass) {
-        return db.query('SELECT * FROM users WHERE email = ?', name)
+        return db.query('SELECT * FROM db.users WHERE email = ?', name)
             .then(([rows, fields]) => {
                 if (!rows || rows == null || rows.length !== 1) {
                     return false;

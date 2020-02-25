@@ -32,36 +32,37 @@ router.post("/register", function(req, res, next) {
       .check("email", "invalid email adress")
       .exists()
       .isEmail()
-      .contains("mail.sfsu.edu");
-  // req.check('email', 'Please enter your sfsu student email').not().contains('mail.sfsu.edu');
+      // .contains("mail.sfsu.edu");
+  req.check('email', 'Please enter your sfsu student email');
   req
     .check("password", "password must be between  6 and 18 character")
     .isLength({ min: 6, max: 18 }),
-    //req.check('password', 'password not match').equals(req.body.password_confirm);
-    req.check("terms", "You must accept the terms and conditions.").equals("1");
-  req.check("privacy", "You must accept the privacy policy").equals("1");
+    req.check('password', 'password not match').equals(req.body.passwordMatch);
+  //   req.check("terms", "You must accept the terms and conditions.").equals("1");
+  // req.check("privacy", "You must accept the privacy policy").equals("1");
 
   var errors = req.validationErrors();
   // const errors = validationResult(req).array({ onlyFirstError: true });
   if (errors) {
     console.log(`errors: ${JSON.stringify(errors)}`);
 
-    res.json(JSON.stringify({ errors: errors }));
+    // res.json(JSON.stringify({ errors: errors }));
     // res.render("register", {
     //   title: "Registeration Error",
     //   errors: errors
     // });
   } else {
-    const { name, email, password , passwordMatch} = req.body;
+    const { username, email, password , passwordMatch} = req.body;
     console.log("email is: " + req.body.email);
+    console.log("username is: " + req.body.username);
     User.checkValid(email).then(isValid => {
       //if there is no similar user in the the user table--> insert the user
       if (isValid) {
         console.log("valid");
-        User.register(name, email, password).then(userID => {
+        User.register(username, email, password).then(userID => {
           const user_id = userID;
           // req.login({ id: userID }, () => res.redirect("/"));
-          // console.log(userID);
+          console.log("goes here ...");
           // console.log("user register post: " + req.user);
           // console.log("isAthenticated: "+req.isAuthenticated());
         });

@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require("mysql2/promise");
 
 const pool = mysql.createPool({
     database: "db",
@@ -13,7 +13,7 @@ const pool = mysql.createPool({
   pool.getConnection(err => {
     if (err) throw err;
     console.log("My database is connected!");
-    //pool.query('test_raya');
+    pool.query('db');
     // connection.release();
   });
   
