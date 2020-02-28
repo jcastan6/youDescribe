@@ -21,10 +21,12 @@ app.use(bodyParser.json());
 
 //routes path
 const loginRouter = require("./src/routes/loginRoutes");
-// const registerRouter = require("./src/routes/registerRoutes");
+const homeRouter = require("./src/routes/homeRoutes");
+const chooseHomeRouter = require("./src/routes/chooseHome");
 
 app.use("/", loginRouter);
-// app.use("/", registerRouter);
+app.use("/", homeRouter);
+app.use("/", chooseHomeRouter);
 
 
 app.listen(PORT, () => console.log("server started on port", PORT));

@@ -1,6 +1,5 @@
 /*
 Author: Raya Farshad
-Date: 12/16/19
 Description: API for user registration, Login, Logout and authentication.
 */
 
@@ -77,6 +76,14 @@ router.post("/register", function(req, res, next) {
       }
     });
   }
+});
+
+
+// Get login page
+router.get("/login", function(req, res) {
+  res.render("login", {
+
+  });
 });
 
 
