@@ -79,11 +79,55 @@ router.post("/register", function(req, res, next) {
 });
 
 
+// // Get login page
+// router.get("/login", function(req, res) {
+//   res.render("login", {
+
+//   });
+// });
+
+
+// Redirect for failed login
+router.get("/login/failed", (req, res) => {
+  res.render("register", {
+    login: true,
+    loginError: true,
+    isLoggedIn: req.isAuthenticated()
+  });
+});
+
 // Get login page
 router.get("/login", function(req, res) {
   res.render("login", {
-
+    title: "Login",
+    isLoggedIn: req.isAuthenticated()
   });
+
+});
+
+// Logs in user
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login/failed",
+    failureFlash: false
+  })
+);
+
+// Logs out user
+router.get("/logout", function(req, res) {
+  req.logout();
+  req.session.destroy();
+  res.redirect("/");
+});
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((id, done) => {
+  done(null, id);
 });
 
 
