@@ -16,6 +16,7 @@ const trainingRouter = require("./src/routes/trainingRoutes");
 const training1Router = require("./src/routes/training1Routes");
 const leaderboardRouter = require("./src/routes/leaderboardRoutes");
 const dashboardRouter = require("./src/routes/dashboardRoutes");
+const playRouter = require("./src/routes/playRoutes");
 
 app.use("/", loginRouter);
 app.use("/", registerRouter);
@@ -25,5 +26,6 @@ app.use("/", trainingRouter);
 app.use("/", training1Router);
 app.use("/", leaderboardRouter);
 app.use("/", dashboardRouter);
+app.use("/", playRouter);
 
 app.listen(PORT, () => console.log("server started on port", PORT));
