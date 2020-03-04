@@ -11,20 +11,14 @@ const PORT = 3000;
 
 
 var options = {
-    // host: "172.31.23.253",
-    // user: "root",
-    // password: "1235012350",
-    // database: "db",
-    // waitForConnections: true,
-    // connectionLimit: 10,
-    // queueLimit: 0
-    host: "142.44.170.121",
-    user: "root",
-    password: "6&rFzI70oM*",
-    database: "team11_db",
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+  database: "db",
+  user: "ubuntu",
+  port:3306,
+  password: "1235012350",
+  host: "54.183.110.192",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
   };
 
   
@@ -72,11 +66,14 @@ app.use("/", chooseHomeRouter);
 passport.use(
     new LocalStrategy(
       {
-        usernameField: "username",
+        usernameField: "email",
         passwordField: "password"
       },
-      function(username, password, done) {
-        const isValid = User.findUser(username, password);
+      function(email, password, done) {
+        const isValid = User.findUser(email, password);
+        console.log('email is: '+email);
+        console.log('password is: '+password);
+
         isValid.then(res => {
           if (res != false) {
             return done(null, res);

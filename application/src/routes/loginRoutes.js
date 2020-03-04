@@ -12,8 +12,8 @@ var expressValidator = require("express-validator");
 
 // Gets registration page
 router.get("/register", function(req, res, next) {
-  // console.log("10 : " + req.user);
-  // console.log("10 : " + req.isAuthenticated());
+  console.log("10 : " + req.user);
+  console.log("10 : " + req.isAuthenticated());
   res.render("register", {
     title: "Form Validation",
 
@@ -60,10 +60,10 @@ router.post("/register", function(req, res, next) {
         console.log("valid");
         User.register(username, email, password).then(userID => {
           const user_id = userID;
-          // req.login({ id: userID }, () => res.redirect("/"));
+          req.login({ id: userID }, () => res.redirect("/"));
           console.log("goes here ...");
-          // console.log("user register post: " + req.user);
-          // console.log("isAthenticated: "+req.isAuthenticated());
+          console.log("user register post: " + req.user.id);
+          console.log("isAthenticated: "+req.isAuthenticated());
         });
 
         //if there is similar user exists in the table --> show error
