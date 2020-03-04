@@ -20,7 +20,7 @@
   margin: 40px;
   border-radius: 8px;
   cursor: pointer;
-  margin-inline-start:970px;
+  margin-inline-start:1250px;
   /* margin-left: 250px;
   margin-right: 250px; */
 }
@@ -31,51 +31,55 @@
    width: 50% !important; 
 }
 
+
+
 </style>
 
 <div>
     <br>
     <h2 class= "text-center text-info">Caption Rater - The Game!</h2>
     <br>
-    <p class="text-center text-info">You will be presented with a series of images, along with a caption that describes the image.</p>
-    <p class="text-center text-info"> Your goal: Rate how well the caption fits the image, using the scale below.
-      The closer your rating matches to a group consensus, the more points you earn!
-      </p>
+    <h4 class="text-center text-info">Caption Example.</h4>
+    
       <br>
-      <div>
+      <div style="display: flex;">
+      <img src="https://blog.virginatlantic.com/wp-content/uploads/2012/06/Early-morning-fog-over-the-Golden-Gate-Bridge-%C2%A9-Shutterstock-1500x650.jpg" width="400" height="250" class="center">
+      <br>
+      
       <table  class="table table-bordered">
         <thead class="thead-light">
           <tr>
             <th scope="col">Rating</th>
-            <th scope="col">Description</th>
+            <th scope="col">Caption</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">1</th>
-            <td>Poor caption. Completely wrong.</td>
+            <td>Two people sitting on a bus.</td>
           </tr>
           <tr>
             <th scope="row">2</th>
-            <td>Captures part of image</td>
+            <td>There is a lot of fog.</td>
           </tr>
           <tr>
             <th scope="row">3</th>
-            <td>Captures part of image, weird language or action.</td>
+            <td>Cars driving over a foggy bridge. </td>
           </tr>
           <tr>
             <th scope="row">4</th>
-            <td>Describes image mostly.</td>
+            <td>There is a bridge and fog in front of a city.</td>
           </tr>
           <tr>
             <th scope="row">5</th>
-            <td>Describes the image perfectly!</td>
+            <td>The Golden Gate Bridge rises above the fog, in front of the San Francisco skyline.</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-   <form method="GET" action="/training1" class="form-group" >
+
+   <form method="GET" action="/leaderboard" class="form-group" >
     <input type="submit" name="submit" class="button_next" value="Next">
   </form>
     </div>

@@ -12,7 +12,7 @@ var expressValidator = require("express-validator");
 
 // Gets registration page
 router.get("/register", function(req, res, next) {
-  console.log("10 : " + req.user);
+  console.log("10 : " + req.user.JSON);
   console.log("10 : " + req.isAuthenticated());
   res.render("register", {
     title: "Form Validation",
@@ -109,7 +109,7 @@ router.get("/login", function(req, res) {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/chooseHome",
     failureRedirect: "/login/failed",
     failureFlash: false
   })
