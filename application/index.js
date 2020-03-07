@@ -71,13 +71,16 @@ passport.use(
       },
       function(email, password, done) {
         const isValid = User.findUser(email, password);
+        console.log("isvalis? "+isValid);
         console.log('email is: '+email);
         console.log('password is: '+password);
+
 
         isValid.then(res => {
           if (res != false) {
             return done(null, res);
           }
+
   
           return done(null, false, { message: "Invalid email or password." });
         });

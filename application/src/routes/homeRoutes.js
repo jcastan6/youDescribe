@@ -9,7 +9,10 @@ router.get("/", function(req, res, next) {
 
 
   router.get("/chooseHome", function(req, res, next) {
+    console.log("11 : " + req.isAuthenticated());
+    console.log("user login11: " + req.user.user_id);
     res.render("chooseHome", {
+      
 
     });
   });

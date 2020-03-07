@@ -12,7 +12,7 @@ var expressValidator = require("express-validator");
 
 // Gets registration page
 router.get("/register", function(req, res, next) {
-  console.log("10 : " + req.user.JSON);
+  console.log("10 : " + req.params+req.body);
   console.log("10 : " + req.isAuthenticated());
   res.render("register", {
     title: "Form Validation",
@@ -61,7 +61,7 @@ router.post("/register", function(req, res, next) {
         User.register(username, email, password).then(userID => {
           const user_id = userID;
           req.login({ id: userID }, () => res.redirect("/"));
-          console.log("goes here ...");
+          console.log("goes here ..."+user_id);
           console.log("user register post: " + req.user.id);
           console.log("isAthenticated: "+req.isAuthenticated());
         });
@@ -98,7 +98,12 @@ router.get("/login/failed", (req, res) => {
 
 // Get login page
 router.get("/login", function(req, res) {
+  // console.log("10 : " + req);
+  // console.log("102 : " + req.isAuthenticated());
+  // console.log("103 : " + req.user.id);
+
   res.render("login", {
+    
     title: "Login",
     isLoggedIn: req.isAuthenticated()
   });

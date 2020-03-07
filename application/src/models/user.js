@@ -9,7 +9,7 @@ class User {
     static async register(username, email, pass){
         const hash = bcrypt.hashSync(pass, saltRounds);
         // console.log(username);
-        return db.query('Insert Into db.users (username, email, password) VALUES (?, ?, ?) ',
+        return db.query('Insert Into users (username, email, password) VALUES (?, ?, ?) ',
             [username, email, hash])
             .then((results) => {
                 return results[0].insertId;
@@ -17,7 +17,7 @@ class User {
     }
 
     static async checkValid(email){
-        return db.query('SELECT * from db.users where email = ?', email)
+        return db.query('SELECT * from users where email = ?', email)
             .then(([rows, fields]) => {
                 if(!email) return false;
                 if(!rows || rows == null || rows.length === 0){
@@ -28,14 +28,16 @@ class User {
             });
     }
 
-    static async findUser(name, pass) {
-        return db.query('SELECT * FROM db.users WHERE email = ?', name)
+    static async findUser(email, pass) {
+        return db.query('SELECT * FROM users WHERE email = ?', email)
             .then(([rows, fields]) => {
+                // console.log(rows.length+rows.email);
                 if (!rows || rows == null || rows.length !== 1) {
                     return false;
                 }
                 if(bcrypt.compareSync(pass, rows[0].password)){
-                    console.log("return rows[0]"+rows[0]);
+                    // console.log("return rows[0]"+rows[0].email);
+                    // console.log("return rows[1]"+rows[0].user_id);
                     return rows[0];
                 }else{
                     return false;
