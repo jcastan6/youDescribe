@@ -17,11 +17,7 @@ router.get("/", function(req, res, next) {
     });
   });
 
-  router.get("/play", function(req, res, next) {
-    res.render("play", {
 
-    });
-  });
 
   router.get("/training", function(req, res, next) {
     res.render("training", {
