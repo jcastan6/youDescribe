@@ -3,11 +3,16 @@ const router = express.Router();
 const db = require("../models/database.js");
 
 async function getImageidFromCaptions(req, res, next){
-    await db.execute(" SELECT * FROM captions ", (err, captions) => {
+    let userID = req.user.user_id;
+    let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = "+userID+" ) ";
+    console.log(query);
+    await db.execute(query , (err, captions) => {
+        
         if(err) throw err;
         // console.log("something");
         // console.log(captions[0].images_img_id);
         req.img_id_from_captions = captions[0].images_img_id;
+        req.caption_from_captions = captions[0].caption;
         next();
     });
 }
@@ -25,12 +30,12 @@ async function getImageUrlfromImageId(req, res, next){
 
 
 router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, (req, res)=>{
-    let img_id_from_captions = req.img_id_from_captions;
+    let caption_from_captions = req.caption_from_captions;
     let imgURL = req.imgURL;
-    console.log("img_id_from_captions: "+img_id_from_captions);
+    console.log("img_id_from_captions: "+caption_from_captions);
     console.log("imgURL: "+imgURL);
     res.render("play", {
-        img_id_from_captions: img_id_from_captions,
+        caption_from_captions: caption_from_captions,
         imgURL : imgURL,
 
     });
