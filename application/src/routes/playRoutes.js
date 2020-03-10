@@ -61,6 +61,26 @@ async function insertRatings(req,res,next){
     });
 }
 
+async function updateUsersTable(req,res,next){
+    //increment the userAttempts by one
+
+    //add scores to user's total score
+
+
+
+
+    // rate = req.body.inlineRadioOptions;
+    // let query = " SELECT * FROM db.captions where cap_id = " + req.caption_id;
+    // console.log(query);
+    // // console.log(req.body);
+    // await db.execute(query, (err, consensus) => {
+    //     if(err) throw err;
+    //     req.consensus = consensus[0].consensus;
+    //     next();
+    // });
+}
+
+
 
 
 
