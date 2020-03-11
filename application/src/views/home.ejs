@@ -20,14 +20,13 @@
   margin: 40px 2px;
   border-radius: 8px;
   cursor: pointer;
-  margin-inline-start:600px;
+  margin-inline-start:50px;
   /* margin-left: 250px;
   margin-right: 250px; */
 }
 
 .button_register{
   background-color: rgb(35, 90, 134);
-  border-radius: 8px;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -36,7 +35,9 @@
   display: inline-block;
   font-size: 16px;
   margin: 40px 2px;
+  border-radius: 8px;
   cursor: pointer;
+  margin-inline-start:600px;
   /* margin-left: 250px;
   margin-right: 250px; */
 }
@@ -48,6 +49,7 @@
     <h2 class= "text-center text-info">Caption Rater - The Game!</h2>
     <br>
     <img src="https://images.pexels.com/photos/1319515/pexels-photo-1319515.jpeg?cs=srgb&dl=photograph-of-giraffe-1319515.jpg&fm=jpg" width="450" height="350" class="center">
+    <div style="display: flex;">
     <form method="GET" action="/register" class="form-group" >
        
         <input type="submit" name="submit" class="button_register" value="Register">
@@ -56,5 +58,5 @@
     <form method="GET" action="/login" class="form-group" >
       <input type="submit" name="submit" class="button_login" value="Login">
     </form>
-   
+    </div>
     </div>
