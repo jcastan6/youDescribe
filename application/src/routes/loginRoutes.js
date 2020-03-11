@@ -32,7 +32,7 @@ router.post("/register", function(req, res, next) {
       .exists()
       .isEmail()
       // .contains("mail.sfsu.edu");
-  req.check('email', 'Please enter your sfsu student email');
+  req.check('email', 'Please enter your email');
   req
     .check("password", "password must be between  6 and 18 character")
     .isLength({ min: 6, max: 18 }),
