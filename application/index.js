@@ -58,10 +58,12 @@ app.use(passport.session());
 const loginRouter = require("./src/routes/loginRoutes");
 const homeRouter = require("./src/routes/homeRoutes");
 const choosePlayRouter = require("./src/routes/playRoutes");
+const dashboardRouter = require("./src/routes/dashboardRoutes");
 
 app.use("/", loginRouter);
 app.use("/", homeRouter);
 app.use("/", choosePlayRouter);
+app.use("/", dashboardRouter);
 
 passport.use(
     new LocalStrategy(

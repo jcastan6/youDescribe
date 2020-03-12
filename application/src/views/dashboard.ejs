@@ -89,56 +89,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">Image 1</th>
-            <td>A golden retriever holds several tennis balls in its mouth.</td>
-            <td>5</td>
-            <td>4.8</td>
-            <td>100</td>
+          <% for(var i=0; i < ratings.length; i++) { %>
+
+          <tr>           
+            <td><img src=<%= ratings[i].img_url %> alt="" border=3 height=100 width=100></img></td>     
+            <td><%= ratings[i].caption %> </td>        
+            <td><%= ratings[i].rate %></td>
+            <td><%= ratings[i].consensus %></td>
+            <td><%= ratings[i].scores %></td>
             <td>
               <input type="submit" name="submit" class="button_dispute" value="Dispute"> 
             </td>
           </tr>
-          <tr>
-            <th scope="row">Image 2</th>
-            <td>Two people are driving in a car.</td>
-            <td>4</td>
-            <td>1</td>
-            <td>0</td>
-            <td>
-              <input type="submit" name="submit" class="button_dispute" value="Dispute"> 
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">Image 3</th>
-            <td>...</td>
-            <td>4</td>
-            <td>2</td>
-            <td>0</td>
-            <td>
-              <input type="submit" name="submit" class="button_dispute" value="Dispute"> 
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">Image 4</th>
-            <td>...</td>
-            <td>4</td>
-            <td>4</td>
-            <td>200</td>
-            <td>
-              <input type="submit" name="submit" class="button_dispute" value="Dispute"> 
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">Image 5</th>
-            <td>....</td>
-            <td>1</td>
-            <td>1.5</td>
-            <td>100</td>
-            <td>
-              <input type="submit" name="submit" class="button_dispute" value="Dispute"> 
-            </td>
-          </tr>
+
+          <% } %>
         </tbody>
       </table>
     </div>
