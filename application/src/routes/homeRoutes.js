@@ -28,8 +28,8 @@ router.get("/", function(req, res, next) {
   });
 
 
-  router.get("/training1", function(req, res, next) {
-    res.render("training1", {
+  router.get("/trainingExample1", function(req, res, next) {
+    res.render("trainingExample1", {
 
     });
 
