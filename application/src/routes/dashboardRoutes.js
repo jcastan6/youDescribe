@@ -33,7 +33,8 @@ router.get("/dashboard", getUserInfoFromRatings, getUserInfo,  function(req, res
     // console.log(ratings);
     let ratings = req.ratings;
     let users = req.users;
-    // console.log(ratings);
+    console.log(ratings);
+    console.log(req.ratings[req.ratings.length - 1].caption);
     console.log("users: "+users);
     // console.log(ratings[0].caption);
     res.render("dashboard", {

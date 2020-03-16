@@ -32,8 +32,20 @@ router.get("/", function(req, res, next) {
     res.render("trainingExample1", {
 
     });
-
     
+  });
+
+  router.get("/trainingExample2", function(req, res, next) {
+    res.render("trainingExample2", {
+
+    });
+
+  });
+  router.get("/trainingExample3", function(req, res, next) {
+    res.render("trainingExample3", {
+
+    });
+
   });
 
 
