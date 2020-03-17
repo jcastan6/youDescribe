@@ -29,13 +29,15 @@ async function getImageUrlfromImageId(req, res, next){
     });
 }
 
-async function getTotalScore(req,res,next){
+async function getUserInfo(req,res,next){
     rate = req.body.inlineRadioOptions;
     let query = " SELECT * FROM db.users where user_id = " + req.user.user_id;
     // console.log(query);
     await db.execute(query, (err, users) => {
         if(err) throw err;
         req.total_score = users[0].total_score;
+        req.total_num_attempts = users[0].total_num_attempts;
+        req.total_num_success = users[0].total_num_success
         next();
     });
 } 
@@ -86,18 +88,17 @@ async function insertRatings(req,res,next){
     
     // console.log(query);
     await db.execute(query, (err, res) => {
+
         if(err) throw err;
-        // console.log("result ratibgs is: "+res[0]);
         next();
     });
 }
 
-async function getUserInfoFromRatings(req, res, next){
+async function getRatingsInfo(req, res, next){
     let userID = req.user.user_id;
     let query = " SELECT * FROM db.ratings R, db.captions C, db.images I where R.captions_cap_id = C.cap_id AND C.images_img_id = I.img_id AND R.users_user_id = "+userID;
     // console.log(query);
     await db.execute(query , (err, ratings) => {
-        
         if(err) throw err;
         req.ratings = ratings;
         next();
@@ -112,7 +113,16 @@ async function updateUsersTable(req,res,next){
     // add total_success to users table
     let success = req.ratings[req.ratings.length-1].success;
     //calculate the level and add it to the users table
+    let levelPoints = 0;
     let level = 0;
+    let userSuccessRate = req.total_num_success/req.total_num_attempts;
+    if(userSuccessRate>0.25){
+        levelPoints = parseInt(req.total_num_attempts*(1+userSuccessRate));
+    }
+    if(levelPoints != 0 && (levelPoints%100 === 0)){
+        level = level+1;
+    }
+    
 
     //increment the userAttempts by one
     let query = " UPDATE db.users SET "+
@@ -125,7 +135,7 @@ async function updateUsersTable(req,res,next){
                  "total_num_success = total_num_success + "+success+
                  " where user_id = " + req.user.user_id;
     // console.log(query);
-    await db.execute(query, (err, number_user_attempts) => {
+    await db.execute(query, (err, res) => {
         if(err) throw err;
         next();
     });   
@@ -218,7 +228,7 @@ async function updateConsensus(req,res,next){
 }
 
 
-router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getTotalScore, (req, res)=>{
+router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo, (req, res)=>{
     let caption_from_captions = req.caption_from_captions;
     let imgURL = req.imgURL;
     let scores = req.scores;
@@ -235,7 +245,7 @@ router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getTotalSco
   });
 
 
-  router.post("/play", getImageidFromCaptions, getCurrentConsensus, insertRatings, getUserInfoFromRatings, updateUsersTable, getRatingsAveForCap,updateConsensus, (req, res)=>{
+  router.post("/play", getImageidFromCaptions, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap,updateConsensus, (req, res)=>{
 
       res.redirect("/play");
   });
