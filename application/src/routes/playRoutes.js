@@ -1,3 +1,13 @@
+/*
+1. At the begining we have caption_id , image_id
+2. The user click on submit
+3. Now we have new_rate , caption_id , image_id
+4. Get the current_consensus from the captions table
+5. Calculate the user score based on that
+6. Insert score and the consensus(that we calculated the users score base on that) and new_rate , caption_id , image_id into the rating table
+7. Insert users total score , total attempt and level to the users table
+8. Re calculate the consensus based on the users new_rate and add it to the caption table
+*/
 const express = require("express");
 const router = express.Router();
 const db = require("../models/database.js");
