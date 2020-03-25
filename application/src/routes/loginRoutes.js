@@ -9,6 +9,9 @@ const { User } = require("../models/user.js");
 const { validationResult } = require("express-validator/check");
 const passport = require("passport");
 var expressValidator = require("express-validator");
+var JSAlert = require("js-alert");
+
+
 
 // Gets registration page
 router.get("/register", function(req, res, next) {
@@ -69,6 +72,7 @@ router.post("/register", function(req, res, next) {
         //if there is similar user exists in the table --> show error
       } else {
         console.log("not valid");
+        res.send('<script>alert("Hello")</script>');
         res.render("register", {
           title: "Error : Similar user exists",
           // isLoggedIn: req.isAuthenticated()
