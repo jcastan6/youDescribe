@@ -182,15 +182,15 @@
 
 
   </script>
-  img src="http://images.cocodataset.org/val2014/COCO_val2014_000000522418.jpg" width="400" height="300" class="center">
-    <br>
-  <!-- <br>
-  <div id="hidden_div" class="box" style="display:none">
+   img src="http://images.cocodataset.org/val2014/COCO_val2014_000000522418.jpg" width="400" height="300" class="center">
+
+  <br>
+  <div id="hidden_div" class="box">
 
     <h5 class="caption">Good Job!</h5>
-    <h6 class="caption1">Your rating: 3</h6>
+    <h6 class="caption1">Your rating: <%= rate %></h6>
     <h6 class="caption1">Consensus: 3</h6>
-    <h6 class="caption1">Scores Earned: 200</h6> -->
+    <h6 class="caption1">Scores Earned: <%= score %></h6>
 
   </div>
   <h5 class="caption">A woman wearing a net on her head cutting a cake.</h5>
@@ -198,7 +198,7 @@
 
 
 
-  <form action="/trainingExample1res" method="get">
+  <form action="/trainingExample2" method="GET">
     <div style="text-align:center">
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
@@ -225,7 +225,7 @@
       <input type="submit" name="submit" class="button_next" value="Submit" id="nextButton">
     </div> -->
     <div class="form-group">
-      <input type="submit" name="submit" class="button_next" value="Submit" id="submitButton">
+      <input type="submit" name="submit" class="button_next" value="Next" id="submitButton">
     </div>
   </form>
 
