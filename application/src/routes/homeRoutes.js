@@ -23,12 +23,15 @@ router.get("/", function(req, res, next) {
     let rate = req.query.rate;
     let consensus = req.query.consensus;
     let score = req.query.score;
+    let comment = req.query.comment;
+    
     res.render("play_result", {
       image : image,
       caption : caption,
       rate : rate,
       consensus : consensus,
-      score : score
+      score : score,
+      comment : comment
 
     });
   });

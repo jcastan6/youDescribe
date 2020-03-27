@@ -12,6 +12,34 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models/database.js");
 const url = require('url');   
+var good_guess = [
+    "Awesome!",
+    "Great Job!",
+    "Bullseye!",
+    "Nailed it!",
+    "Excellent!",
+    "I knew you had it in you!",
+    "Well done, you!",
+    "Keep it up, champ!",
+    "Slam dunk!",
+    "Success!",
+    "You GOT this!",
+    "Alriiiight!",
+  ];
+  var bad_guess = [
+    "Aw too bad!",
+    "Meh!",
+    "Better luck next time!",
+    "Sorry!",
+    "You got it...NOT!",
+    "Really?!",
+    "Sad story!",
+    "Scratching my head!",
+    "For realz?!",
+    "Lol u wish!",
+    "Whomp whomp!",
+    "Fail!",
+  ];
 
 
 
@@ -70,9 +98,10 @@ async function insertRatings(req,res,next){
     let current_consensus = req.consensus;
     let current_score = 0;
     console.log("success1 ");
+    let current_rate = parseInt(req.body.inlineRadioOptions);
     // console.log("scores1 "+req.query.inlineRadioOptions);
     let current_success = 0;
-    let difference = Math.abs(current_consensus - current_score);
+    let difference = Math.abs(current_consensus - current_rate);
     if(current_consensus === -1){
         current_score = 0;        
     }else{
@@ -262,9 +291,18 @@ router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo
   router.post("/play", getImageidFromCaptions,getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap,updateConsensus, (req, res)=>{
     //   "/play_result"
     console.log("imgURL 2:"+req.imgURL);
+    var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
+    var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
+    var raya = (req.scores < 100) ? random_bad_answer : random_good_answer;
+    var ans;
+    ans = (req.scores < 100) ? random_bad_answer : random_good_answer;
+    if(req.consensus == -1){ans = "You will recieve your score later :)"};
+    // console.log(raya);
+    // console.log(random_good_answer);
       res.redirect(url.format({
           pathname : "/play_result",
           query:{
+              "comment" : ans,
               "rate" : parseInt(req.body.inlineRadioOptions),
               "score" : req.scores,
               "consensus" : req.consensus,
