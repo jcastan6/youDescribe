@@ -293,12 +293,9 @@ router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo
     console.log("imgURL 2:"+req.imgURL);
     var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
     var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
-    var raya = (req.scores < 100) ? random_bad_answer : random_good_answer;
     var ans;
     ans = (req.scores < 100) ? random_bad_answer : random_good_answer;
     if(req.consensus == -1){ans = "You will recieve your score later :)"};
-    // console.log(raya);
-    // console.log(random_good_answer);
       res.redirect(url.format({
           pathname : "/play_result",
           query:{
