@@ -59,11 +59,13 @@ const loginRouter = require("./src/routes/loginRoutes");
 const homeRouter = require("./src/routes/homeRoutes");
 const choosePlayRouter = require("./src/routes/playRoutes");
 const dashboardRouter = require("./src/routes/dashboardRoutes");
+const trainingRouter = require("./src/routes/trainingRoutes");
 
 app.use("/", loginRouter);
 app.use("/", homeRouter);
 app.use("/", choosePlayRouter);
 app.use("/", dashboardRouter);
+app.use("/", trainingRouter);
 
 passport.use(
     new LocalStrategy(

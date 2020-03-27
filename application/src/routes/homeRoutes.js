@@ -35,12 +35,12 @@ router.get("/", function(req, res, next) {
     
   });
 
-  router.get("/trainingExample2", function(req, res, next) {
-    res.render("trainingExample2", {
+  // router.get("/trainingExample2res", function(req, res, next) {
+  //   res.render("trainingExample2res", {
 
-    });
+  //   });
 
-  });
+  // });
   router.get("/trainingExample3", function(req, res, next) {
     res.render("trainingExample3", {
 
