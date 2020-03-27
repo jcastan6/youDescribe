@@ -16,7 +16,22 @@ router.get("/", function(req, res, next) {
 
     });
   });
+  router.get("/play_result", function(req, res, next) {
+    console.log(req.query);
+    let image = req.query.image;
+    let caption = req.query.caption;
+    let rate = req.query.rate;
+    let consensus = req.query.consensus;
+    let score = req.query.score;
+    res.render("play_result", {
+      image : image,
+      caption : caption,
+      rate : rate,
+      consensus : consensus,
+      score : score
 
+    });
+  });
 
 
   router.get("/training", function(req, res, next) {

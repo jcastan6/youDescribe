@@ -11,6 +11,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models/database.js");
+const url = require('url');   
 
 
 
@@ -40,7 +41,7 @@ async function getImageUrlfromImageId(req, res, next){
 }
 
 async function getUserInfo(req,res,next){
-    rate = req.body.inlineRadioOptions;
+    // rate = req.body.inlineRadioOptions;
     let query = " SELECT * FROM db.users where user_id = " + req.user.user_id;
     // console.log(query);
     await db.execute(query, (err, users) => {
@@ -53,7 +54,7 @@ async function getUserInfo(req,res,next){
 } 
 
 async function getCurrentConsensus(req,res,next){
-    rate = req.body.inlineRadioOptions;
+    // rate = req.body.inlineRadioOptions;
     let query = " SELECT * FROM db.captions where cap_id = " + req.caption_id;
     // console.log(query);
     await db.execute(query, (err, consensus) => {
@@ -68,8 +69,8 @@ async function insertRatings(req,res,next){
     //calculateScore and check the success (if true) -> add one to success column
     let current_consensus = req.consensus;
     let current_score = 0;
-    // console.log("success1 "+req.consensus);
-    // console.log("scores1 "+req.scores);
+    console.log("success1 ");
+    // console.log("scores1 "+req.query.inlineRadioOptions);
     let current_success = 0;
     let difference = Math.abs(current_consensus - current_score);
     if(current_consensus === -1){
@@ -87,8 +88,10 @@ async function insertRatings(req,res,next){
         }else{
             current_score = 0;
         }
-
+        // req.query.inlineRadioOptions
+        // parseInt(req.body.inlineRadioOptions)
     }
+    
     let query = "Insert INTO db.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success ) VALUES  ( "+ parseInt(req.body.inlineRadioOptions) +", "+ current_score +", "+
     current_consensus +", "+
     req.user.user_id +", "+
@@ -243,6 +246,7 @@ router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo
     let imgURL = req.imgURL;
     let scores = req.scores;
     let total_score = req.total_score;
+    console.log("url : "+req.imgURL);
    
     res.render("play", {
         caption_from_captions: caption_from_captions,
@@ -255,9 +259,20 @@ router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo
   });
 
 
-  router.post("/play", getImageidFromCaptions, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap,updateConsensus, (req, res)=>{
+  router.post("/play", getImageidFromCaptions,getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap,updateConsensus, (req, res)=>{
+    //   "/play_result"
+    console.log("imgURL 2:"+req.imgURL);
+      res.redirect(url.format({
+          pathname : "/play_result",
+          query:{
+              "rate" : parseInt(req.body.inlineRadioOptions),
+              "score" : req.scores,
+              "consensus" : req.consensus,
+              "image" : req.imgURL,
+              "caption" : req.caption_from_captions
 
-      res.redirect("/play");
+          }
+      }));
   });
 
 
