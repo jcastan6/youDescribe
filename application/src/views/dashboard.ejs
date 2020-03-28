@@ -1,0 +1,119 @@
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+    .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button_dispute{
+  background-color: rgb(224, 138, 80);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-inline-start:7px;
+  /* margin-left: 250px;
+  margin-right: 250px; */
+}
+.totalscore{
+  /* background-color: rgb(238, 238, 238); */
+  width: 500px;
+  height: 25px;
+  color: green;
+  /* border: 15px solid green; */
+  padding: 10px;
+  margin-left: 1000px;
+  
+}
+
+.accuracyscore{
+  /* background-color: rgb(238, 238, 238); */
+  width: 500px;
+  height: 25px;
+  color: rgb(19, 0, 128);
+  /* border: 15px solid green; */
+  padding: 10px;
+  margin-left: 1000px;
+  
+}
+.attempt{
+  /* background-color: rgb(238, 238, 238); */
+  width: 500px;
+  height: 25px;
+  color: rgb(128, 0, 85);
+  /* border: 15px solid green; */
+  padding: 10px;
+  margin-left: 1000px;
+  
+}
+
+.table {
+   margin: auto;
+   width: 75% !important; 
+}
+
+</style>
+
+<div>
+    <br>
+    <h2 class= "text-center text-info">Caption Rater - The Game!</h2>
+    <br>
+    
+    <h3 class="text-center text-info">Dashboard</h3>
+    
+    <h5 class="totalscore">Total Score: <%= users[0].total_score %></h5>
+    <h5 class="accuracyscore">Accuracy: ??</h5>
+    <h5 class="attempt">Number of Attempts:  <%= users[0].num_attempts %></h5>
+  
+      <br>
+      <div>
+      <table  class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Caption</th>
+            <th scope="col">Your Rating</th>
+            <th scope="col">Consensus</th>
+            <th scope="col">Scores earned</th>
+            <th scope="col">Create a dispute</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0; i < ratings.length; i++) { %>
+
+          <tr>           
+            <td><img src=<%= ratings[i].img_url %> alt="" border=3 height=100 width=100></img></td>     
+            <td><%= ratings[i].caption %> </td>        
+            <td><%= ratings[i].rate %></td>
+            <td><%= ratings[i].consensus %></td>
+            <td><%= ratings[i].scores %></td>
+            <td>
+              <input type="submit" name="submit" class="button_dispute" value="Dispute"> 
+            </td>
+          </tr>
+
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <!-- <div class="form-group">
+      <input type="submit" name="submit" class="button_next" value="Next">
+
+   </div> -->
+
+    </div>
+    <div>
+      <form method="GET" action="/play" class="button_dispute" >
+        <input type="submit" name="submit" class="button_next" value="Play">
+      </form>
+    </div>

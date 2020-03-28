@@ -1,0 +1,63 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+    .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button_training{
+  background-color: rgb(224, 138, 80);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 40px 2px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-inline-start:500px;
+  /* margin-left: 250px;
+  margin-right: 250px; */
+}
+
+.button_play{
+  background-color: rgb(18, 136, 77);
+  width: 172px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 2px;
+  cursor: pointer;
+  margin-inline-start:500px;
+    /* margin-left: 250px;
+  margin-right: 250px; */
+}
+
+</style>
+
+<div>
+    <br>
+    <h2 class= "text-center text-info">Caption Rater - The Game!</h2>
+    <br>
+
+  <form method="GET" action="/trainingExample1" class="form-group" >
+       
+    <input type="submit" name="submit" class="button_training" value="Training Round">
+
+  </form>
+  <form method="GET" action="/play" class="form-group" >
+    <input type="submit" name="submit" class="button_play" value="Play">
+  </form>
+
+
+    </div>

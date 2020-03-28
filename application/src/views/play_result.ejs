@@ -1,0 +1,129 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .button_next1 {
+    background-color: rgb(224, 138, 80);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 0px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .button_next {
+    background-color: rgb(224, 138, 80);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .button_instructions {
+    background-color: rgb(72, 83, 247);
+    border: none;
+    color: white;
+    padding: 13px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .box {
+    background-color: lightblue;
+    width: 200px;
+    border: 4px solid rgb(96, 99, 96);
+    padding: 15px;
+    margin: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100 px;
+  }
+
+  .caption {
+
+    color: rgb(3, 14, 3);
+    padding: 10px;
+    text-align: center;
+
+  }
+
+  .caption1 {
+
+    color: rgb(3, 14, 3);
+    padding: 2px;
+    text-align: center;
+
+  }
+
+
+
+  .table {
+    margin: auto;
+    width: 37% !important;
+    font-size: 12;
+  }
+
+  #myDIV {
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 20px;
+  }
+</style>
+<br><br>
+   <img src=<%= image %> width="400" height="300" class="center">
+
+  <br>
+  <h5 class="caption"><%= caption %></h5>
+  <br>
+  <div id="hidden_div" class="box">
+
+    <h5 class="caption"><%= comment %></h5>
+    <h6 class="caption1">Your rating: <%= rate %></h6>
+    <h6 class="caption1">Consensus: <%= consensus %></h6>
+    <h6 class="caption1">Scores Earned:<%= score %></h6>
+
+  </div>
+  
+  <form action="/play" method="GET">
+
+    <div class="form-group">
+      <input type="submit" name="submit" class="button_next" value="Next" id="submitButton">
+    </div>
+  </form>
+
+    
+
+
+
+</div>
