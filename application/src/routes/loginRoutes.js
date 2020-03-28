@@ -19,7 +19,7 @@ router.get("/register", function(req, res, next) {
   console.log("10 : " + req.isAuthenticated());
   res.render("register", {
     title: "Form Validation",
-    errors: errors
+    // errors: errors
 
   });
   req.session.errors = null;
@@ -76,7 +76,7 @@ router.post("/register", function(req, res, next) {
         res.send('<script>alert("Hello")</script>');
         res.render("register", {
           title: "Error : Similar user exists",
-          errors: errors
+          // errors: errors
           // isLoggedIn: req.isAuthenticated()
         });
       }
