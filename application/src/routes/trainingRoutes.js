@@ -21,22 +21,22 @@ let current_consensus = 4;
 let current_score = req.query.inlineRadioOptions;
 
 let difference = Math.abs(current_consensus - current_score);
-console.log("diff: "+difference);
+console.log("diff1: "+difference);
 if(current_consensus === -1){
   current_score = 0;        
 }else{
   if(difference <= 0.1){
       current_score = 200;
-  }else if(0.1 <difference <= 0.5){
+  }else if(0.1 < difference && difference <= 0.5){
       current_score = 100;
-  }else if(0.5 <difference <= 1){
+  }else if(0.5 < difference  &&  difference <= 1){
       current_score = 50;
   }else{
       current_score = 0;
   }
 
 }
-console.log(current_score);
+console.log("current_score1: "+current_score);
 req.score = current_score;
 next();
 
@@ -44,8 +44,8 @@ next();
 
 router.get("/trainingExample1res", calculateScore1, (req, res) => {
 // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
-console.log(req.query.inlineRadioOptions);
-console.log(req.score);   
+// console.log(req.query.inlineRadioOptions);
+// console.log(req.score);   
 let rate = req.query.inlineRadioOptions;
 let score = req.score;
 
@@ -77,21 +77,21 @@ async function calculateScore2(req,res,next){
   let current_score = req.query.inlineRadioOptions;
   
   let difference = Math.abs(current_consensus - current_score);
-  console.log("diff2"+difference);
+  console.log("diff2 : "+difference);
   if(current_consensus === -1){
       current_score = 0;        
-  }else{
+    }else{
       if(difference <= 0.1){
           current_score = 200;
-      }else if(0.1 <difference <= 0.5){
+      }else if(0.1 < difference && difference <= 0.5){
           current_score = 100;
-      }else if(0.5 <difference <= 1){
+      }else if(0.5 < difference  &&  difference <= 1){
           current_score = 50;
       }else{
           current_score = 0;
       }
-
-  }
+    
+    }
   console.log(current_score);
   req.score = current_score;
   next();
@@ -135,15 +135,15 @@ let current_consensus = 5;
 let current_score = req.query.inlineRadioOptions;
 
 let difference = Math.abs(current_consensus - current_score);
-console.log("diff2"+difference);
+console.log("diff3 : "+difference);
 if(current_consensus === -1){
   current_score = 0;        
 }else{
   if(difference <= 0.1){
       current_score = 200;
-  }else if(0.1 <difference <= 0.5){
+  }else if(0.1 < difference && difference <= 0.5){
       current_score = 100;
-  }else if(0.5 <difference <= 1){
+  }else if(0.5 < difference  &&  difference <= 1){
       current_score = 50;
   }else{
       current_score = 0;
@@ -192,15 +192,15 @@ let current_consensus = 5;
 let current_score = req.query.inlineRadioOptions;
 
 let difference = Math.abs(current_consensus - current_score);
-console.log("diff2"+difference);
+console.log("diff4: "+difference);
 if(current_consensus === -1){
   current_score = 0;        
 }else{
   if(difference <= 0.1){
       current_score = 200;
-  }else if(0.1 <difference <= 0.5){
+  }else if(0.1 < difference && difference <= 0.5){
       current_score = 100;
-  }else if(0.5 <difference <= 1){
+  }else if(0.5 < difference  &&  difference <= 1){
       current_score = 50;
   }else{
       current_score = 0;
