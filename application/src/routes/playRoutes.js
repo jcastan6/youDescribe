@@ -107,19 +107,15 @@ async function insertRatings(req,res,next){
     }else{
         if(difference <= 0.1){
             current_score = 200;
-            current_success = 0;
-        }else if(0.1 <difference <= 0.5){
+        }else if(0.1 < difference && difference <= 0.5){
             current_score = 100;
-            current_success = 1;
-        }else if(0.5 <difference <= 1){
+        }else if(0.5 < difference  &&  difference <= 1){
             current_score = 50;
-            current_success = 1;
         }else{
             current_score = 0;
         }
-        // req.query.inlineRadioOptions
-        // parseInt(req.body.inlineRadioOptions)
-    }
+      
+      }
     
     let query = "Insert INTO db.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success ) VALUES  ( "+ parseInt(req.body.inlineRadioOptions) +", "+ current_score +", "+
     current_consensus +", "+
