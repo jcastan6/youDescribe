@@ -95,9 +95,14 @@ router.post("/register", function(req, res, next) {
 
 // Redirect for failed login
 router.get("/login/failed", (req, res) => {
-  res.render("register", {
-    login: true,
-    loginError: true,
+  // let errormessage = 'Incorrect email or password!';
+  console.log('login failed');
+  res.render("login", {
+    error_msg : 'login failed',
+    // errormessage : errormessage,
+    // login: true,
+    // loginError: true,
+    
     isLoggedIn: req.isAuthenticated()
   });
 });
@@ -105,11 +110,11 @@ router.get("/login/failed", (req, res) => {
 // Get login page
 router.get("/login", function(req, res) {
   // console.log("10 : " + req);
-  // console.log("102 : " + req.isAuthenticated());
+  console.log("102 : " + req.isAuthenticated());
   // console.log("103 : " + req.user.id);
 
   res.render("login", {
-    
+    error_msg :'',
     title: "Login",
     isLoggedIn: req.isAuthenticated()
   });
