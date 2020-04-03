@@ -108,10 +108,10 @@ async function insertRatings(req,res,next){
         if(difference <= 0.1){
             current_score = 200;
             current_success = 0;
-        }else if(0.1 <difference <= 0.5){
+        }else if(0.1 <difference && difference <= 0.5){
             current_score = 100;
             current_success = 1;
-        }else if(0.5 <difference <= 1){
+        }else if(0.5 <difference && difference <= 1){
             current_score = 50;
             current_success = 1;
         }else{
@@ -119,6 +119,8 @@ async function insertRatings(req,res,next){
         }
         // req.query.inlineRadioOptions
         // parseInt(req.body.inlineRadioOptions)
+        console.log(current_score);
+        console.log(difference);
     }
     
     let query = "Insert INTO db.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success ) VALUES  ( "+ parseInt(req.body.inlineRadioOptions) +", "+ current_score +", "+
@@ -130,6 +132,7 @@ async function insertRatings(req,res,next){
     
     // console.log(query);
     await db.execute(query, (err, res) => {
+        req.current_score = current_score;
 
         if(err) throw err;
         next();
@@ -273,14 +276,14 @@ async function updateConsensus(req,res,next){
 router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo, (req, res)=>{
     let caption_from_captions = req.caption_from_captions;
     let imgURL = req.imgURL;
-    let scores = req.scores;
+   // let scores = req.scores;
     let total_score = req.total_score;
     console.log("url : "+req.imgURL);
    
     res.render("play", {
         caption_from_captions: caption_from_captions,
         imgURL : imgURL,
-        scores : scores,
+    //    scores : scores,
         total_score : total_score,
         
 
@@ -294,14 +297,14 @@ router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo
     var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
     var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
     var ans;
-    ans = (req.scores < 100) ? random_bad_answer : random_good_answer;
+    ans = (req.current_score <= 50) ? random_bad_answer : random_good_answer;
     if(req.consensus == -1){ans = "You will recieve your score later :)"};
       res.redirect(url.format({
           pathname : "/play_result",
           query:{
               "comment" : ans,
               "rate" : parseInt(req.body.inlineRadioOptions),
-              "score" : req.scores,
+              "score" : req.current_score,
               "consensus" : req.consensus,
               "image" : req.imgURL,
               "caption" : req.caption_from_captions
