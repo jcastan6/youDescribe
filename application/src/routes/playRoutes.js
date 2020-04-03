@@ -7,6 +7,7 @@
 6. Insert score and the consensus(that we calculated the users score base on that) and new_rate , caption_id , image_id into the rating table
 7. Insert users total score , total attempt and level to the users table
 8. Re calculate the consensus based on the users new_rate and add it to the caption table
+
 */
 const express = require("express");
 const router = express.Router();
@@ -290,7 +291,7 @@ router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo
     var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
     var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
     var ans;
-    ans = (req.scores < 100) ? random_bad_answer : random_good_answer;
+    ans = (req.scores <= 5) ? random_bad_answer : random_good_answer;
     if(req.consensus == -1){ans = "You will recieve your score later :)"};
       res.redirect(url.format({
           pathname : "/play_result",
