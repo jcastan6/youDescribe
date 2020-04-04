@@ -20,6 +20,7 @@ async function getUserInfo(req, res, next){
     console.log(query);
     await db.execute(query , (err, users) => {
         
+        // console.log(users[3].email);
         if(err) throw err;
         req.users = users;
         next();
