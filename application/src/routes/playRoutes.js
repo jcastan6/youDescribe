@@ -7,6 +7,10 @@
 6. Insert score and the consensus(that we calculated the users score base on that) and new_rate , caption_id , image_id into the rating table
 7. Insert users total score , total attempt and level to the users table
 8. Re calculate the consensus based on the users new_rate and add it to the caption table
+9. Check if the old_consensus === -1 and new_consensus !== -1 then we want to update the previous score, consensus and success column in ratings table
+10. Use a query to give use sum of the score , sum of the success for each user in the ratings table
+11. Loop through the above tale and select the same user id from users table and update the total score, level, total number of success in the users table
+
 */
 const express = require("express");
 const router = express.Router();
