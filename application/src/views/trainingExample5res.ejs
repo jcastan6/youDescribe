@@ -77,13 +77,6 @@
     text-align: center;
 
   }
-  .caption2 {
-
-color:darkred;
-padding: 10px;
-text-align: center;
-
-}
 
   .caption1 {
 
@@ -92,6 +85,13 @@ text-align: center;
     text-align: center;
 
   }
+  .caption2 {
+
+color: darkred;
+padding: 2px;
+text-align: center;
+
+}
 
   .hide {
     display: none;
@@ -121,24 +121,23 @@ text-align: center;
 <div>
   <br>
   <h2 class="text-center text-info">Caption Rater - The Game!</h2>
-  <img src="http://images.cocodataset.org/val2014/COCO_val2014_000000063602.jpg" width="400" height="300"
-    class="center">
-  <br>
+ <img src="http://images.cocodataset.org/val2014/COCO_val2014_000000130812.jpg" width="400" height="300" class="center">  <br>
+ <br>
   <div id="hidden_div" class="box">
 
     <h5 class="caption"><%= ans %></h5>
     <h6 class="caption1">Your rating: <%= rate %></h6>
-    <h6 class="caption1">Consensus: 2</h6>
+    <h6 class="caption1">Consensus: 1</h6>
     <h6 class="caption1">Scores Earned: <%= score %></h6>
 
   </div>
-  <h5 class="caption">a computer screen is shown with a large tv in the middle.</h5>
-  <h5 class="caption2">The caption is giving wrong information. There is no large TV in the middle! Also the caption is not describing the background.</h5>
+  <h5 class="caption">A man is standing in front of a large statue.</h5>
+  <h5 class="caption2">The caption is totaly irrelevant to the image. The caption doesnt mention any key words like skateboard or jumping. </h5>
   <br>
 
 
 
-  <form action="/trainingExample3" method="GET">
+  <form action="/chooseHome" method="GET">
     <div class="form-group">
       <input type="submit" name="submit" class="button_next" value="Next" id="submitButton">
     </div>

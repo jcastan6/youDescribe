@@ -219,13 +219,13 @@ async function insertRatings(req,res,next){
     }else{
         if(difference <= 0.1){
             current_score = 20;
-            current_success = 0;
+            current_success = 1;
         }else if(0.1 <difference && difference <= 0.5){
             current_score = 10;
             current_success = 1;
         }else if(0.5 <difference && difference <= 1){
             current_score = 5;
-            current_success = 1;
+            current_success = 0;
         }else{
             current_score = 0;
         }
