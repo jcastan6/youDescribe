@@ -82,7 +82,7 @@ input[type=text], select {
     
     <h5 class="totalscore">Total Score: <%= users[0].total_score %></h5>
     <h5 class="accuracyscore">Accuracy: ??</h5>
-    <h5 class="attempt">Number of Attempts:  <%= users[0].num_attempts %></h5>
+    <h5 class="attempt">Number of Attempts:  <%= users[0].total_num_attempts %></h5>
   
       <br>
       <div>
@@ -102,8 +102,9 @@ input[type=text], select {
                    
           <tr> 
              
-            <td><img src=<%= ratings[i].img_url %> alt="" border=3 height=100 width=100></img></td>   
-            <form method="get" action="/dashboard"> 
+            <!-- <td><img src=<%= ratings[i].img_url %> alt="" border=3 height=100 width=100></img></td>    -->
+            <form method="POST" action="/dashboard"> 
+            <td><input type="image" name="image" src="<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>" alt=""  height=100 width=100/></td>          
             <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>"/> </td>        
             <td><input type="text" name="rate" value="<%= ratings[i].rate %>"/></td>
             <td><input type="text" name="consensus" value="<%= ratings[i].consensus %>"/></td>

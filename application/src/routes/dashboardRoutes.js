@@ -26,15 +26,17 @@ async function getUserInfo(req, res, next){
         next();
     });
 }
-async function dispute(req, res, next){
-
-    if(req.query.submit === 'Dispute'){
-        console.log("this is me");
-    
-    let query = " SELECT * FROM db.users where user_id = "+ req.user.id;
-    // console.log(query);
-    await db.execute(query , (err, users) => {
-        
+async function findCaption(req, res, next){
+    // console.log("params: "+req.body.image);
+    if(req.body.submit === 'Dispute'){
+        console.log("this is me1");
+    //     let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND caption = "${req.body.caption}" AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
+    let query = `SELECT * from db.captions where caption = "${req.body.caption}"`
+    // // console.log(query);
+    await db.execute(query , (err, captions) => {
+        console.log(query);
+        req.capID = captions[0].cap_id;
+        console.log(req.capID);
         if(err) throw err;
         next();
     });
@@ -43,9 +45,42 @@ async function dispute(req, res, next){
 }
 }
 
-router.get("/dashboard", getUserInfoFromRatings, getUserInfo, dispute, function(req, res, next) {
-    console.log("params: "+req.query.submit);
-    console.log("params: "+req.query);
+async function dispute(req, res, next){
+    // console.log("params: "+req.body.image);
+    if(req.body.submit === 'Dispute'){
+        console.log("this is me2");
+        let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND captions_cap_id = ${req.capID} AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
+    // console.log(query);
+    await db.execute(query , (err, captions) => {
+        if(err) throw err;
+        next();
+    });
+}else{
+    next();
+}
+}
+
+router.post("/dashboard", getUserInfoFromRatings, getUserInfo,findCaption, dispute, function(req, res, next) {
+    
+    // console.log("params: "+req.data);
+    console.log("body: %j", req.body)
+    let ratings = req.ratings;
+    let users = req.users;
+    // console.log(ratings);
+    // console.log(req.ratings[req.ratings.length - 1].caption);
+    // console.log("users: "+users);
+    // console.log(ratings[0].caption);
+    res.render("dashboard", {
+        ratings : ratings,
+        users : users,
+    });
+  });
+
+
+
+
+router.get("/dashboard", getUserInfoFromRatings, getUserInfo, function(req, res, next) {
+
     let ratings = req.ratings;
     let users = req.users;
     // console.log(ratings);

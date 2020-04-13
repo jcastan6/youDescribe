@@ -3,6 +3,36 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models/database.js");
+var good_guess = [
+  "Awesome!",
+  "Great Job!",
+  "Bullseye!",
+  "Nailed it!",
+  "Excellent!",
+  "I knew you had it in you!",
+  "Well done, you!",
+  "Keep it up, champ!",
+  "Slam dunk!",
+  "Success!",
+  "You GOT this!",
+  "Alriiiight!",
+];
+
+var notBad_guess = ["So close! Try harder next time!"];
+var bad_guess = [
+  "Aw too bad!",
+  "Meh!",
+  "Better luck next time!",
+  "Sorry!",
+  "You got it...NOT!",
+  "Really?!",
+  "Sad story!",
+  "Scratching my head!",
+  "For realz?!",
+  "Lol u wish!",
+  "Whomp whomp!",
+  "Fail!",
+];
 
 ////////first///////////////////first///////////////////first///////////
 
@@ -26,11 +56,11 @@ if(current_consensus === -1){
   current_score = 0;        
 }else{
   if(difference <= 0.1){
-      current_score = 200;
+      current_score = 20;
   }else if(0.1 <difference <= 0.5){
-      current_score = 100;
+      current_score = 10;
   }else if(0.5 <difference <= 1){
-      current_score = 50;
+      current_score = 5;
   }else{
       current_score = 0;
   }
@@ -82,11 +112,11 @@ async function calculateScore2(req,res,next){
       current_score = 0;        
   }else{
       if(difference <= 0.1){
-          current_score = 200;
+          current_score = 20;
       }else if(0.1 <difference <= 0.5){
-          current_score = 100;
+          current_score = 10;
       }else if(0.5 <difference <= 1){
-          current_score = 50;
+          current_score = 5;
       }else{
           current_score = 0;
       }
@@ -140,11 +170,11 @@ if(current_consensus === -1){
   current_score = 0;        
 }else{
   if(difference <= 0.1){
-      current_score = 200;
+      current_score = 20;
   }else if(0.1 <difference <= 0.5){
-      current_score = 100;
+      current_score = 10;
   }else if(0.5 <difference <= 1){
-      current_score = 50;
+      current_score = 5;
   }else{
       current_score = 0;
   }
@@ -197,11 +227,11 @@ if(current_consensus === -1){
   current_score = 0;        
 }else{
   if(difference <= 0.1){
-      current_score = 200;
+      current_score = 20;
   }else if(0.1 <difference <= 0.5){
-      current_score = 100;
+      current_score = 10;
   }else if(0.5 <difference <= 1){
-      current_score = 50;
+      current_score = 5;
   }else{
       current_score = 0;
   }
