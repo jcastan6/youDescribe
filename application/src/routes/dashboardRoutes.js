@@ -17,7 +17,7 @@ async function getUserInfoFromRatings(req, res, next){
 
 
 async function getUserInfo(req, res, next){
-    let query = " SELECT * FROM db.users where user_id = "+ req.user.id;
+    let query = " SELECT * FROM db.users where id = "+ req.user.id;
     // console.log(query);
     await db.execute(query , (err, users) => {
         
