@@ -7,6 +7,7 @@ var MySQLStore = require("express-mysql-session")(session);
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var expressValidator = require("express-validator");
+
 const PORT = 3000;
 
 
@@ -33,12 +34,13 @@ app.use(morgan("tiny"));
 app.set('views', path.join(__dirname, './src/views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, "public")));
-
 // allows to parse body in http post requests
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
+
 app.use(bodyParser.json());
+
 
 // use express session
 app.use(
@@ -60,12 +62,16 @@ const homeRouter = require("./src/routes/homeRoutes");
 const choosePlayRouter = require("./src/routes/playRoutes");
 const dashboardRouter = require("./src/routes/dashboardRoutes");
 const trainingRouter = require("./src/routes/trainingRoutes");
+const insertDataRouter = require("./src/routes/insertData");
 
 app.use("/", loginRouter);
 app.use("/", homeRouter);
 app.use("/", choosePlayRouter);
 app.use("/", dashboardRouter);
 app.use("/", trainingRouter);
+app.use("/",insertDataRouter);
+
+
 
 passport.use(
     new LocalStrategy(
@@ -91,4 +97,6 @@ passport.use(
       }
     )
   );
+
+
 app.listen(PORT, () => console.log("server started on port", PORT));

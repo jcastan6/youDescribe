@@ -1,5 +1,11 @@
 const express = require("express");
 const router = express.Router();
+// const db = require("../models/database.js");
+// const fs = require('fs');
+// const content = fs.readFileSync('/Users/rayafarshad/Documents/SFSU/SPRING2020/Independent\ Study/JSON/vsepp_glac_with_rating_5000-6000.json');
+    
+
+
 
 router.get("/", function(req, res, next) {
     res.render("home", {
@@ -9,8 +15,6 @@ router.get("/", function(req, res, next) {
 
 
   router.get("/chooseHome", function(req, res, next) {
-    console.log("11 : " + req.isAuthenticated());
-    console.log("user login11: " + req.user.user_id);
     res.render("chooseHome", {
       
 

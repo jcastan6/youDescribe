@@ -7,9 +7,9 @@
 6. Insert score and the consensus(that we calculated the users score base on that) and new_rate , caption_id , image_id into the rating table
 7. Insert users total score , total attempt and level to the users table
 8. Re calculate the consensus based on the users new_rate and add it to the caption table
-9. Check if the old_consensus === -1 and new_consensus !== -1 then we want to update the previous score, consensus and success column in ratings table
-10. Use a query to give use sum of the score , sum of the success for each user in the ratings table
-11. Loop through the above tale and select the same user id from users table and update the total score, level, total number of success in the users table
+// 9. Check if the old_consensus === -1 and new_consensus !== -1 then we want to update the previous score, consensus and success column in ratings table
+// 10. Use a query to give use sum of the score , sum of the success for each user in the ratings table
+// 11. Loop through the above tale and select the same user id from users table and update the total score, level, total number of success in the users table
 
 */
 const express = require("express");
@@ -30,6 +30,8 @@ var good_guess = [
     "You GOT this!",
     "Alriiiight!",
   ];
+
+  var notBad_guess = ["So close! Try harder next time!"];
   var bad_guess = [
     "Aw too bad!",
     "Meh!",
@@ -47,115 +49,116 @@ var good_guess = [
 
 
 
-  async function update_prev_unknown_consensus_ratings(req, res, next){
-    // let userID = req.user.user_id;
-    if(req.old_consensus === -1 && req.new_consensus !== -1){
-    let query = " SELECT * FROM db.ratings where captions_cap_id = "+req.caption_id;
-    console.log("query test : "+query);
-    await db.execute(query , (err, rate) => {
-        var i;
-        console.log("len : "+rate.length);
-        // console.log("rate[0] : "+rate[0].rate_id);
-        // console.log("rate[1] : "+rate[1].rate_id);
-        for(i = 0; i < rate.length ; i++){
-            inner(rate[i].rate_id , req.new_consensus , rate[i].rate, req.caption_id);
-        }
-        console.log("old : "+req.old_consensus);
-        console.log("new : "+req.new_consensus);
+//   async function update_prev_unknown_consensus_ratings(req, res, next){
+//     // let userID = req.user.user_id;
+//     if(req.old_consensus === -1 && req.new_consensus !== -1){
+//     let query = " SELECT * FROM db.ratings where captions_cap_id = "+req.caption_id;
+//     console.log("query test : "+query);
+//     await db.execute(query , (err, rate) => {
+//         var i;
+//         console.log("len : "+rate.length);
+//         // console.log("rate[0] : "+rate[0].rate_id);
+//         // console.log("rate[1] : "+rate[1].rate_id);
+//         for(i = 0; i < rate.length ; i++){
+//             inner(rate[i].rate_id , req.new_consensus , rate[i].rate, req.caption_id);
+//         }
+//         console.log("old : "+req.old_consensus);
+//         console.log("new : "+req.new_consensus);
         
         
-        if(err) throw err;
-        next();
-    });
-    console.log("yaaay!!");
-}else{
-    next();
-}
+//         if(err) throw err;
+//         next();
+//     });
+//     console.log("yaaay!!");
+// }else{
+//     next();
+// }
     
-}
+// }
 
 
-async function inner(i , consensus ,rate , caption){
-    //base on the rate and consensus calculate the score and push it in the query
-    //update score and success
-    let difference = Math.abs(consensus - rate);
-    if(consensus === -1){
-        score = 0;        
-    }else{
-        if(difference <= 0.1){
-            score = 200;
-            success = 0;
-        }else if(0.1 <difference && difference <= 0.5){
-            score = 100;
-            success = 1;
-        }else if(0.5 <difference && difference <= 1){
-            score = 50;
-            success = 1;
-        }else{
-            score = 0;
-            success = 0;
-        }
-    }
-    let query = "update db.ratings SET consensus = "+consensus+ " ,scores = "+score+" ,success =  "+success+"  where captions_cap_id = "+caption +" and rate_id = "+i;
+// async function inner(i , consensus ,rate , caption){
+//     //base on the rate and consensus calculate the score and push it in the query
+//     //update score and success
+//     let difference = Math.abs(consensus - rate);
+//     if(consensus === -1){
+//         score = 0;        
+//     }else{
+//         if(difference <= 0.1){
+//             score = 200;
+//             success = 0;
+//         }else if(0.1 <difference && difference <= 0.5){
+//             score = 100;
+//             success = 1;
+//         }else if(0.5 <difference && difference <= 1){
+//             score = 50;
+//             success = 1;
+//         }else{
+//             score = 0;
+//             success = 0;
+//         }
+//     }
+//     let query = "update db.ratings SET consensus = "+consensus+ " ,scores = "+score+" ,success =  "+success+"  where captions_cap_id = "+caption +" and rate_id = "+i;
     
-    // let userID = req.user.user_id;
-    // let query = " SELECT * from db.captions ";
-    // // console.log(query);
-    await db.query(query , (err, res) => {
-        console.log(query);
-        console.log("this is me " +i);
-        if(err) throw err;
-        // req.caption_id = captions[0].cap_id;
-        // req.img_id_from_captions = captions[0].images_img_id;
-        // req.caption_from_captions = captions[0].caption;
-        // next();
-    });
-}
+//     // let userID = req.user.user_id;
+//     // let query = " SELECT * from db.captions ";
+//     // // console.log(query);
+//     await db.query(query , (err, res) => {
+//         console.log(query);
+//         console.log("this is me " +i);
+//         if(err) throw err;
+//         // req.caption_id = captions[0].cap_id;
+//         // req.img_id_from_captions = captions[0].images_img_id;
+//         // req.caption_from_captions = captions[0].caption;
+//         // next();
+//     });
+// }
 
 
-async function update_prev_unknown_consensus_users(req, res, next){
-    if(req.old_consensus === -1 && req.new_consensus !== -1){
-    let query = " SELECT users_user_id , SUM(scores) as sum_scores, sum(success) as sum_success, count(rate_id) as total_attempts from db.ratings group by users_user_id ";
-    //calculate level 
-    await db.execute(query , (err, rate) => {
-        var i;
-        for(i = 0; i < rate.length ; i++){
-            inner2(rate[i].users_user_id, rate[i].sum_scores, rate[i].sum_success, rate[i].total_attempts);
-            // console.log(rate[i].users_user_id);
-            // console.log(rate[i].sum_scores);
-            // console.log(rate[i].sum_success);
-        }
-        if(err) throw err;
-        next();
-    });
-}else{
-    next();
-}
-}
-async function inner2(user_id , sum_score , sum_success, total_attempts){
-    let levelPoints = 0;
-    let level = 0;
-    let userSuccessRate = sum_success/total_attempts;
-    if(userSuccessRate>0.25){
-        levelPoints = parseInt(total_attempts*(1+userSuccessRate));
-    }
-    if(levelPoints != 0 && (levelPoints%100 === 0)){
-        level = level+1;
-    }
-    let query = " update db.users SET total_score = "+sum_score+ " ,level = "+level+" ,total_num_success =  "+sum_success+"  where user_id = "+user_id;
-    await db.query(query , (err, res) => {
-        console.log(query);
+// async function update_prev_unknown_consensus_users(req, res, next){
+//     if(req.old_consensus === -1 && req.new_consensus !== -1){
+//     let query = " SELECT users_user_id , SUM(scores) as sum_scores, sum(success) as sum_success, count(rate_id) as total_attempts from db.ratings group by users_user_id ";
+//     //calculate level 
+//     await db.execute(query , (err, rate) => {
+//         var i;
+//         for(i = 0; i < rate.length ; i++){
+//             inner2(rate[i].users_user_id, rate[i].sum_scores, rate[i].sum_success, rate[i].total_attempts);
+//             // console.log(rate[i].users_user_id);
+//             // console.log(rate[i].sum_scores);
+//             // console.log(rate[i].sum_success);
+//         }
+//         if(err) throw err;
+//         next();
+//     });
+// }else{
+//     next();
+// }
+// }
+// async function inner2(user_id , sum_score , sum_success, total_attempts){
+//     let levelPoints = 0;
+//     let level = 0;
+//     let userSuccessRate = sum_success/total_attempts;
+//     if(userSuccessRate>0.25){
+//         levelPoints = parseInt(total_attempts*(1+userSuccessRate));
+//     }
+//     if(levelPoints != 0 && (levelPoints%100 === 0)){
+//         level = level+1;
+//     }
+//     let query = " update db.users SET total_score = "+sum_score+ " ,level = "+level+" ,total_num_success =  "+sum_success+"  where user_id = "+user_id;
+//     await db.query(query , (err, res) => {
+//         console.log(query);
 
-        if(err) throw err;
+//         if(err) throw err;
 
-    });
+//     });
     
-}
+// }
 
 async function getImageidFromCaptions(req, res, next){
-    let userID = req.user.user_id;
+    let userID = req.user.id;
     let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = "+userID+" ) ";
-    // console.log(query);
+    console.log(userID);
+    console.log(query);
     await db.execute(query , (err, captions) => {
         
         if(err) throw err;
@@ -169,7 +172,7 @@ async function getImageidFromCaptions(req, res, next){
 async function getImageUrlfromImageId(req, res, next){
     let imgID = req.img_id_from_captions;
     let query = " SELECT img_url as img_url  FROM db.images where img_id =  " + imgID;
-    // console.log("query: "+query);
+    console.log("query: "+query);
     await db.execute(query , (err, imgURL) => {        
         if(err) throw err;
         req.imgURL = imgURL[0].img_url;
@@ -179,8 +182,8 @@ async function getImageUrlfromImageId(req, res, next){
 
 async function getUserInfo(req,res,next){
     // rate = req.body.inlineRadioOptions;
-    let query = " SELECT * FROM db.users where user_id = " + req.user.user_id;
-    // console.log(query);
+    let query = " SELECT * FROM db.users where user_id = " + req.user.id;
+    console.log(query);
     await db.execute(query, (err, users) => {
         if(err) throw err;
         req.total_score = users[0].total_score;
@@ -215,13 +218,13 @@ async function insertRatings(req,res,next){
         current_score = 0;        
     }else{
         if(difference <= 0.1){
-            current_score = 200;
+            current_score = 20;
             current_success = 0;
         }else if(0.1 <difference && difference <= 0.5){
-            current_score = 100;
+            current_score = 10;
             current_success = 1;
         }else if(0.5 <difference && difference <= 1){
-            current_score = 50;
+            current_score = 5;
             current_success = 1;
         }else{
             current_score = 0;
@@ -234,7 +237,7 @@ async function insertRatings(req,res,next){
     
     let query = "Insert INTO db.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success ) VALUES  ( "+ parseInt(req.body.inlineRadioOptions) +", "+ current_score +", "+
     current_consensus +", "+
-    req.user.user_id +", "+
+    req.user.id +", "+
     req.caption_id +", "+
     current_success+
     " ) ";
@@ -249,7 +252,7 @@ async function insertRatings(req,res,next){
 }
 
 async function getRatingsInfo(req, res, next){
-    let userID = req.user.user_id;
+    let userID = req.user.id;
     let query = " SELECT * FROM db.ratings R, db.captions C, db.images I where R.captions_cap_id = C.cap_id AND C.images_img_id = I.img_id AND R.users_user_id = "+userID;
     // console.log(query);
     await db.execute(query , (err, ratings) => {
@@ -287,7 +290,7 @@ async function updateUsersTable(req,res,next){
                  "total_num_attempts = total_num_attempts + 1 "+
                  " , "+
                  "total_num_success = total_num_success + "+success+
-                 " where user_id = " + req.user.user_id;
+                 " where user_id = " + req.user.id;
     // console.log(query);
     await db.execute(query, (err, res) => {
         if(err) throw err;
@@ -403,14 +406,21 @@ router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo
   });
 
 
-  router.post("/play", getImageidFromCaptions,getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap,updateConsensus,update_prev_unknown_consensus_ratings, update_prev_unknown_consensus_users, (req, res)=>{
+  router.post("/play", getImageidFromCaptions,getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap,updateConsensus, (req, res)=>{
     //   "/play_result"
     console.log("imgURL 2:"+req.imgURL);
     var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
     var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
     var ans;
-    ans = (req.current_score <= 50) ? random_bad_answer : random_good_answer;
-    if(req.consensus == -1){ans = "You will recieve your score later :)"};
+    if(req.current_score <= 5){
+        ans = random_bad_answer;
+    }else if(req.current_score == 10){
+        ans = "So close! Try harder next time!";
+    }else{
+        ans = random_good_answer;
+    }
+    // ans = (req.current_score <= 5) ? random_bad_answer : random_good_answer;
+    // if(req.consensus == -1){ans = "You will recieve your score later :)"};
       res.redirect(url.format({
           pathname : "/play_result",
           query:{

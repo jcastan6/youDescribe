@@ -61,6 +61,15 @@
    margin: auto;
    width: 75% !important; 
 }
+input[type=text], select {
+  width: 100%;
+  padding: 1px 1px;
+  margin: 8px 0;
+  display: inline-block;
+  border: none;
+  border-radius: 4px;
+  resize: vertical;
+}
 
 </style>
 
@@ -90,17 +99,19 @@
         </thead>
         <tbody>
           <% for(var i=0; i < ratings.length; i++) { %>
-
-          <tr>           
-            <td><img src=<%= ratings[i].img_url %> alt="" border=3 height=100 width=100></img></td>     
-            <td><%= ratings[i].caption %> </td>        
-            <td><%= ratings[i].rate %></td>
-            <td><%= ratings[i].consensus %></td>
-            <td><%= ratings[i].scores %></td>
-            <td>
-              <input type="submit" name="submit" class="button_dispute" value="Dispute"> 
-            </td>
+                   
+          <tr> 
+             
+            <td><img src=<%= ratings[i].img_url %> alt="" border=3 height=100 width=100></img></td>   
+            <form method="get" action="/dashboard"> 
+            <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>"/> </td>        
+            <td><input type="text" name="rate" value="<%= ratings[i].rate %>"/></td>
+            <td><input type="text" name="consensus" value="<%= ratings[i].consensus %>"/></td>
+            <td><input type="text" name="scores" value="<%= ratings[i].scores %>"/></td>
+            <td><input type="submit" name="submit" class="button_dispute" value="Dispute"/></td>
+          
           </tr>
+        </form>
 
           <% } %>
         </tbody>
