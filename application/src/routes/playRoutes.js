@@ -229,6 +229,7 @@ async function insertRatings(req,res,next){
             current_success = 0;
         }else{
             current_score = 0;
+            current_success = 0;
         }
         // req.query.inlineRadioOptions
         // parseInt(req.body.inlineRadioOptions)
