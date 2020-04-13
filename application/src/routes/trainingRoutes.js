@@ -20,20 +20,18 @@ var good_guess = [
 
 var notBad_guess = ["So close! Try harder next time!"];
 var bad_guess = [
-  "Aw too bad!",
+  // "Aw too bad!",
   "Meh!",
   "Better luck next time!",
-  "Sorry!",
+  // "Sorry!",
   "You got it...NOT!",
   "Really?!",
-  "Sad story!",
+  // "Sad story!",
   "Scratching my head!",
   "For realz?!",
   "Lol u wish!",
   "Whomp whomp!",
-  "Fail!",
 ];
-
 ////////first///////////////////first///////////////////first///////////
 
 router.get("/trainingExample1", (req, res) => {
