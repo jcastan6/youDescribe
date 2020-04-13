@@ -102,10 +102,10 @@ router.get("/dashboard", getUserInfoFromRatings, getUserInfo, function(req, res,
     let ratings = req.ratings;
     let users = req.users;
     let accuracy = req.accuracy
-    console.log("ratingsGet : "+ratings[2].consensus[0]);
+    // console.log("ratingsGet : "+ratings[2].consensus[0]);
     // console.log(req.ratings[req.ratings.length - 1].caption);
-    console.log("users: "+users);
-    console.log("accuracy : "+accuracy.toFixed(2));
+    // console.log("users: "+users);
+    // console.log("accuracy : "+accuracy.toFixed(2));
     // console.log(ratings[0].caption);
     res.render("dashboard", {
         ratings : ratings,
