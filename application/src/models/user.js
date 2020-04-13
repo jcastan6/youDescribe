@@ -37,7 +37,7 @@ class User {
                 }
                 if(bcrypt.compareSync(pass, rows[0].password)){
                     console.log("return email"+rows[0].email);
-                    console.log("return user_id"+rows[0].user_id);
+                    console.log("return user_id"+rows[0].id);
                     return rows[0];
                 }else{
                     return false;

@@ -111,7 +111,7 @@ router.get("/login/failed", (req, res) => {
 router.get("/login", function(req, res) {
   // console.log("10 : " + req);
   console.log("102 : " + req.isAuthenticated());
-  // console.log("103 : " + req.user.id);
+  console.log("103 : " + req.user.id);
 
   res.render("login", {
     error_msg :'',

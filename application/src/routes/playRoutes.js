@@ -16,6 +16,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models/database.js");
 const url = require('url');   
+const passport = require("passport");
 var good_guess = [
     "Awesome!",
     "Great Job!",
@@ -155,7 +156,7 @@ var good_guess = [
 // }
 
 async function getImageidFromCaptions(req, res, next){
-    let userID = req.user.user_id;
+    let userID = req.user.id;
     let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = "+userID+" ) ";
     console.log(userID);
     console.log(query);
@@ -182,7 +183,7 @@ async function getImageUrlfromImageId(req, res, next){
 
 async function getUserInfo(req,res,next){
     // rate = req.body.inlineRadioOptions;
-    let query = " SELECT * FROM db.users where user_id = " + req.user.user_id;
+    let query = " SELECT * FROM db.users where id = " + req.user.id;
     console.log(query);
     await db.execute(query, (err, users) => {
         if(err) throw err;
@@ -237,7 +238,7 @@ async function insertRatings(req,res,next){
     
     let query = "Insert INTO db.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success ) VALUES  ( "+ parseInt(req.body.inlineRadioOptions) +", "+ current_score +", "+
     current_consensus +", "+
-    req.user.user_id +", "+
+    req.user.id +", "+
     req.caption_id +", "+
     current_success+
     " ) ";
@@ -252,7 +253,7 @@ async function insertRatings(req,res,next){
 }
 
 async function getRatingsInfo(req, res, next){
-    let userID = req.user.user_id;
+    let userID = req.user.id;
     let query = " SELECT * FROM db.ratings R, db.captions C, db.images I where R.captions_cap_id = C.cap_id AND C.images_img_id = I.img_id AND R.users_user_id = "+userID;
     // console.log(query);
     await db.execute(query , (err, ratings) => {
@@ -290,7 +291,7 @@ async function updateUsersTable(req,res,next){
                  "total_num_attempts = total_num_attempts + 1 "+
                  " , "+
                  "total_num_success = total_num_success + "+success+
-                 " where user_id = " + req.user.user_id;
+                 " where id = " + req.user.id;
     // console.log(query);
     await db.execute(query, (err, res) => {
         if(err) throw err;

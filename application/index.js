@@ -1,5 +1,4 @@
 const express = require('express');
-const app = express();
 const path = require('path');
 const { User } = require("./src/models/user.js");
 var session = require("express-session");
@@ -24,7 +23,7 @@ var options = {
 
   
   var sessionStore = new MySQLStore(options);
-  
+  const app = express();
 
 // logs requests to the backend
 const morgan = require("morgan");
@@ -54,7 +53,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(express.static("./public"));
 
 //routes path
 const loginRouter = require("./src/routes/loginRoutes");
