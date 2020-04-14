@@ -160,8 +160,8 @@ var good_guess = [
 async function getImageidFromCaptions(req, res, next){
     let userID = req.user.id;
     let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = "+userID+" ) ";
-    console.log(userID);
-    console.log(query);
+    // console.log(userID);
+    // console.log(query);
     await db.execute(query , (err, captions) => {
         
         if(err) throw err;
@@ -175,7 +175,7 @@ async function getImageidFromCaptions(req, res, next){
 async function getImageUrlfromImageId(req, res, next){
     let imgID = req.img_id_from_captions;
     let query = " SELECT img_url as img_url  FROM db.images where img_id =  " + imgID;
-    console.log("query: "+query);
+    // console.log("query: "+query);
     await db.execute(query , (err, imgURL) => {        
         if(err) throw err;
         req.imgURL = imgURL[0].img_url;
@@ -186,7 +186,7 @@ async function getImageUrlfromImageId(req, res, next){
 async function getUserInfo(req,res,next){
     // rate = req.body.inlineRadioOptions;
     let query = " SELECT * FROM db.users where id = " + req.user.id;
-    console.log(query);
+    // console.log(query);
     await db.execute(query, (err, users) => {
         if(err) throw err;
         req.total_score = users[0].total_score;
@@ -212,7 +212,7 @@ async function insertRatings(req,res,next){
     //calculateScore and check the success (if true) -> add one to success column
     let current_consensus = req.consensus;
     let current_score = 0;
-    console.log("success1 ");
+    // console.log("success1 ");
     let current_rate = parseInt(req.body.inlineRadioOptions);
     // console.log("scores1 "+req.query.inlineRadioOptions);
     let current_success = 0;
@@ -235,8 +235,12 @@ async function insertRatings(req,res,next){
         }
         // req.query.inlineRadioOptions
         // parseInt(req.body.inlineRadioOptions)
-        console.log(current_score);
-        console.log(difference);
+        
+        console.log("current_consensus: "+current_consensus);
+        console.log("current_rate: "+current_rate);
+        console.log("difference: "+difference);
+        console.log("current_success: "+current_success);
+        console.log("current_score: "+current_score);
     }
     
     let query = "Insert INTO db.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success ) VALUES  ( "+ parseInt(req.body.inlineRadioOptions) +", "+ current_score +", "+
@@ -246,7 +250,7 @@ async function insertRatings(req,res,next){
     current_success+
     " ) ";
     
-    // console.log(query);
+    console.log(query);
     await db.execute(query, (err, res) => {
         req.current_score = current_score;
 
@@ -260,6 +264,7 @@ async function getRatingsInfo(req, res, next){
     let query = " SELECT * FROM db.ratings R, db.captions C, db.images I where R.captions_cap_id = C.cap_id AND C.images_img_id = I.img_id AND R.users_user_id = "+userID;
     // console.log(query);
     await db.execute(query , (err, ratings) => {
+        // req.current_score = ratings[0].scores;
         if(err) throw err;
         req.ratings = ratings;
         next();
@@ -419,7 +424,7 @@ router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo
     var ans;
     if(req.current_score < 5){
         ans = random_very_bad_answer;
-    }else if(req.current_score = 5){
+    }else if(req.current_score == 5){
         ans = random_bad_answer;
     }else if(req.current_score == 10){
         ans = "So close! Try harder next time!";
@@ -428,6 +433,7 @@ router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo
     }
     // ans = (req.current_score <= 5) ? random_bad_answer : random_good_answer;
     // if(req.consensus == -1){ans = "You will recieve your score later :)"};
+    console.log("req.current_score: "+req.current_score);
       res.redirect(url.format({
           pathname : "/play_result",
           query:{

@@ -7,12 +7,13 @@ const passport = require("passport");
 
 async function getUserInfoFromRatings(req, res, next){
     let userID = req.user.id;
-    let query = " SELECT * FROM db.ratings R, db.captions C, db.images I where R.captions_cap_id = C.cap_id AND C.images_img_id = I.img_id AND R.users_user_id = "+userID;
-    console.log("the query is: "+query);
+    let query = " SELECT R.rate_id, R.rate, R.scores, R.consensus as consensus, R.users_user_id, R.captions_cap_id, R.success, R.dispute, R.date_time, C.cap_id, C.caption, C.images_img_id, C.dataset_name, I.img_id, I.img_name, I.img_url FROM db.ratings R, db.captions C, db.images I where R.captions_cap_id = C.cap_id AND C.images_img_id = I.img_id AND R.users_user_id ="+userID;
+    // console.log("the query is: "+query);
     await db.execute(query , (err, ratings) => {
         
         if(err) throw err;
         req.ratings = ratings;
+        // console.log(ratings[0].consensus[0])
         next();
     });
 }
@@ -27,7 +28,7 @@ async function getUserInfo(req, res, next){
         if(err) throw err;
         req.users = users;
         var accuracy = 0;
-         console.log("emaill: "+users[0].total_num_attempts);
+        //  console.log("emaill: "+users[0].total_num_attempts);
          var accuracy_divisor = users[0].total_num_attempts * 20;
          var accuracy_divident = users[0].total_score;
          if(accuracy_divisor !== 0) {
@@ -47,9 +48,9 @@ async function findCaption(req, res, next){
     let query = `SELECT * from db.captions where caption = "${req.body.caption}"`
     // console.log(query);
     await db.execute(query , (err, captions) => {
-        console.log(query);
+        // console.log(query);
         req.capID = captions[0].cap_id;
-        console.log(req.capID);
+        // console.log(req.capID);
         if(err) throw err;
         next();
     });
@@ -61,9 +62,9 @@ async function findCaption(req, res, next){
 async function dispute(req, res, next){
     // console.log("params: "+req.body.image);
     if(req.body.submit === 'Dispute'){
-        console.log("this is me2");
+        // console.log("this is me2");
         let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND captions_cap_id = ${req.capID} AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
-    console.log(query);
+    // console.log(query);
     await db.execute(query , (err, captions) => {
         if(err) throw err;
         next();
@@ -76,19 +77,21 @@ async function dispute(req, res, next){
 router.post("/dashboard", getUserInfoFromRatings, getUserInfo,findCaption, dispute, function(req, res, next) {
     
     // console.log("params: "+req.data);
-    console.log("body: ", req.body)
+    // console.log("body: ", req.body)
     let ratings = req.ratings;
     let users = req.users;
+    let accuracy = req.accuracy
     // console.log("ratingsPost : "+ratings[2][3]);
     // console.log(req.ratings[req.ratings.length - 1].caption);
     
     // console.log(ratings[0].caption);
-    var accuracy = 0;
+    // var accuracy = 0;
 
 
     res.render("dashboard", {
         ratings : ratings,
         users : users,
+        accuracy : accuracy.toFixed(2),
 
 
     });
@@ -102,7 +105,7 @@ router.get("/dashboard", getUserInfoFromRatings, getUserInfo, function(req, res,
     let ratings = req.ratings;
     let users = req.users;
     let accuracy = req.accuracy
-    // console.log("ratingsGet : "+ratings[2].consensus[0]);
+    // console.log("ratingsGet : "+ratings[2].consensus);
     // console.log(req.ratings[req.ratings.length - 1].caption);
     // console.log("users: "+users);
     // console.log("accuracy : "+accuracy.toFixed(2));
