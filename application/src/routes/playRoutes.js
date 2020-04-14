@@ -37,14 +37,17 @@ var good_guess = [
     // "Aw too bad!",
     "Meh!",
     "Better luck next time!",
-    // "Sorry!",
-    "You got it...NOT!",
-    "Really?!",
-    // "Sad story!",
+    "You got it...NOT!",  
     "Scratching my head!",
+    "Whomp whomp!",
+  ];
+  var very_bad_guess = [
+    "Sorry!",
+    "Really?!",
+    "Sad story!",
+    "fail!",
     "For realz?!",
     "Lol u wish!",
-    "Whomp whomp!",
   ];
 
 
@@ -225,7 +228,7 @@ async function insertRatings(req,res,next){
             current_success = 1;
         }else if(0.5 <difference && difference <= 1){
             current_score = 5;
-            current_success = 0;
+            current_success = 1;
         }else{
             current_score = 0;
             current_success = 0;
@@ -412,8 +415,11 @@ router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo
     console.log("imgURL 2:"+req.imgURL);
     var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
     var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
+    var random_very_bad_answer = very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
     var ans;
-    if(req.current_score <= 5){
+    if(req.current_score < 5){
+        ans = random_very_bad_answer;
+    }else if(req.current_score = 5){
         ans = random_bad_answer;
     }else if(req.current_score == 10){
         ans = "So close! Try harder next time!";

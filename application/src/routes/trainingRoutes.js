@@ -28,8 +28,8 @@ var bad_guess = [
   "Really?!",
   // "Sad story!",
   "Scratching my head!",
-  "For realz?!",
-  "Lol u wish!",
+  // "For realz?!",
+  // "Lol u wish!",
   "Whomp whomp!",
 ];
 ////////first///////////////////first///////////////////first///////////
