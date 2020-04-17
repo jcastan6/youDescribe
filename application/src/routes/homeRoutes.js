@@ -70,14 +70,6 @@ router.get("/", function(req, res, next) {
 
   });
 
-
-
-  
-  router.get("/leaderboard", function(req, res, next) {
-    res.render("leaderboard", {
-
-    });
-  });
   
 
   module.exports = router;

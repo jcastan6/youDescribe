@@ -93,9 +93,9 @@
 </style>
 <script>
   function foo() {
-   alert("dispute will be processed");
-   return true;
-}
+    alert("dispute will be processed");
+    return true;
+  }
 </script>
 
 <div>
@@ -106,11 +106,11 @@
   <h3 class="text-center text-info">Dashboard</h3>
 
   <h5 class="totalscore">Total Score: <%= users[0].total_score %></h5>
-  <h5 class="accuracyscore">Accuracy: 
+  <h5 class="accuracyscore">Accuracy:
     <% if(typeof  accuracy != 'undefined'){ %>
-      <%= accuracy %>
-      <% } %>
-    
+    <%= accuracy %>
+    <% } %>
+
     %
   </h5>
   <h5 class="attempt">Number of Attempts: <%= users[0].total_num_attempts %></h5>
@@ -141,11 +141,10 @@
             <td><input type="text" name="rate" value="<%= ratings[i].rate %>" /></td>
             <td><input type="text" name="consensus" value="<%= ratings[i].consensus %>" /></td>
             <td><input type="text" name="scores" value="<%= ratings[i].scores %>" /></td>
-            <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" /></td>
-
-
+            <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" />
+            </td>
+          </form>
         </tr>
-        </form>
 
         <% } %>
       </tbody>
