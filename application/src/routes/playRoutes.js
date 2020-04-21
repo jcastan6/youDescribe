@@ -292,10 +292,19 @@ async function updateUsersTable(req,res,next){
         level = level+1;
     }
     */
-   let accuracy = (req.total_score  / (req.total_num_attempts*20)) * 100;
+
+   var accuracy = 0;
+   //  console.log("emaill: "+users[0].total_num_attempts);
+    var accuracy_divisor = (req.total_num_attempts + 1) * 20;
+    var accuracy_divident = score+req.total_score;
+    if(accuracy_divisor !== 0) {
+       accuracy = (accuracy_divident/accuracy_divisor) *100
+    }
+//    let totalAttempt = (req.total_num_attempts + 1);
+//    let accuracy = (score+req.total_score / (totalAttempt*20)) * 100;
    console.log("accuracy: "+accuracy);
-   console.log("req.total_score : "+req.total_score );
-   console.log("req.total_num_attempts: "+req.total_num_attempts);
+   console.log("accuracy_divisor : "+accuracy_divisor);
+   console.log("accuracy_divident: "+accuracy_divident);
     
 
     //increment the userAttempts by one
@@ -308,7 +317,7 @@ async function updateUsersTable(req,res,next){
                  " , "+
                  "total_num_success = total_num_success + "+success+
                  " where id = " + req.user.id;
-    // console.log(query);
+    console.log("query is: "+query);
     await db.execute(query, (err, res) => {
         if(err) throw err;
         next();
