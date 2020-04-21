@@ -74,6 +74,24 @@ async function dispute(req, res, next){
 }
 }
 
+// async function updateUserInfo(req, res, next){
+//     let query = " UPDATE db.users SET "+
+//                 "total_score = total_score  + "+score+ 
+//                  " , "+
+//                  "level = "+accuracy+
+//                  " , "+
+//                  "total_num_attempts = total_num_attempts + 1 "+
+//                  " , "+
+//                  "total_num_success = total_num_success + "+success+
+//                  " where id = " + req.user.id;
+//     // console.log(query);
+//     await db.execute(query , (err, users) => {
+        
+//         if(err) throw err;
+//         next();
+//     });
+// }
+
 router.post("/dashboard", getUserInfoFromRatings, getUserInfo,findCaption, dispute, function(req, res, next) {
     
     // console.log("params: "+req.data);

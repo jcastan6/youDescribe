@@ -191,7 +191,7 @@ async function getUserInfo(req,res,next){
         if(err) throw err;
         req.total_score = users[0].total_score;
         req.total_num_attempts = users[0].total_num_attempts;
-        req.total_num_success = users[0].total_num_success
+        req.total_num_success = users[0].total_num_success;
         next();
     });
 } 
@@ -272,12 +272,15 @@ async function getRatingsInfo(req, res, next){
 }
 
 async function updateUsersTable(req,res,next){
+    //accuracy = score / (total_attempts X 20) x 100 (so percentage format)
 
     // console.log("caption: "+req.ratings[req.ratings.length-1].caption);
     //add scores to user's total_score
     let score = req.ratings[req.ratings.length-1].scores;
     // add total_success to users table
     let success = req.ratings[req.ratings.length-1].success;
+
+    /*
     //calculate the level and add it to the users table
     let levelPoints = 0;
     let level = 0;
@@ -288,13 +291,18 @@ async function updateUsersTable(req,res,next){
     if(levelPoints != 0 && (levelPoints%100 === 0)){
         level = level+1;
     }
+    */
+   let accuracy = (req.total_score  / (req.total_num_attempts*20)) * 100;
+   console.log("accuracy: "+accuracy);
+   console.log("req.total_score : "+req.total_score );
+   console.log("req.total_num_attempts: "+req.total_num_attempts);
     
 
     //increment the userAttempts by one
     let query = " UPDATE db.users SET "+
                 "total_score = total_score  + "+score+ 
                  " , "+
-                 "level = "+level+
+                 "level = "+accuracy+
                  " , "+
                  "total_num_attempts = total_num_attempts + 1 "+
                  " , "+
