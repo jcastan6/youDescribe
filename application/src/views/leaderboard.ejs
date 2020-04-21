@@ -17,12 +17,12 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 40px;
+    margin: 30px;
     border-radius: 8px;
     cursor: pointer;
-    margin-inline-start: 970px;
-    /* margin-left: 250px;
-  margin-right: 250px; */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 
 
@@ -36,9 +36,11 @@
   <br>
   <h2 class="text-center text-info">Caption Rater - The Game!</h2>
   <br>
-
   <h4 class="text-center text-info">Leaderboard</h4>
   <br>
+  <br>
+  <h4 class="text-center">5 top highest score players!</h4>
+  <br>
   <div>
     <table class="table table-bordered">
       <thead class="thead-light">
@@ -51,9 +53,9 @@
         <% for(var i=0; i < sort_TotalScore.length; i++) { %>
 
         <tr>
-            <th scope="row"><%= sort_TotalScore[i].username %></th>
-            <td><%= sort_TotalScore[i].total_score %></td>
-            </td>
+          <th scope="row"><%= sort_TotalScore[i].username %></th>
+          <td><%= sort_TotalScore[i].total_score %></td>
+          </td>
         </tr>
 
         <% } %>
@@ -69,21 +71,51 @@
           <th scope="col">Score</th>
         </tr>
       </thead>
+      <br>
+      <br>
+      <h4 class="text-center">5 top highest accurate players!</h4>
       <tbody>
-        <% for(var i=0; i < sort_TotalScore.length; i++) { %>
+        <% for(var i=0; i < sort_ByAccuracy.length; i++) { %>
 
         <tr>
-            <th scope="row"><%= sort_TotalScore[i].username %></th>
-            <td><%= sort_TotalScore[i].total_score %></td>
-            </td>
+          <th scope="row"><%= sort_ByAccuracy[i].username %></th>
+          <td><%= sort_ByAccuracy[i].level %></td>
+          </td>
         </tr>
 
         <% } %>
       </tbody>
+      
     </table>
   </div>
 
-  <form method="GET" action="/play" class="form-group">
-    <input type="submit" name="submit" class="button_next" value="Play">
+  <div>
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">User</th>
+          <th scope="col">Score</th>
+        </tr>
+      </thead>
+      <br>
+      <br>
+      <h4 class="text-center">Champions!</h4>
+      <tbody>
+        <% for(var i=0; i < sort_ByScoreAccuracy.length; i++) { %>
+
+        <tr>
+          <th scope="row"><%= sort_ByScoreAccuracy[i].username %></th>
+          <td><%= sort_ByScoreAccuracy[i].result %></td>
+          </td>
+        </tr>
+
+        <% } %>
+      </tbody>
+      
+    </table>
+  </div>
+
+  <form  method="GET" action="/play" class="form-group">
+    <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
   </form>
 </div>

@@ -15,24 +15,39 @@ async function sortByTotalScore(req,res,next){
         next();
     });
 }
-async function sortByTotalScore(req,res,next){
+async function sortByAccuracy(req,res,next){
     // rate = req.body.inlineRadioOptions;
-    let query = " SELECT * FROM db.users  where id not in (21,22) order by total_score desc LIMIT 5 ";
+    let query = " SELECT * FROM db.users  where id not in (21,22) order by level desc LIMIT 5 ";
     console.log(query);
-    await db.execute(query, (err, sortByTotalScore) => {
+    await db.execute(query, (err, sortByAccuracy) => {
         if(err) throw err;
-        req.sortByTotalScore = sortByTotalScore;
+        req.sortByAccuracy = sortByAccuracy;
+
+        next();
+    });
+}
+async function sortByScoreAccuracy(req,res,next){
+    // rate = req.body.inlineRadioOptions;
+    let query = " SELECT *, total_score*level as result  FROM db.users  where id not in (21,22) order by result desc LIMIT 5 ";
+    console.log(query);
+    await db.execute(query, (err, sortByScoreAccuracy) => {
+        if(err) throw err;
+        req.sortByScoreAccuracy = sortByScoreAccuracy;
 
         next();
     });
 }
 
-  router.get("/leaderboard", sortByTotalScore, function(req, res, next) {
+  router.get("/leaderboard", sortByTotalScore, sortByAccuracy,sortByScoreAccuracy,function(req, res, next) {
 
     let sort_TotalScore = req.sortByTotalScore;
+    let sort_ByAccuracy = req.sortByAccuracy;
+    let sort_ByScoreAccuracy = req.sortByScoreAccuracy;
 
     res.render("leaderboard", {
         sort_TotalScore : sort_TotalScore,
+        sort_ByAccuracy: sort_ByAccuracy,
+        sort_ByScoreAccuracy : sort_ByScoreAccuracy,
 
     });
   });
