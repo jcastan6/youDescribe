@@ -46,7 +46,7 @@
       <thead class="thead-light">
         <tr>
           <th scope="col">User</th>
-          <th scope="col">Score</th>
+          <th style="text-align: center" scope="col">Score</th>
         </tr>
       </thead>
       <tbody>
@@ -54,7 +54,7 @@
 
         <tr>
           <th scope="row"><%= sort_TotalScore[i].username %></th>
-          <td><%= sort_TotalScore[i].total_score %></td>
+          <td style="text-align: center" ><%= sort_TotalScore[i].total_score %></td>
           </td>
         </tr>
 
@@ -68,7 +68,7 @@
       <thead class="thead-light">
         <tr>
           <th scope="col">User</th>
-          <th scope="col">Score</th>
+          <th style="text-align: center" scope="col">Accuracy</th>
         </tr>
       </thead>
       <br>
@@ -79,7 +79,7 @@
 
         <tr>
           <th scope="row"><%= sort_ByAccuracy[i].username %></th>
-          <td><%= sort_ByAccuracy[i].level %></td>
+          <td style="text-align: center"><%= Number(sort_ByAccuracy[i].level).toFixed(0)  %>%</td>
           </td>
         </tr>
 
@@ -94,7 +94,7 @@
       <thead class="thead-light">
         <tr>
           <th scope="col">User</th>
-          <th scope="col">Score</th>
+          <th style="text-align: center" scope="col">Score X Accuracy</th>
         </tr>
       </thead>
       <br>
@@ -105,7 +105,7 @@
 
         <tr>
           <th scope="row"><%= sort_ByScoreAccuracy[i].username %></th>
-          <td><%= sort_ByScoreAccuracy[i].result %></td>
+          <td style="text-align: center"><%= Number(sort_ByScoreAccuracy[i].result).toFixed(0) %></td>
           </td>
         </tr>
 
