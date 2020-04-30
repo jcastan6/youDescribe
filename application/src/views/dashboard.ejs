@@ -162,11 +162,11 @@ window.onload = function() {
           <!-- <td><img src=<%= ratings[i].img_url %> alt="" border=3 height=100 width=100></img></td>    -->
           
             <td><input type="image" name="image" src="<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>"
-                alt="" height=100 width=100 /></td>
-            <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>"/> </td>
-            <td><input type="text" name="rate" value="<%= ratings[i].rate %>" /></td>
-            <td><input type="text" name="consensus" value="<%= ratings[i].consensus %>" /></td>
-            <td><input type="text" name="scores" value="<%= ratings[i].scores %>" onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')"/></td>
+                alt="" height=100 width=100 readonly/></td>
+            <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>" readonly/> </td>
+            <td><input type="text" name="rate" value="<%= ratings[i].rate %>" readonly/></td>
+            <td><input type="text" name="consensus" value="<%= ratings[i].consensus %>" readonly/></td>
+            <td><input type="text" name="scores" value="<%= ratings[i].scores %>" onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly/></td>
             <input type="hidden" id = "secret" name="hidden_test" value="<%= ratings[i].dispute %>"/>
             <!-- <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" /> -->
               <td><input class="button_dispute" id = "button" name="submit" value="<% if(ratings[i].dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"   onclick="changeToModal('<%= ratings[i].rate_id %>')" /></td>
