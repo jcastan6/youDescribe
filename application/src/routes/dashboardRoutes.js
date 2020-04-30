@@ -112,6 +112,7 @@ router.post("/dashboard", getUserInfoFromRatings, getUserInfo, insertDispute, fu
 
 
     res.render("dashboard", {
+       
         ratings : ratings,
         users : users,
         accuracy : accuracy.toFixed(2),

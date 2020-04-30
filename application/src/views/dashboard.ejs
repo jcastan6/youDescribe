@@ -2,15 +2,20 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style>
-  
+  .myclass{
+    height:70px;
+    width:100%;
+    word-break: break-word;
+  }
+
   .center {
     display: block;
     margin-left: auto;
@@ -33,9 +38,8 @@
     /* margin-left: 250px;
   margin-right: 250px; */
   }
-  button_color
 
-  .totalscore {
+  button_color .totalscore {
     /* background-color: rgb(238, 238, 238); */
     width: 500px;
     height: 25px;
@@ -62,7 +66,7 @@
     margin-left: auto;
     margin-right: auto;
   }
- 
+
 
   .accuracyscore {
     /* background-color: rgb(238, 238, 238); */
@@ -90,9 +94,10 @@
     margin: auto;
     width: 75% !important;
   }
-  input[value="Disputed"]  {
-  background:rgb(141, 122, 109);
-}
+
+  input[value="Disputed"] {
+    background: rgb(141, 122, 109);
+  }
 
   input[type=text],
   select {
@@ -106,21 +111,21 @@
   }
 </style>
 <script>
-// $('#button').one('submit', function() {
-//     $(this).find('input[type="submit"]').attr('disabled','disabled');
-// })
-window.onload = function() {
-    if(!window.location.hash) {
-        window.location = window.location + '#modal-submit';
-        window.location.reload();
+  // $('#button').one('submit', function() {
+  //     $(this).find('input[type="submit"]').attr('disabled','disabled');
+  // })
+  window.onload = function () {
+    if (!window.location.hash) {
+      window.location = window.location + '#modal-submit';
+      window.location.reload();
     }
-}
-    
-    function changeToModal(index){
-      console.log(index);
-      $('#hidden_input').val(index);
-      $('#myModal').modal('show');
-    }
+  }
+
+  function changeToModal(index) {
+    console.log(index);
+    $('#hidden_input').val(index);
+    $('#myModal').modal('show');
+  }
 </script>
 
 <div>
@@ -130,8 +135,8 @@ window.onload = function() {
 
   <h3 class="text-center text-info">Dashboard</h3>
 
-  <h5 class="totalscore">Total Score: <%= users[0].total_score %></h5>
-  <h5 class="accuracyscore">Accuracy:
+  <h5 class="attempt">Total Score: <%= users[0].total_score %></h5>
+  <h5 class="attempt">Accuracy:
     <% if(typeof  accuracy != 'undefined'){ %>
     <%= accuracy %>
     <% } %>
@@ -153,26 +158,29 @@ window.onload = function() {
           <th scope="col">Create a dispute</th>
         </tr>
       </thead>
-      <tbody >
-        
+      <tbody>
+
         <% for(var i=0; i < ratings.length; i++) { %>
-       
-        <tr >
+
+        <tr>
 
           <!-- <td><img src=<%= ratings[i].img_url %> alt="" border=3 height=100 width=100></img></td>    -->
-          
-            <td><input type="image" name="image" src="<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>"
-                alt="" height=100 width=100 readonly/></td>
-            <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>" readonly/> </td>
-            <td><input type="text" name="rate" value="<%= ratings[i].rate %>" readonly/></td>
-            <td><input type="text" name="consensus" value="<%= ratings[i].consensus %>" readonly/></td>
-            <td><input type="text" name="scores" value="<%= ratings[i].scores %>" onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly/></td>
-            <input type="hidden" id = "secret" name="hidden_test" value="<%= ratings[i].dispute %>"/>
-            <!-- <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" /> -->
-              <td><input class="button_dispute" id = "button" name="submit" value="<% if(ratings[i].dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"   onclick="changeToModal('<%= ratings[i].rate_id %>')" /></td>
-              <!-- data-toggle="modal" data-target="#myModal" -->
-            </td>
-         
+
+          <td><input type="image" name="image" src="<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>" alt=""
+              height=100 width=100 readonly /></td>
+          <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>" readonly /> </td>
+          <td><input type="text" name="rate" value="<%= ratings[i].rate %>" readonly /></td>
+          <td><input type="text" name="consensus" value="<%= ratings[i].consensus %>" readonly /></td>
+          <td><input type="text" name="scores" value="<%= ratings[i].scores %>"
+              onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly /></td>
+          <input type="hidden" id="secret" name="hidden_test" value="<%= ratings[i].dispute %>" />
+          <!-- <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" /> -->
+          <td><input class="button_dispute" id="button" name="submit"
+              value="<% if(ratings[i].dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
+              onclick="changeToModal('<%= ratings[i].rate_id %>')" /></td>
+          <!-- data-toggle="modal" data-target="#myModal" -->
+          </td>
+
         </tr>
 
         <% } %>
@@ -180,35 +188,40 @@ window.onload = function() {
     </table>
   </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-      <div class="modal-dialog">
-      
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-            <h4 class="modal-title">Please sumit your reason for despute</h4>
-          </div>
-          <form action="/dashboard" method="POST" class="modal-body">
-            <!-- <label for="fname"></label><br> -->
-            <input type="text" id="dispute_description" name="dispute_description" /><br>
-            <input type="hidden" id = "hidden_input" name ="hidden_input"/>
-            <input  id = "modal-submit" type="submit" name="submit" value="Submit" />
-            <!-- onclick="setColor('button', '#101010')" -->
-          </form>
-          <div class="modal-footer">
-            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-          </div>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Tell us the reason for dispute</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        
+
+        <form action="/dashboard" method="POST">
+          <div class="modal-body mx-3">
+
+            <div class="md-form">
+              <i class="fas fa-pencil prefix grey-text"></i>
+              <label data-error="wrong" data-success="right" for="form8" style="color: red;">* Your message :</label>
+              <input type="text"  id="dispute_description" name="dispute_description" class="myclass" style="background-color:antiquewhite" required />
+
+              
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <input type="hidden" id="hidden_input" name="hidden_input" />
+            <input id="modal-submit" type="submit" name="submit" value="Submit" class="btn btn-unique"
+              style="background-color:goldenrod"><i class="fas fa-paper-plane-o ml-1"></i>
+        </form>
       </div>
     </div>
-  <!-- <div class="form-group">
-      <input type="submit" name="submit" class="button_next" value="Next">
+  </div>
+</div>
+</div>
 
-   </div> -->
-  <form method="GET" action="/play" class="form-group">
-    <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
-  </form>
+<form method="GET" action="/play" class="form-group">
+  <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
+</form>
 </div>
