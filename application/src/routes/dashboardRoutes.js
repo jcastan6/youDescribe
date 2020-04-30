@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models/database.js");
-const passport = require("passport");
+
 
 
 
@@ -40,27 +40,48 @@ async function getUserInfo(req, res, next){
         next();
     });
 }
-async function findCaption(req, res, next){
-    // console.log("params: "+req.body.image);
-    if(req.body.submit === 'Dispute'){
-        console.log("this is me1");
-    //     let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND caption = "${req.body.caption}" AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
-    let query = `SELECT * from db.captions where caption = "${req.body.caption}"`
+
+async function getUserInfo(req, res, next){
+    let query = " SELECT * FROM db.users where id = "+ req.user.id;
     // console.log(query);
+    await db.execute(query , (err, users) => {
+        
+        // console.log(users[3].email);
+        if(err) throw err;
+        req.users = users;
+        var accuracy = 0;
+        //  console.log("emaill: "+users[0].total_num_attempts);
+         var accuracy_divisor = users[0].total_num_attempts * 20;
+         var accuracy_divident = users[0].total_score;
+         if(accuracy_divisor !== 0) {
+            accuracy = (accuracy_divident/accuracy_divisor) *100
+         }
+         req.accuracy = accuracy;
+
+
+        next();
+    });
+}
+async function insertDispute(req, res, next){
+    // console.log("params: "+req.body.image);
+    if(req.body.dispute_description !== 'undefined'){
+        console.log(req.body.dispute_description);
+    //     let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND caption = "${req.body.caption}" AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
+    let query = `UPDATE db.ratings SET dispute = 1, dispute_desc = "${req.body.dispute_description}" where rate_id = "${req.body.hidden_input}"`
+    console.log(query);
     await db.execute(query , (err, captions) => {
         // console.log(query);
-        req.capID = captions[0].cap_id;
+        // req.capID = captions[0].cap_id;
         // console.log(req.capID);
         if(err) throw err;
         next();
     });
-}else{
-    next();
 }
 }
 
 async function dispute(req, res, next){
-    // console.log("params: "+req.body.image);
+    //console.log("params: "+req.body);
+
     if(req.body.submit === 'Dispute'){
         // console.log("this is me2");
         let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND captions_cap_id = ${req.capID} AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
@@ -74,11 +95,12 @@ async function dispute(req, res, next){
 }
 }
 
-
-router.post("/dashboard", getUserInfoFromRatings, getUserInfo,findCaption, dispute, function(req, res, next) {
+ //findCaption, dispute,
+router.post("/dashboard", getUserInfoFromRatings, getUserInfo, insertDispute, function(req, res, next) {
     
     // console.log("params: "+req.data);
-    // console.log("body: ", req.body)
+    console.log("body: ", req.body.hidden_input)
+    console.log("body: ", req.body.dispute_description)
     let ratings = req.ratings;
     let users = req.users;
     let accuracy = req.accuracy
