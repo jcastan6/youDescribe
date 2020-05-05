@@ -15,8 +15,8 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models/database.js");
-const url = require('url');   
-const passport = require("passport");
+const url = require('url');
+bucket_num = -5
 var good_guess = [
     "Awesome!",
     "Great Job!",
@@ -30,25 +30,25 @@ var good_guess = [
     "Success!",
     "You GOT this!",
     "Alriiiight!",
-  ];
+];
 
-  var notBad_guess = ["So close! Try harder next time!"];
-  var bad_guess = [
+var notBad_guess = ["So close! Try harder next time!"];
+var bad_guess = [
     // "Aw too bad!",
     "Meh!",
     "Better luck next time!",
-    "You got it...NOT!",  
+    "You got it...NOT!",
     "Scratching my head!",
     "Whomp whomp!",
-  ];
-  var very_bad_guess = [
+];
+var very_bad_guess = [
     "Sorry!",
     "Really?!",
     "Sad story!",
     "fail!",
     "For realz?!",
     "Lol u wish!",
-  ];
+];
 
 
 
@@ -67,8 +67,8 @@ var good_guess = [
 //         }
 //         console.log("old : "+req.old_consensus);
 //         console.log("new : "+req.new_consensus);
-        
-        
+
+
 //         if(err) throw err;
 //         next();
 //     });
@@ -76,7 +76,7 @@ var good_guess = [
 // }else{
 //     next();
 // }
-    
+
 // }
 
 
@@ -102,7 +102,7 @@ var good_guess = [
 //         }
 //     }
 //     let query = "update db.ratings SET consensus = "+consensus+ " ,scores = "+score+" ,success =  "+success+"  where captions_cap_id = "+caption +" and rate_id = "+i;
-    
+
 //     // let userID = req.user.user_id;
 //     // let query = " SELECT * from db.captions ";
 //     // // console.log(query);
@@ -154,17 +154,35 @@ var good_guess = [
 //         if(err) throw err;
 
 //     });
-    
+
 // }
 
-async function getImageidFromCaptions(req, res, next){
+async function checkIfDataExists(req, res, next) {
     let userID = req.user.id;
-    let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = "+userID+" ) ";
+        let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket = " + bucket_num + " ORDER BY RAND()";
+        await db.query(query, (err, res) => {
+            console.log(query);
+            if (err) throw err;
+            if(res[0] === undefined){
+                bucket_num++;
+                checkIfDataExists(req, res, next);
+            }else{
+                next();
+            }
+        });
+    next();
+}
+
+
+async function getImageidFromCaptions(req, res, next) {
+    let userID = req.user.id;
+    let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket = " + bucket_num + " ORDER BY RAND()";
     // console.log(userID);
-    // console.log(query);
-    await db.execute(query , (err, captions) => {
-        
-        if(err) throw err;
+    console.log(query);
+
+    await db.execute(query, (err, captions) => {
+        // console.log("captions[0].cap_id : "+captions[0].cap_id);
+        if (err) throw err;
         req.caption_id = captions[0].cap_id;
         req.img_id_from_captions = captions[0].images_img_id;
         req.caption_from_captions = captions[0].caption;
@@ -172,43 +190,43 @@ async function getImageidFromCaptions(req, res, next){
     });
 }
 
-async function getImageUrlfromImageId(req, res, next){
+async function getImageUrlfromImageId(req, res, next) {
     let imgID = req.img_id_from_captions;
     let query = " SELECT img_url as img_url  FROM db.images where img_id =  " + imgID;
     // console.log("query: "+query);
-    await db.execute(query , (err, imgURL) => {        
-        if(err) throw err;
+    await db.execute(query, (err, imgURL) => {
+        if (err) throw err;
         req.imgURL = imgURL[0].img_url;
         next();
     });
 }
 
-async function getUserInfo(req,res,next){
+async function getUserInfo(req, res, next) {
     // rate = req.body.inlineRadioOptions;
     let query = " SELECT * FROM db.users where id = " + req.user.id;
     // console.log(query);
     await db.execute(query, (err, users) => {
-        if(err) throw err;
+        if (err) throw err;
         req.total_score = users[0].total_score;
         req.total_num_attempts = users[0].total_num_attempts;
         req.total_num_success = users[0].total_num_success;
         next();
     });
-} 
+}
 
-async function getCurrentConsensus(req,res,next){
+async function getCurrentConsensus(req, res, next) {
     // rate = req.body.inlineRadioOptions;
     let query = " SELECT * FROM db.captions where cap_id = " + req.caption_id;
     // console.log(query);
     await db.execute(query, (err, consensus) => {
-        if(err) throw err;
+        if (err) throw err;
         req.consensus = consensus[0].consensus;
         next();
     });
 }
 
-async function insertRatings(req,res,next){
-    
+async function insertRatings(req, res, next) {
+
     //calculateScore and check the success (if true) -> add one to success column
     let current_consensus = req.consensus;
     let current_score = 0;
@@ -217,68 +235,68 @@ async function insertRatings(req,res,next){
     // console.log("scores1 "+req.query.inlineRadioOptions);
     let current_success = 0;
     let difference = Math.abs(current_consensus - current_rate);
-    if(current_consensus === -1){
-        current_score = 0;        
-    }else{
-        if(difference <= 0.5){
+    if (current_consensus === -1) {
+        current_score = 0;
+    } else {
+        if (difference <= 0.5) {
             current_score = 20;
             current_success = 1;
-        }else if(0.5 <difference && difference <= 0.75){
+        } else if (0.5 < difference && difference <= 0.75) {
             current_score = 10;
             current_success = 1;
-        }else if(0.75 <difference && difference <= 1){
+        } else if (0.75 < difference && difference <= 1) {
             current_score = 5;
             current_success = 1;
-        }else{
+        } else {
             current_score = 0;
             current_success = 0;
         }
         // req.query.inlineRadioOptions
         // parseInt(req.body.inlineRadioOptions)
-        
-        console.log("current_consensus: "+current_consensus);
-        console.log("current_rate: "+current_rate);
-        console.log("difference: "+difference);
-        console.log("current_success: "+current_success);
-        console.log("current_score: "+current_score);
+
+        console.log("current_consensus: " + current_consensus);
+        console.log("current_rate: " + current_rate);
+        console.log("difference: " + difference);
+        console.log("current_success: " + current_success);
+        console.log("current_score: " + current_score);
     }
-    
-    let query = "Insert INTO db.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success ) VALUES  ( "+ parseInt(req.body.inlineRadioOptions) +", "+ current_score +", "+
-    current_consensus +", "+
-    req.user.id +", "+
-    req.caption_id +", "+
-    current_success+
-    " ) ";
-    
+
+    let query = "Insert INTO db.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success ) VALUES  ( " + parseInt(req.body.inlineRadioOptions) + ", " + current_score + ", " +
+        current_consensus + ", " +
+        req.user.id + ", " +
+        req.caption_id + ", " +
+        current_success +
+        " ) ";
+
     console.log(query);
     await db.execute(query, (err, res) => {
         req.current_score = current_score;
 
-        if(err) throw err;
+        if (err) throw err;
         next();
     });
 }
 
-async function getRatingsInfo(req, res, next){
+async function getRatingsInfo(req, res, next) {
     let userID = req.user.id;
-    let query = " SELECT * FROM db.ratings R, db.captions C, db.images I where R.captions_cap_id = C.cap_id AND C.images_img_id = I.img_id AND R.users_user_id = "+userID;
+    let query = " SELECT * FROM db.ratings R, db.captions C, db.images I where R.captions_cap_id = C.cap_id AND C.images_img_id = I.img_id AND R.users_user_id = " + userID;
     // console.log(query);
-    await db.execute(query , (err, ratings) => {
+    await db.execute(query, (err, ratings) => {
         // req.current_score = ratings[0].scores;
-        if(err) throw err;
+        if (err) throw err;
         req.ratings = ratings;
         next();
     });
 }
 
-async function updateUsersTable(req,res,next){
+async function updateUsersTable(req, res, next) {
     //accuracy = score / (total_attempts X 20) x 100 (so percentage format)
 
     // console.log("caption: "+req.ratings[req.ratings.length-1].caption);
     //add scores to user's total_score
-    let score = req.ratings[req.ratings.length-1].scores;
+    let score = req.ratings[req.ratings.length - 1].scores;
     // add total_success to users table
-    let success = req.ratings[req.ratings.length-1].success;
+    let success = req.ratings[req.ratings.length - 1].success;
 
     /*
     //calculate the level and add it to the users table
@@ -293,50 +311,50 @@ async function updateUsersTable(req,res,next){
     }
     */
 
-   var accuracy = 0;
-   //  console.log("emaill: "+users[0].total_num_attempts);
+    var accuracy = 0;
+    //  console.log("emaill: "+users[0].total_num_attempts);
     var accuracy_divisor = (req.total_num_attempts + 1) * 20;
-    var accuracy_divident = score+req.total_score;
-    if(accuracy_divisor !== 0) {
-       accuracy = (accuracy_divident/accuracy_divisor) *100
+    var accuracy_divident = score + req.total_score;
+    if (accuracy_divisor !== 0) {
+        accuracy = (accuracy_divident / accuracy_divisor) * 100
     }
-//    let totalAttempt = (req.total_num_attempts + 1);
-//    let accuracy = (score+req.total_score / (totalAttempt*20)) * 100;
-   console.log("accuracy: "+accuracy);
-   console.log("accuracy_divisor : "+accuracy_divisor);
-   console.log("accuracy_divident: "+accuracy_divident);
-    
+    //    let totalAttempt = (req.total_num_attempts + 1);
+    //    let accuracy = (score+req.total_score / (totalAttempt*20)) * 100;
+    console.log("accuracy: " + accuracy);
+    console.log("accuracy_divisor : " + accuracy_divisor);
+    console.log("accuracy_divident: " + accuracy_divident);
+
 
     //increment the userAttempts by one
-    let query = " UPDATE db.users SET "+
-                "total_score = total_score  + "+score+ 
-                 " , "+
-                 "level = "+accuracy+
-                 " , "+
-                 "total_num_attempts = total_num_attempts + 1 "+
-                 " , "+
-                 "total_num_success = total_num_success + "+success+
-                 " where id = " + req.user.id;
-    console.log("query is: "+query);
+    let query = " UPDATE db.users SET " +
+        "total_score = total_score  + " + score +
+        " , " +
+        "level = " + accuracy +
+        " , " +
+        "total_num_attempts = total_num_attempts + 1 " +
+        " , " +
+        "total_num_success = total_num_success + " + success +
+        " where id = " + req.user.id;
+    console.log("query is: " + query);
     await db.execute(query, (err, res) => {
-        if(err) throw err;
+        if (err) throw err;
         next();
-    });   
+    });
 
 }
 
-async function getRatingsAveForCap(req, res, next){
-    let query = "SELECT AVG(rate)  as ave_rate, count(rate) as count_rate FROM db.ratings where captions_cap_id = "+req.caption_id;
-    console.log("ave "+query);
-    await db.execute(query , (err, ratingForEachCaption) => {       
-        if(err) throw err;
+async function getRatingsAveForCap(req, res, next) {
+    let query = "SELECT AVG(rate)  as ave_rate, count(rate) as count_rate FROM db.ratings where captions_cap_id = " + req.caption_id;
+    console.log("ave " + query);
+    await db.execute(query, (err, ratingForEachCaption) => {
+        if (err) throw err;
         req.ave_rate = ratingForEachCaption[0].ave_rate;
         req.count_rate = ratingForEachCaption[0].count_rate;
         next();
     });
 }
 
-async function updateConsensus(req,res,next){
+async function updateConsensus(req, res, next) {
     //calculate consensus using previous ratings for that caption id
     // let prev_users_rate = req.ratings[req.ratings.length -2].rate;
     let new_consensus = -1;
@@ -344,128 +362,128 @@ async function updateConsensus(req,res,next){
     //Scenario 1 : no consensus
     let current_consensus = req.consensus;
     let len = req.count_rate;
-    if(current_consensus === -1){
-        console.log("Scenario 1 : no consensus , length = "+len );
+    if (current_consensus === -1) {
+        console.log("Scenario 1 : no consensus , length = " + len);
         // #case 1: Case that there is one previous rating
-        if(len  === 2){
-            let first = req.ratings[len -2].rate;
-            let second= req.ratings[len -1].rate;
-            if (Math.abs(first - second) <= 1){
-                new_consensus = ((first + second)/2);
+        if (len === 2) {
+            let first = req.ratings[len - 2].rate;
+            let second = req.ratings[len - 1].rate;
+            if (Math.abs(first - second) <= 1) {
+                new_consensus = ((first + second) / 2);
             }
-            console.log("case 1: Case that there is one previous rating and new_consensus = "+new_consensus);
-        // # case 2: Case that there are two previous ratings
-        }else if(len  === 3){
-            let first= req.ratings[len -3].rate;
-            let second= req.ratings[len -2].rate;
-            let third= req.ratings[len -1].rate;
-            let mean = ((first + second + third)/3);
-            let stdev = Math.sqrt(((Math.pow(Math.abs(first-mean),2))+ (Math.pow(Math.abs(second-mean),2))+(Math.pow(Math.abs(third-mean),2)))/2);
-            if (stdev < 1.5){
+            console.log("case 1: Case that there is one previous rating and new_consensus = " + new_consensus);
+            // # case 2: Case that there are two previous ratings
+        } else if (len === 3) {
+            let first = req.ratings[len - 3].rate;
+            let second = req.ratings[len - 2].rate;
+            let third = req.ratings[len - 1].rate;
+            let mean = ((first + second + third) / 3);
+            let stdev = Math.sqrt(((Math.pow(Math.abs(first - mean), 2)) + (Math.pow(Math.abs(second - mean), 2)) + (Math.pow(Math.abs(third - mean), 2))) / 2);
+            if (stdev < 1.5) {
                 new_consensus = mean;
-            }else{
+            } else {
                 new_consensus = current_consensus;
             }
-            console.log("case 2: Case that there are two previous ratings and new_consensus = "+new_consensus);
+            console.log("case 2: Case that there are two previous ratings and new_consensus = " + new_consensus);
             // # case 3: Case that there are three previous ratings
-        }else if(len  === 4){
-            let first= req.ratings[len  -4].rate;
-            let second= req.ratings[len  -3].rate;
-            let third= req.ratings[len -2].rate;
-            let forth= req.ratings[len  -1].rate;
-            let mean = ((first + second + third + forth)/4);
-            let min = Math.min(first,second,third,forth);
-            let max = Math.max(first,second,third,forth);
-            let stdev = Math.sqrt(((Math.pow(Math.abs(first-mean),2))+ (Math.pow(Math.abs(second-mean),2))+(Math.pow(Math.abs(third-mean),2))+(Math.pow(Math.abs(forth-mean),2)))/3);
-            if(stdev < 1.5){
+        } else if (len === 4) {
+            let first = req.ratings[len - 4].rate;
+            let second = req.ratings[len - 3].rate;
+            let third = req.ratings[len - 2].rate;
+            let forth = req.ratings[len - 1].rate;
+            let mean = ((first + second + third + forth) / 4);
+            let min = Math.min(first, second, third, forth);
+            let max = Math.max(first, second, third, forth);
+            let stdev = Math.sqrt(((Math.pow(Math.abs(first - mean), 2)) + (Math.pow(Math.abs(second - mean), 2)) + (Math.pow(Math.abs(third - mean), 2)) + (Math.pow(Math.abs(forth - mean), 2))) / 3);
+            if (stdev < 1.5) {
                 new_consensus = mean;
-            }else{
-                if(mean >= 2.5){
+            } else {
+                if (mean >= 2.5) {
                     // remove lowest rating and calculate ave
-                    new_consensus = (first + second + third + forth - min)/3;
-                }else{
+                    new_consensus = (first + second + third + forth - min) / 3;
+                } else {
                     // remove highest rating and calculate ave
-                    new_consensus = (first + second + third + forth - max)/3;
+                    new_consensus = (first + second + third + forth - max) / 3;
                 }
             }
-            console.log("case 2: Case that there are two previous ratings and new_consensus = "+new_consensus);
+            console.log("case 2: Case that there are two previous ratings and new_consensus = " + new_consensus);
 
         }
-    }else{
-        
+    } else {
+
 
         // Scenario 2: There exists a valid consensus
         new_consensus = req.ave_rate;
-        
-        console.log("Scenario 2: There exists a valid consensus and new_consensus = "+new_consensus);
+
+        console.log("Scenario 2: There exists a valid consensus and new_consensus = " + new_consensus);
 
     }
-    let query = " update db.captions SET consensus = "+new_consensus+" where cap_id = "+req.caption_id;
-    console.log("just updated consensus : "+new_consensus);
+    let query = " update db.captions SET consensus = " + new_consensus + ", total_number_of_rates = total_number_of_rates+1 where cap_id = " + req.caption_id;
+    console.log("just updated consensus : " + new_consensus);
     console.log(query);
-    await db.execute(query , (err, res) => {
-        
-        if(err) throw err;
+    await db.execute(query, (err, res) => {
+
+        if (err) throw err;
         req.old_consensus = current_consensus;
         req.new_consensus = new_consensus;
         // req.ratings = ratings;
         next();
-    });  
+    });
 }
 
 
-router.get("/play", getImageidFromCaptions , getImageUrlfromImageId, getUserInfo, (req, res)=>{
+router.get("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromImageId, getUserInfo, (req, res) => {
     let caption_from_captions = req.caption_from_captions;
     let imgURL = req.imgURL;
-   // let scores = req.scores;
+    // let scores = req.scores;
     let total_score = req.total_score;
-    console.log("url : "+req.imgURL);
-   
+    console.log("url : " + req.imgURL);
+
     res.render("play", {
         caption_from_captions: caption_from_captions,
-        imgURL : imgURL,
-    //    scores : scores,
-        total_score : total_score,
-        
+        imgURL: imgURL,
+        //    scores : scores,
+        total_score: total_score,
+
 
     });
-  });
+});
 
 
-  router.post("/play", getImageidFromCaptions,getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap,updateConsensus, (req, res)=>{
+router.post("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap, updateConsensus, (req, res) => {
     //   "/play_result"
-    console.log("imgURL 2:"+req.imgURL);
+    console.log("imgURL 2:" + req.imgURL);
     var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
     var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
     var random_very_bad_answer = very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
     var ans;
-    if(req.current_score < 5){
+    if (req.current_score < 5) {
         ans = random_very_bad_answer;
-    }else if(req.current_score == 5){
+    } else if (req.current_score == 5) {
         ans = random_bad_answer;
-    }else if(req.current_score == 10){
+    } else if (req.current_score == 10) {
         ans = "So close! Try harder next time!";
-    }else{
+    } else {
         ans = random_good_answer;
     }
     // ans = (req.current_score <= 5) ? random_bad_answer : random_good_answer;
     // if(req.consensus == -1){ans = "You will recieve your score later :)"};
-    console.log("req.current_score: "+req.current_score);
-      res.redirect(url.format({
-          pathname : "/play_result",
-          query:{
-              "comment" : ans,
-              "rate" : parseInt(req.body.inlineRadioOptions),
-              "score" : req.current_score,
-              "consensus" : req.consensus,
-              "image" : req.imgURL,
-              "caption" : req.caption_from_captions
+    console.log("req.current_score: " + req.current_score);
+    res.redirect(url.format({
+        pathname: "/play_result",
+        query: {
+            "comment": ans,
+            "rate": parseInt(req.body.inlineRadioOptions),
+            "score": req.current_score,
+            "consensus": req.consensus,
+            "image": req.imgURL,
+            "caption": req.caption_from_captions
 
-          }
-      }));
-  });
-
-
+        }
+    }));
+});
 
 
-  module.exports = router;
+
+
+module.exports = router;
