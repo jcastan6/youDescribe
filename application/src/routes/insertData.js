@@ -7,35 +7,38 @@ const fs = require('fs');
 
 
 async function insertImages(req, res, next) {
-//     let query = " SELECT * FROM db.ratings ";
-//     console.log("content");
+    let query = " SELECT * FROM db.ratings ";
+    // console.log("content");
 
 
-//     await db.execute(query, (err, captions) => {
-//         var i;
-//         const content = fs.readFileSync('/Users/rayafarshad/Documents/SFSU/SPRING2020/Independent\ Study/AndrewJSON/youcookII_training_annotations.json');
-//         for (i = 0; i < 50; i++) {
-//             // console.log("len : " + JSON.parse(content).images.length)
-//             let imgID = JSON.parse(content).images[i].id;
-//             let imgName = JSON.parse(content).images[i].file_name;
-//             let imgURL = JSON.parse(content).images[i].coco_url;
-//             inner(imgID, imgName, imgURL)
-//         }
-//         if (err) throw err;
-//         next();
-//     });
+    await db.execute(query, (err, captions) => {
+        var i;
+        const content = fs.readFileSync('/Users/rayafarshad/Documents/SFSU/SPRING2020/Independent\ Study/Andrew_json2/youcookII_json_files/youcookII_test_annotations.json');
+        // console.log("hyyy")
+        for (i = 1345; i < 1346; i++) {
+            // console.log("len : " + JSON.parse(content).images.length)
+            let imgID = JSON.parse(content).images[i].id;
+            let imgName = JSON.parse(content).images[i].file_name;
+            let imgURL = JSON.parse(content).images[i].coco_url;
+
+
+            inner(imgID, imgName, imgURL)
+        }
+        if (err) throw err;
+        next();
+    });
 }
 
 
-// async function inner(id, name, url) {
+async function inner(id, name, url) {
 
-//     let query = "INSERT INTO db.images (img_id, img_name, img_url) VALUES ( " + id + " , '" + name + "' , '" + url + "' ) ";
-//     await db.query(query, (err, res) => {
-//         // console.log(query);
-//         // console.log("this is me " + id);
-//         if (err) throw err;
-//     });
-// }
+    let query = "INSERT INTO db.images (img_id, img_name, img_url) VALUES ( " + id + " , '" + name + "' , '" + url + "' ) ";
+    await db.query(query, (err, res) => {
+        // console.log(query);
+        // console.log("this is me " + id);
+        if (err) throw err;
+    });
+}
 
 // async function insertCaptions(req, res, next) {
 //     let query = " SELECT * FROM db.images  where LEFT(img_name, 12) = 'COCO_val2014' ";

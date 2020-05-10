@@ -193,7 +193,7 @@ async function getImageidFromCaptions(req, res, next) {
 async function getImageUrlfromImageId(req, res, next) {
     let imgID = req.img_id_from_captions;
     let query = " SELECT img_url as img_url  FROM db.images where img_id =  " + imgID;
-    // console.log("query: "+query);
+    console.log("query: "+query);
     await db.execute(query, (err, imgURL) => {
         if (err) throw err;
         req.imgURL = imgURL[0].img_url;
