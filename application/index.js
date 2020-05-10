@@ -57,18 +57,18 @@ app.use(express.static("./public"));
 
 //routes path
 const loginRouter = require("./src/routes/loginRoutes");
-const homeRouter = require("./src/routes/homeRoutes");
+// const homeRouter = require("./src/routes/homeRoutes");
 const choosePlayRouter = require("./src/routes/playRoutes");
 const dashboardRouter = require("./src/routes/dashboardRoutes");
-const trainingRouter = require("./src/routes/trainingRoutes");
+// const trainingRouter = require("./src/routes/trainingRoutes");
 const insertDataRouter = require("./src/routes/insertData");
 const leaderboardRouter = require("./src/routes/leaderboardRoutes");
 
 app.use("/", loginRouter);
-app.use("/", homeRouter);
+// app.use("/", homeRouter);
 app.use("/", choosePlayRouter);
 app.use("/", dashboardRouter);
-app.use("/", trainingRouter);
+// app.use("/", trainingRouter);
 app.use("/",insertDataRouter);
 app.use("/",leaderboardRouter);
 
