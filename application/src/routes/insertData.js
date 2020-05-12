@@ -6,46 +6,46 @@ const fs = require('fs');
 
 
 
-async function insertImages(req, res, next) {
-    let query = " SELECT * FROM db.ratings ";
-    // console.log("content");
+// async function insertImages(req, res, next) {
+//     let query = " SELECT * FROM db.ratings ";
+//     // console.log("content");
 
 
-    await db.execute(query, (err, captions) => {
-        var i;
-        const content = fs.readFileSync('/Users/rayafarshad/Documents/SFSU/SPRING2020/Independent\ Study/Andrew_json2/youcookII_json_files/youcookII_test_annotations.json');
-        // console.log("hyyy")
-        for (i = 1345; i < 1346; i++) {
-            // console.log("len : " + JSON.parse(content).images.length)
-            let imgID = JSON.parse(content).images[i].id;
-            let imgName = JSON.parse(content).images[i].file_name;
-            let imgURL = JSON.parse(content).images[i].coco_url;
+//     await db.execute(query, (err, captions) => {
+//         var i;
+//         const content = fs.readFileSync('/Users/rayafarshad/Documents/SFSU/SPRING2020/Independent\ Study/Andrew_json2/youcookII_json_files/youcookII_test_annotations.json');
+//         // console.log("hyyy")
+//         for (i = 1345; i < 1346; i++) {
+//             // console.log("len : " + JSON.parse(content).images.length)
+//             let imgID = JSON.parse(content).images[i].id;
+//             let imgName = JSON.parse(content).images[i].file_name;
+//             let imgURL = JSON.parse(content).images[i].coco_url;
 
 
-            inner(imgID, imgName, imgURL)
-        }
-        if (err) throw err;
-        next();
-    });
-}
+//             inner(imgID, imgName, imgURL)
+//         }
+//         if (err) throw err;
+//         next();
+//     });
+// }
 
 
-async function inner(id, name, url) {
+// async function inner(id, name, url) {
 
-    let query = "INSERT INTO db.images (img_id, img_name, img_url) VALUES ( " + id + " , '" + name + "' , '" + url + "' ) ";
-    await db.query(query, (err, res) => {
-        // console.log(query);
-        // console.log("this is me " + id);
-        if (err) throw err;
-    });
-}
+//     let query = "INSERT INTO db.images (img_id, img_name, img_url) VALUES ( " + id + " , '" + name + "' , '" + url + "' ) ";
+//     await db.query(query, (err, res) => {
+//         // console.log(query);
+//         // console.log("this is me " + id);
+//         if (err) throw err;
+//     });
+// }
 
 // async function insertCaptions(req, res, next) {
-//     let query = " SELECT * FROM db.images  where LEFT(img_name, 12) = 'COCO_val2014' ";
+//     let query = " SELECT * FROM db.images where img_id > 9854 And img_id <= 11199 ";
 
 //     await db.execute(query, (err, images) => {
 //         // console.log("this is me :" + images[0].img_id);
-//         const content = fs.readFileSync('/Users/rayafarshad/Documents/SFSU/SPRING2020/Independent\ Study/AndrewJSON/youcookII_training_annotations.json');
+//         const content = fs.readFileSync('/Users/rayafarshad/Documents/SFSU/SPRING2020/Independent\ Study/Andrew-Final-JSON/youcookII_json_files\ 2/youcookII_test_annotations.json');
 //         let json_content = JSON.parse(content).annotations;
 //         // let json_content = JSON.parse(content);
         
@@ -63,8 +63,10 @@ async function inner(id, name, url) {
 //         //   caption and image_id and rating/consensus
 
 //         // loop over images in image table 
-//         for (i =1000; i < 2000; i++) {
-//             for (j = 0; j < 1000; j++) {
+//         for (i =1000; i < 1345; i++) {
+//             for (j = 1000; j < 1345; j++) {
+//                 // console.log(json_content[j].image_id);
+//                 // console.log(images[i].img_id);
 
 //                 if (json_content[j].image_id === images[i].img_id) {
 //                     let image_id = json_content[j].image_id;
@@ -88,7 +90,7 @@ async function inner(id, name, url) {
 
 // async function inner2(id, caption, rating) {
 
-//     let query = `INSERT INTO db.captions (caption, images_img_id, consensus,dataset_name) VALUES ( "${caption}" , ${id}  , ${rating} , "mismatched" ) `;
+//     let query = `INSERT INTO db.captions (caption, images_img_id, consensus,dataset_name) VALUES ( "${caption}" , ${id}  , ${rating} , "YouCookII_Test" ) `;
 //     // let query = "INSERT INTO db.captions (caption, images_img_id, consensus) VALUES ( `"+caption+"` , "+id+ ", "+rating+ " ) ";
 //     await db.query(query, (err, res) => {
 //         // console.log(query);
@@ -97,20 +99,20 @@ async function inner(id, name, url) {
 //     });
 // }
 
-// async function insertRatings(req, res, next) {
-//     let query = " SELECT * FROM db.captions where cap_id >15281 ";
-//     await db.execute(query, (err, captions) => {
-//         var i;
-//         for (i = 0; i < captions.length; i++) {          
-//             inner(captions[i].cap_id, captions[i].consensus)
-//         }
-//         if (err) throw err;
-//         next();
-//     });
-// }
+async function insertRatings(req, res, next) {
+    let query = " SELECT * FROM db.captions where dataset_name = 'YouCookII_Test' and cap_id>27338";
+    await db.execute(query, (err, captions) => {
+        var i;
+        for (i = 0; i < captions.length; i++) {          
+            inner(captions[i].cap_id, captions[i].consensus)
+        }
+        if (err) throw err;
+        next();
+    });
+}
 // async function inner(cap_id , consensus){
 
-//     let query = ` INSERT INTO db.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 200, ${consensus} , 22, ${cap_id}, 1 ) `;
+//     let query = ` INSERT INTO db.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 20, ${consensus} , 22, ${cap_id}, 1 ) `;
 //     await db.query(query , (err, res) => {
 //         // console.log(query);
 //         if(err) throw err;
@@ -119,7 +121,7 @@ async function inner(id, name, url) {
 
 
 
-router.get("/insertData",insertImages, (req, res, next) => {
+router.get("/insertData",insertRatings, (req, res, next) => {
 
     res.render("chooseHome", {
 

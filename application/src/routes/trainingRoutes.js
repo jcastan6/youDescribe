@@ -34,7 +34,7 @@ var bad_guess = [
 ];
 ////////first///////////////////first///////////////////first///////////
 
-router.get("/trainingExample1", (req, res) => {
+router.get("/trainingExample1/", (req, res) => {
   console.log("the rate is :");
   console.log(req.query);
   res.render("trainingExample1", {
@@ -70,7 +70,7 @@ async function calculateScore1(req, res, next) {
 
 }
 
-router.get("/trainingExample1res", calculateScore1, (req, res) => {
+router.get("/service1/trainingExample1res", calculateScore1, (req, res) => {
   // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
   var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];

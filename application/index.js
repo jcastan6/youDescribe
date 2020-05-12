@@ -7,7 +7,7 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var expressValidator = require("express-validator");
 
-const PORT = 3000;
+const PORT = 3002;
 
 
 var options = {
@@ -57,20 +57,20 @@ app.use(express.static("./public"));
 
 //routes path
 const loginRouter = require("./src/routes/loginRoutes");
-// const homeRouter = require("./src/routes/homeRoutes");
+const homeRouter = require("./src/routes/homeRoutes");
 const choosePlayRouter = require("./src/routes/playRoutes");
 const dashboardRouter = require("./src/routes/dashboardRoutes");
 // const trainingRouter = require("./src/routes/trainingRoutes");
 const insertDataRouter = require("./src/routes/insertData");
 const leaderboardRouter = require("./src/routes/leaderboardRoutes");
 
-app.use("/", loginRouter);
-// app.use("/", homeRouter);
-app.use("/", choosePlayRouter);
-app.use("/", dashboardRouter);
+app.use("/service2/", loginRouter);
+app.use("/service2/", homeRouter);
+app.use("/service2/", choosePlayRouter);
+app.use("/service2/", dashboardRouter);
 // app.use("/", trainingRouter);
-app.use("/",insertDataRouter);
-app.use("/",leaderboardRouter);
+app.use("/service2/",insertDataRouter);
+app.use("/service2/",leaderboardRouter);
 
 
 
