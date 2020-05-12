@@ -8,7 +8,7 @@
       <div id="login-row" class="row justify-content-center align-items-center">
           <div id="login-column" class="col-md-6">
               <div id="login-box" class="col-md-12">
-                  <form id="login-form" class="form" action="/login" method="post">
+                  <form id="login-form" class="form" action="/service2/login" method="post">
                     <%if (error_msg.length > 0) { %>
                         <h1 style="color: red;"> Login failed, please try again!</h1>
                     <% } %>
@@ -37,7 +37,7 @@
                          value="Submit">
                       </div>
                       <div id="register-link" class="text-right">
-                          <a href="/register" class="text-info">Register here</a>
+                          <a href="/service2/register" class="text-info">Register here</a>
                       </div>
                   </form>
               </div>

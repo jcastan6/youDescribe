@@ -41,21 +41,15 @@ router.get("/", function(req, res, next) {
   });
 
 
-  router.get("/training", function(req, res, next) {
-    res.render("training", {
+  
 
-    });
 
+  // router.get("/trainingExample1", function(req, res, next) {
+  //   res.render("trainingExample1", {
+
+  //   });
     
-  });
-
-
-  router.get("/trainingExample1", function(req, res, next) {
-    res.render("trainingExample1", {
-
-    });
-    
-  });
+  // });
 
   // router.get("/trainingExample2res", function(req, res, next) {
   //   res.render("trainingExample2res", {
@@ -63,12 +57,12 @@ router.get("/", function(req, res, next) {
   //   });
 
   // });
-  router.get("/trainingExample3", function(req, res, next) {
-    res.render("trainingExample3", {
+  // router.get("/trainingExample3", function(req, res, next) {
+  //   res.render("trainingExample3", {
 
-    });
+  //   });
 
-  });
+  // });
 
   
 

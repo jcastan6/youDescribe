@@ -470,7 +470,7 @@ router.post("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromI
     // if(req.consensus == -1){ans = "You will recieve your score later :)"};
     console.log("req.current_score: " + req.current_score);
     res.redirect(url.format({
-        pathname: "/play_result",
+        pathname: "/service2/play_result",
         query: {
             "comment": ans,
             "rate": parseInt(req.body.inlineRadioOptions),

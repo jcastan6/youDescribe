@@ -18,18 +18,18 @@ app.all("/service1*", (req, res) => {
   });
 });
 
-app.all("/service2/*", (req, res) => {
+app.all("/service2*", (req, res) => {
   // service2
   apiProxy.web(req, res, {
     target: 'http://localhost:3002',
   });
 });
 
-app.all("*", (req, res) => {
-  // front end server / react
-  apiProxy.web(req, res, {
-    target: 'http://localhost:3000',
-  });
-});
+// app.all("*", (req, res) => {
+//   // front end server / react
+//   apiProxy.web(req, res, {
+//     target: 'http://localhost:3000',
+//   });
+// });
 
 app.listen(port, () => console.log(`Gateway is on port ${port}!`))

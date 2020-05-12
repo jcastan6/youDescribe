@@ -125,8 +125,8 @@ router.get("/login", function(req, res) {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/chooseHome",
-    failureRedirect: "/login/failed",
+    successRedirect: "/service2/chooseHome",
+    failureRedirect: "/service2/login/failed",
     failureFlash: false
   })
 );

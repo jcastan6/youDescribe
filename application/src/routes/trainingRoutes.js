@@ -32,6 +32,13 @@ var bad_guess = [
   // "Lol u wish!",
   "Whomp whomp!",
 ];
+router.get("/training", function(req, res, next) {
+  res.render("training", {
+
+  });
+
+  
+});
 ////////first///////////////////first///////////////////first///////////
 
 router.get("/trainingExample1/", (req, res) => {
@@ -70,7 +77,7 @@ async function calculateScore1(req, res, next) {
 
 }
 
-router.get("/service1/trainingExample1res", calculateScore1, (req, res) => {
+router.get("/trainingExample1res/", calculateScore1, (req, res) => {
   // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
   var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
@@ -99,7 +106,7 @@ router.get("/service1/trainingExample1res", calculateScore1, (req, res) => {
 
 ////////second///////////////////second///////////////////second///////////
 
-router.get("/trainingExample2", (req, res) => {
+router.get("/trainingExample2/", (req, res) => {
   // rate = parseInt(req.body.inlineRadioOptions);
   console.log("the rate is :");
   console.log(req.query);
@@ -137,7 +144,7 @@ async function calculateScore2(req, res, next) {
 
 }
 
-router.get("/trainingExample2res", calculateScore2, (req, res) => {
+router.get("/trainingExample2res/", calculateScore2, (req, res) => {
   // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
   var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
@@ -168,7 +175,7 @@ router.get("/trainingExample2res", calculateScore2, (req, res) => {
 
 ////////third///////////////////third///////////////////third///////////
 
-router.get("/trainingExample3", (req, res) => {
+router.get("/trainingExample3/", (req, res) => {
   // rate = parseInt(req.body.inlineRadioOptions);
   console.log("the rate is :");
   console.log(req.query);
@@ -207,7 +214,7 @@ async function calculateScore3(req, res, next) {
 
 }
 
-router.get("/trainingExample3res", calculateScore3, (req, res) => {
+router.get("/trainingExample3res/", calculateScore3, (req, res) => {
   // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
   var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
@@ -237,7 +244,7 @@ router.get("/trainingExample3res", calculateScore3, (req, res) => {
 
 ////////forth///////////////////forth///////////////////forth///////////
 
-router.get("/trainingExample4", (req, res) => {
+router.get("/trainingExample4/", (req, res) => {
   // rate = parseInt(req.body.inlineRadioOptions);
   console.log("the rate is :");
   console.log(req.query);
@@ -275,7 +282,7 @@ async function calculateScore4(req, res, next) {
 
 }
 
-router.get("/trainingExample4res", calculateScore4, (req, res) => {
+router.get("/trainingExample4res/", calculateScore4, (req, res) => {
   // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
   var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
@@ -304,7 +311,7 @@ router.get("/trainingExample4res", calculateScore4, (req, res) => {
 
 ////////fifth///////////////////fifth///////////////////fifth///////////
 
-router.get("/trainingExample5", (req, res) => {
+router.get("/trainingExample5/", (req, res) => {
   // rate = parseInt(req.body.inlineRadioOptions);
   console.log("the rate is :");
   console.log(req.query);
@@ -342,7 +349,7 @@ async function calculateScore5(req, res, next) {
 
 }
 
-router.get("/trainingExample5res", calculateScore5, (req, res) => {
+router.get("/trainingExample5res/", calculateScore5, (req, res) => {
   // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
   var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
