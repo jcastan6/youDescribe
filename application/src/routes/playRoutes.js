@@ -190,6 +190,22 @@ async function getImageidFromCaptions(req, res, next) {
     });
 }
 
+async function getImageidFromCaptions_playresult(req, res, next) {
+    let userID = req.user.id;
+    let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket = " + bucket_num + " ORDER BY RAND()";
+    // console.log(userID);
+    console.log(query);
+
+    await db.execute(query, (err, captions) => {
+        // console.log("captions[0].cap_id : "+captions[0].cap_id);
+        if (err) throw err;
+        req.caption_id = captions[0].cap_id;
+        req.img_id_from_captions = captions[0].images_img_id;
+        req.caption_from_captions = captions[0].caption;
+        next();
+    });
+}
+
 async function getImageUrlfromImageId(req, res, next) {
     let imgID = req.img_id_from_captions;
     let query = " SELECT img_url as img_url  FROM db.images where img_id =  " + imgID;
@@ -437,7 +453,8 @@ router.get("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromIm
     let imgURL = req.imgURL;
     // let scores = req.scores;
     let total_score = req.total_score;
-    console.log("url : " + req.imgURL);
+    console.log("req.imgURL 1 : " + req.imgURL);
+    console.log("req.consensus 1: " + req.consensus);
 
     res.render("play", {
         caption_from_captions: caption_from_captions,
@@ -450,9 +467,10 @@ router.get("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromIm
 });
 
 
-router.post("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap, updateConsensus, (req, res) => {
+router.post("/play", getImageidFromCaptions, getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap, updateConsensus, (req, res) => {
     //   "/play_result"
-    console.log("imgURL 2:" + req.imgURL);
+    // console.log("imgURL 2:" + req.imgURL);
+    // console.log("req.consensus 2: " + req.consensus);
     var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
     var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
     var random_very_bad_answer = very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
@@ -469,6 +487,8 @@ router.post("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromI
     // ans = (req.current_score <= 5) ? random_bad_answer : random_good_answer;
     // if(req.consensus == -1){ans = "You will recieve your score later :)"};
     console.log("req.current_score: " + req.current_score);
+    console.log("req.imgURL 2: " + req.imgURL);
+    console.log("req.consensus 2: " + req.consensus);
     res.redirect(url.format({
         pathname: "/play_result",
         query: {
