@@ -8,8 +8,8 @@ const router = express.Router();
 const { User } = require("../models/user.js");
 const { validationResult } = require("express-validator/check");
 const passport = require("passport");
-var expressValidator = require("express-validator");
-var JSAlert = require("js-alert");
+// var expressValidator = require("express-validator");
+// var JSAlert = require("js-alert");
 
 
 
