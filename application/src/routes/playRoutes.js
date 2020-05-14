@@ -181,7 +181,9 @@ var very_bad_guess = [
 //         next();
 //     });
 // }
-
+let global_CapId;
+let global_ImgId;
+let global_caption;
 async function checkIfDataExists(req, res, next) {
     let userID = req.user.id;
         let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket = " + bucket_num + " ORDER BY RAND()";
@@ -211,22 +213,28 @@ async function getImageidFromCaptions(req, res, next) {
         req.caption_id = captions[0].cap_id;
         req.img_id_from_captions = captions[0].images_img_id;
         req.caption_from_captions = captions[0].caption;
+        console.log("req.caption_id "+ req.caption_id);
+        global_CapId = req.caption_id ;
+        global_ImgId = req.img_id_from_captions;
+        global_caption = req.caption_from_captions;
         next();
     });
 }
 
 async function getImageidFromCaptions_playresult(req, res, next) {
     let userID = req.user.id;
-    let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket  = "+ bucket_num ;
+    let query = " SELECT * from db.captions " ;
     // console.log(userID);
-    console.log(query);
+    
 
     await db.execute(query, (err, captions) => {
         // console.log("captions[0].cap_id : "+captions[0].cap_id);
         if (err) throw err;
-        req.caption_id = captions[0].cap_id;
-        req.img_id_from_captions = captions[0].images_img_id;
-        req.caption_from_captions = captions[0].caption;
+        console.log(req.img_id_from_captions);
+        console.log("req.caption_id " +global);
+        req.caption_id = global_CapId;
+        req.img_id_from_captions = global_ImgId;
+        req.caption_from_captions = global_caption;
         next();
     });
 }
