@@ -157,6 +157,31 @@ var very_bad_guess = [
 
 // }
 
+// async function getImageidFromCaptions(req, res, next){
+//     let userID = req.user.user_id;
+//     let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = "+userID+" ) ";
+//     // console.log(query);
+//     await db.execute(query , (err, captions) => {
+        
+//         if(err) throw err;
+//         req.caption_id = captions[0].cap_id;
+//         req.img_id_from_captions = captions[0].images_img_id;
+//         req.caption_from_captions = captions[0].caption;
+//         next();
+//     });
+// }
+
+// async function getImageUrlfromImageId(req, res, next){
+//     let imgID = req.img_id_from_captions;
+//     let query = " SELECT img_url as img_url  FROM db.images where img_id =  " + imgID;
+//     // console.log("query: "+query);
+//     await db.execute(query , (err, imgURL) => {        
+//         if(err) throw err;
+//         req.imgURL = imgURL[0].img_url;
+//         next();
+//     });
+// }
+
 async function checkIfDataExists(req, res, next) {
     let userID = req.user.id;
         let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket = " + bucket_num + " ORDER BY RAND()";
