@@ -217,7 +217,7 @@ async function getImageidFromCaptions(req, res, next) {
 
 async function getImageidFromCaptions_playresult(req, res, next) {
     let userID = req.user.id;
-    let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket = " + bucket_num + " ORDER BY RAND()";
+    let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket  = "+ bucket_num ;
     // console.log(userID);
     console.log(query);
 
@@ -492,7 +492,7 @@ router.get("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromIm
 });
 
 
-router.post("/play", getImageidFromCaptions, getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap, updateConsensus, (req, res) => {
+router.post("/play", getImageidFromCaptions_playresult, getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap, updateConsensus, (req, res) => {
     //   "/play_result"
     // console.log("imgURL 2:" + req.imgURL);
     // console.log("req.consensus 2: " + req.consensus);
