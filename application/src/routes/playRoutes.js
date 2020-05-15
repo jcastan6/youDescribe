@@ -16,7 +16,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models/database.js");
 const url = require('url');
-bucket_num = -5
+bucket_num = 1;
 var good_guess = [
     "Awesome!",
     "Great Job!",
@@ -186,7 +186,7 @@ let global_ImgId;
 let global_caption;
 async function checkIfDataExists(req, res, next) {
     let userID = req.user.id;
-        let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket = " + bucket_num + " ORDER BY RAND()";
+        let query = " select * from db.captions where bucket"+bucket_num+" = 3 and total_number_of_rates < 3";
         await db.query(query, (err, res) => {
             console.log(query);
             if (err) throw err;
@@ -203,8 +203,12 @@ async function checkIfDataExists(req, res, next) {
 
 async function getImageidFromCaptions(req, res, next) {
     let userID = req.user.id;
-    let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket = " + bucket_num + " ORDER BY RAND()";
-    // console.log(userID);
+    let query = " SELECT * from db.captions where cap_id NOT IN "+
+    "(SELECT captions_cap_id from db.ratings where consensus > 2.5 "+
+   " AND Consensus <= 3.5 and users_user_id =  "+userID+" ) "+ 
+    " and bucket"+bucket_num+" is not null "+
+    "ORDER BY RAND()";
+    console.log(userID);
     console.log(query);
 
     await db.execute(query, (err, captions) => {
