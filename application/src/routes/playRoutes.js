@@ -186,7 +186,7 @@ let global_ImgId;
 let global_caption;
 async function checkIfDataExists(req, res, next) {
     let userID = req.user.id;
-        let query = " select * from db.captions where bucket"+bucket_num+" = 3 and total_number_of_rates < 3";
+        let query = " select * from db.captions where cap_id not in(select cap_id from db.captions where (bucket"+bucket_num+" = 5 or bucket"+bucket_num+" = 2)) and total_number_of_rates < 5 "
         await db.query(query, (err, res) => {
             console.log(query);
             if (err) throw err;
@@ -204,12 +204,12 @@ async function checkIfDataExists(req, res, next) {
 async function getImageidFromCaptions(req, res, next) {
     let userID = req.user.id;
     let query = " SELECT * from db.captions where cap_id NOT IN "+
-    "(SELECT captions_cap_id from db.ratings where consensus > 2.5 "+
-   " AND Consensus <= 3.5 and users_user_id =  "+userID+" ) "+ 
+    "(SELECT captions_cap_id from db.ratings where "+
+   " (users_user_id =  "+userID+" and Consensus > 2.5 and consensus < 4.5) or ( consensus <= 1.5 and users_user_id = "+userID+" ) )"+ 
     " and bucket"+bucket_num+" is not null "+
     "ORDER BY RAND()";
-    console.log(userID);
-    console.log(query);
+    // console.log(userID);
+    // console.log(query);
 
     await db.execute(query, (err, captions) => {
         // console.log("captions[0].cap_id : "+captions[0].cap_id);
