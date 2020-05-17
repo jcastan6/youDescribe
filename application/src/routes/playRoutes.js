@@ -16,7 +16,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models/database.js");
 const url = require('url');
-bucket_num = -5
+bucket_num = 1;
 var good_guess = [
     "Awesome!",
     "Great Job!",
@@ -157,9 +157,36 @@ var very_bad_guess = [
 
 // }
 
+// async function getImageidFromCaptions(req, res, next){
+//     let userID = req.user.user_id;
+//     let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = "+userID+" ) ";
+//     // console.log(query);
+//     await db.execute(query , (err, captions) => {
+        
+//         if(err) throw err;
+//         req.caption_id = captions[0].cap_id;
+//         req.img_id_from_captions = captions[0].images_img_id;
+//         req.caption_from_captions = captions[0].caption;
+//         next();
+//     });
+// }
+
+// async function getImageUrlfromImageId(req, res, next){
+//     let imgID = req.img_id_from_captions;
+//     let query = " SELECT img_url as img_url  FROM db.images where img_id =  " + imgID;
+//     // console.log("query: "+query);
+//     await db.execute(query , (err, imgURL) => {        
+//         if(err) throw err;
+//         req.imgURL = imgURL[0].img_url;
+//         next();
+//     });
+// }
+let global_CapId;
+let global_ImgId;
+let global_caption;
 async function checkIfDataExists(req, res, next) {
     let userID = req.user.id;
-        let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket = " + bucket_num + " ORDER BY RAND()";
+        let query = " select * from db.captions where cap_id not in(select cap_id from db.captions where (bucket"+bucket_num+" = 5 or bucket"+bucket_num+" = 2)) and total_number_of_rates < 5 "
         await db.query(query, (err, res) => {
             console.log(query);
             if (err) throw err;
@@ -176,9 +203,13 @@ async function checkIfDataExists(req, res, next) {
 
 async function getImageidFromCaptions(req, res, next) {
     let userID = req.user.id;
-    let query = " SELECT * from db.captions where cap_id NOT IN (SELECT captions_cap_id from db.ratings where users_user_id = " + userID + " )  and total_number_of_rates < 10 and bucket = " + bucket_num + " ORDER BY RAND()";
+    let query = " SELECT * from db.captions where cap_id NOT IN "+
+    "(SELECT captions_cap_id from db.ratings where "+
+   " (users_user_id =  "+userID+" and Consensus > 2.5 and consensus < 4.5) or ( consensus <= 1.5 and users_user_id = "+userID+" ) )"+ 
+    " and bucket"+bucket_num+" is not null "+
+    "ORDER BY RAND()";
     // console.log(userID);
-    console.log(query);
+    // console.log(query);
 
     await db.execute(query, (err, captions) => {
         // console.log("captions[0].cap_id : "+captions[0].cap_id);
@@ -186,6 +217,28 @@ async function getImageidFromCaptions(req, res, next) {
         req.caption_id = captions[0].cap_id;
         req.img_id_from_captions = captions[0].images_img_id;
         req.caption_from_captions = captions[0].caption;
+        console.log("req.caption_id "+ req.caption_id);
+        global_CapId = req.caption_id ;
+        global_ImgId = req.img_id_from_captions;
+        global_caption = req.caption_from_captions;
+        next();
+    });
+}
+
+async function getImageidFromCaptions_playresult(req, res, next) {
+    let userID = req.user.id;
+    let query = " SELECT * from db.captions " ;
+    // console.log(userID);
+    
+
+    await db.execute(query, (err, captions) => {
+        // console.log("captions[0].cap_id : "+captions[0].cap_id);
+        if (err) throw err;
+        console.log(req.img_id_from_captions);
+        console.log("req.caption_id " +global);
+        req.caption_id = global_CapId;
+        req.img_id_from_captions = global_ImgId;
+        req.caption_from_captions = global_caption;
         next();
     });
 }
@@ -437,7 +490,8 @@ router.get("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromIm
     let imgURL = req.imgURL;
     // let scores = req.scores;
     let total_score = req.total_score;
-    console.log("url : " + req.imgURL);
+    console.log("req.imgURL 1 : " + req.imgURL);
+    console.log("req.consensus 1: " + req.consensus);
 
     res.render("play", {
         caption_from_captions: caption_from_captions,
@@ -450,9 +504,10 @@ router.get("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromIm
 });
 
 
-router.post("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap, updateConsensus, (req, res) => {
+router.post("/play", getImageidFromCaptions_playresult, getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap, updateConsensus, (req, res) => {
     //   "/play_result"
-    console.log("imgURL 2:" + req.imgURL);
+    // console.log("imgURL 2:" + req.imgURL);
+    // console.log("req.consensus 2: " + req.consensus);
     var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
     var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
     var random_very_bad_answer = very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
@@ -469,8 +524,10 @@ router.post("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromI
     // ans = (req.current_score <= 5) ? random_bad_answer : random_good_answer;
     // if(req.consensus == -1){ans = "You will recieve your score later :)"};
     console.log("req.current_score: " + req.current_score);
+    console.log("req.imgURL 2: " + req.imgURL);
+    console.log("req.consensus 2: " + req.consensus);
     res.redirect(url.format({
-        pathname: "/service2/play_result",
+        pathname: "/play_result",
         query: {
             "comment": ans,
             "rate": parseInt(req.body.inlineRadioOptions),
