@@ -34,12 +34,9 @@ var good_guess = [
 
 var notBad_guess = ["So close! Try harder next time!"];
 var bad_guess = [
-    // "Aw too bad!",
-    "Meh!",
-    "Better luck next time!",
-    "You got it...NOT!",
-    "Scratching my head!",
-    "Whomp whomp!",
+    "Close!",
+    "Try harder",
+    "Almost!",
 ];
 var very_bad_guess = [
     "Sorry!",
@@ -48,6 +45,11 @@ var very_bad_guess = [
     "fail!",
     "For realz?!",
     "Lol u wish!",
+    "Meh!",
+    "Better luck next time!",
+    "You got it...NOT!",
+    "Scratching my head!",
+    "Whomp whomp!",
 ];
 
 
