@@ -27,7 +27,7 @@
                         <label for="username" class="text-info">Username:</label><br>
                         <input 
                         pattern=".{6,18}" 
-                        title="Username should be between 6 and 18 characters"
+                        title="Username should be between 6 and 18 characters (not your email!)"
                         type="text" 
                         name="username" 
                         id="username" 
@@ -44,8 +44,8 @@
                       <div class="form-group">
                           <label for="password" class="text-info">Password:</label><br>
                           <input 
-                          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,18}"
-                          title="Must contain at least one number and one uppercase and lowercase letter, between  6 and 18 character"
+                          pattern=".{6,18}"
+                          title="Should be between 6 and 18 characters! "
                           type="password" 
                           name="password" 
                           id="password" 
