@@ -147,15 +147,17 @@ async function calculateScore2(req, res, next) {
 }
 
 router.get("/trainingExample2res", calculateScore2, (req, res) => {
-  // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
   var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
+  var random_very_bad_answer = very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
   var ans;
-  if (req.score <= 5) {
-    ans = random_bad_answer;
+  if (req.score < 5) {
+    ans = random_very_bad_answer;
   } else if (req.score == 10) {
     ans = "So close! Try harder next time!";
-  } else {
+  } else if(req.score == 5){
+    ans = random_bad_answer;
+  }else {
     ans = random_good_answer;
   }
   console.log(req.query.inlineRadioOptions);
@@ -220,12 +222,15 @@ router.get("/trainingExample3res", calculateScore3, (req, res) => {
   // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
   var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
+  var random_very_bad_answer = very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
   var ans;
-  if (req.score <= 5) {
-    ans = random_bad_answer;
+  if (req.score < 5) {
+    ans = random_very_bad_answer;
   } else if (req.score == 10) {
     ans = "So close! Try harder next time!";
-  } else {
+  } else if(req.score == 5){
+    ans = random_bad_answer;
+  }else {
     ans = random_good_answer;
   }
   console.log(req.query.inlineRadioOptions);
@@ -288,12 +293,15 @@ router.get("/trainingExample4res", calculateScore4, (req, res) => {
   // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
   var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
+  var random_very_bad_answer = very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
   var ans;
-  if (req.score <= 5) {
-    ans = random_bad_answer;
+  if (req.score < 5) {
+    ans = random_very_bad_answer;
   } else if (req.score == 10) {
     ans = "So close! Try harder next time!";
-  } else {
+  } else if(req.score == 5){
+    ans = random_bad_answer;
+  }else {
     ans = random_good_answer;
   }
   console.log(req.query.inlineRadioOptions);
@@ -355,12 +363,15 @@ router.get("/trainingExample5res", calculateScore5, (req, res) => {
   // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
   var random_good_answer = good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer = bad_guess[Math.floor(Math.random() * bad_guess.length)];
+  var random_very_bad_answer = very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
   var ans;
-  if (req.score <= 5) {
-    ans = random_bad_answer;
+  if (req.score < 5) {
+    ans = random_very_bad_answer;
   } else if (req.score == 10) {
     ans = "So close! Try harder next time!";
-  } else {
+  } else if(req.score == 5){
+    ans = random_bad_answer;
+  }else {
     ans = random_good_answer;
   }
   console.log(req.query.inlineRadioOptions);
