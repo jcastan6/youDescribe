@@ -38,6 +38,32 @@
   <br>
   <h4 class="text-center text-info">Leaderboard</h4>
   <br>
+  <div>
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">User</th>
+          <th style="text-align: center" scope="col">Score X Accuracy</th>
+        </tr>
+      </thead>
+      <br>
+      
+      <h4 class="text-center">Champions!</h4>
+      <br>
+      <tbody>
+        <% for(var i=0; i < sort_ByScoreAccuracy.length; i++) { %>
+
+        <tr>
+          <th scope="row"><%= sort_ByScoreAccuracy[i].username %></th>
+          <td style="text-align: center"><%= Number(sort_ByScoreAccuracy[i].result).toFixed(0) %></td>
+          </td>
+        </tr>
+
+        <% } %>
+      </tbody>
+      
+    </table>
+  </div>
   <br>
   <h4 class="text-center">5 top highest score players!</h4>
   <br>
@@ -89,31 +115,7 @@
     </table>
   </div>
 
-  <div>
-    <table class="table table-bordered">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">User</th>
-          <th style="text-align: center" scope="col">Score X Accuracy</th>
-        </tr>
-      </thead>
-      <br>
-      <br>
-      <h4 class="text-center">Champions!</h4>
-      <tbody>
-        <% for(var i=0; i < sort_ByScoreAccuracy.length; i++) { %>
-
-        <tr>
-          <th scope="row"><%= sort_ByScoreAccuracy[i].username %></th>
-          <td style="text-align: center"><%= Number(sort_ByScoreAccuracy[i].result).toFixed(0) %></td>
-          </td>
-        </tr>
-
-        <% } %>
-      </tbody>
-      
-    </table>
-  </div>
+  
 
   <form  method="GET" action="/play" class="form-group">
     <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
