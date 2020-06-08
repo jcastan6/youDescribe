@@ -265,6 +265,13 @@ async function getUserInfo(req, res, next) {
         req.total_score = users[0].total_score;
         req.total_num_attempts = users[0].total_num_attempts;
         req.total_num_success = users[0].total_num_success;
+        var accuracy = 0;
+        var accuracy_divisor = users[0].total_num_attempts * 20;
+        var accuracy_divident = users[0].total_score;
+        if(accuracy_divisor !== 0) {
+        accuracy = (accuracy_divident/accuracy_divisor) *100
+        }
+        req.accuracy = accuracy;
         next();
     });
 }
@@ -275,6 +282,7 @@ async function getCurrentConsensus(req, res, next) {
     // console.log(query);
     await db.execute(query, (err, consensus) => {
         if (err) throw err;
+    
         req.consensus = consensus[0].consensus;
         next();
     });
@@ -323,14 +331,20 @@ async function insertRatings(req, res, next) {
         current_success +
         " ) ";
 
+
     console.log(query);
+
+
     await db.execute(query, (err, res) => {
         req.current_score = current_score;
-
         if (err) throw err;
+        req.rating = res.insertId;
+        req.disputed = 0;
+        console.log(res);
         next();
     });
 }
+   
 
 async function getRatingsInfo(req, res, next) {
     let userID = req.user.id;
@@ -340,9 +354,12 @@ async function getRatingsInfo(req, res, next) {
         // req.current_score = ratings[0].scores;
         if (err) throw err;
         req.ratings = ratings;
+        
         next();
     });
 }
+
+
 
 async function updateUsersTable(req, res, next) {
     //accuracy = score / (total_attempts X 20) x 100 (so percentage format)
@@ -494,19 +511,35 @@ router.get("/play", checkIfDataExists, getImageidFromCaptions, getImageUrlfromIm
     let total_score = req.total_score;
     console.log("req.imgURL 1 : " + req.imgURL);
     console.log("req.consensus 1: " + req.consensus);
-
     res.render("play", {
         caption_from_captions: caption_from_captions,
         imgURL: imgURL,
         //    scores : scores,
         total_score: total_score,
-
-
+        accuracy: req.accuracy.toFixed(2)
     });
 });
 
+async function insertDispute(req, res, next){
+    // console.log("params: "+req.body.image);
+    if(req.body.dispute_description !== 'undefined'){
+        console.log(req.body.dispute_description);
+    //     let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND caption = "${req.body.caption}" AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
+    let query = `UPDATE db.ratings SET dispute = 1, dispute_desc = "${req.body.dispute_description}" where rate_id = "${req.body.hidden_input}"`
+    console.log(query);
+    await db.execute(query , (err, captions) => {
+        // console.log(query);
+        // req.capID = captions[0].cap_id;
+        // console.log(req.capID);
+        if(err) throw err;
+        req.disputed = 1;
+        next();
+    });
+}
+}
 
-router.post("/play", getImageidFromCaptions_playresult, getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap, updateConsensus, (req, res) => {
+
+router.post("/play", getImageidFromCaptions_playresult, getImageUrlfromImageId, getCurrentConsensus, insertRatings, getRatingsInfo, getUserInfo, updateUsersTable, getRatingsAveForCap, updateConsensus, insertDispute, (req, res) => {
     //   "/play_result"
     // console.log("imgURL 2:" + req.imgURL);
     // console.log("req.consensus 2: " + req.consensus);
@@ -528,20 +561,26 @@ router.post("/play", getImageidFromCaptions_playresult, getImageUrlfromImageId, 
     console.log("req.current_score: " + req.current_score);
     console.log("req.imgURL 2: " + req.imgURL);
     console.log("req.consensus 2: " + req.consensus);
+    
     res.redirect(url.format({
         pathname: "/play_result",
         query: {
             "comment": ans,
+            "rating": req.rating,
             "rate": parseInt(req.body.inlineRadioOptions),
             "score": req.current_score,
             "consensus": req.consensus,
             "image": req.imgURL,
-            "caption": req.caption_from_captions
-
+            "caption": req.caption_from_captions,
+            "disputed": req.disputed
         }
     }));
 });
 
+router.post("/addDispute", insertDispute, async (req, res) => {
+    console.log('dispute added');
+    res.redirect('back');
+});
 
 
 

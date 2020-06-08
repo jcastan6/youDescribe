@@ -1,11 +1,34 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <style>
   .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
+  }
+ 
+  .button_dispute {
+    background-color: rgb(224, 138, 80);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-inline-start: 7px;
+    /* margin-left: 250px;
+  margin-right: 250px; */
   }
 
   .button_next1 {
@@ -100,6 +123,26 @@
     margin-top: 20px;
   }
 </style>
+
+<script>
+  // $('#button').one('submit', function() {
+  //     $(this).find('input[type="submit"]').attr('disabled','disabled');
+  // })
+  window.onload = function () {
+    if (!window.location.hash) {
+      window.location = window.location + '#modal-submit';
+      window.location.reload();
+    }
+  }
+
+  function changeToModal(index) {
+    console.log(index);
+    $('#hidden_input').val(index);
+    $('#location').val('result');
+    $('#myModal').modal('show');
+  }
+</script>
+
 <br><br>
    <img src=<%= image %> width="400" height="300" class="center">
 
@@ -123,11 +166,44 @@
   </form>
 
   <div>
-    <form method="GET" action="/dashboard" class="button_dispute" >
+    <form method="GET" action="/dashboard" class="" >
       <input type="submit" name="submit" class="button_next" value="dashboard">
     </form>
   </div>
 
+  <div>
+    <input type="submit" name="submit" class="button_next" value="<% if(rating.dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>" onclick="changeToModal('<%= rating %>')" />
+  </div>
 
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Tell us the reason for dispute</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
+        <form action="/addDispute" method="POST">
+          <div class="modal-body mx-3">
+
+            <div class="md-form">
+              <i class="fas fa-pencil prefix grey-text"></i>
+              <label data-error="wrong" data-success="right" for="form8" style="color: red;">* Your message :</label>
+              <input type="text"  id="dispute_description" name="dispute_description" class="myclass" style="background-color:antiquewhite" required />
+
+              
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <input type="hidden" id="hidden_input" name="hidden_input" />
+            <input type="hidden" id="location" name="location" />
+            <input id="modal-submit" type="submit" name="submit" value="Submit" class="btn btn-unique"
+              style="background-color:goldenrod"><i class="fas fa-paper-plane-o ml-1"></i>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

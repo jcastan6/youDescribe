@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models/database.js");
-
-
-
+const url = require('url');
 
 async function getUserInfoFromRatings(req, res, next){
     let userID = req.user.id;
@@ -79,6 +77,7 @@ async function insertDispute(req, res, next){
 }
 }
 
+//not used?
 async function dispute(req, res, next){
     //console.log("params: "+req.body);
 
@@ -109,16 +108,13 @@ router.post("/dashboard", getUserInfoFromRatings, getUserInfo, insertDispute, fu
     
     // console.log(ratings[0].caption);
     // var accuracy = 0;
-
-
     res.render("dashboard", {
-       
         ratings : ratings,
         users : users,
         accuracy : accuracy.toFixed(2),
-
-
     });
+   
+    
   });
 
 

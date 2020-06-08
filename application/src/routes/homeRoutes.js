@@ -28,6 +28,8 @@ router.get("/", function(req, res, next) {
     let consensus = req.query.consensus;
     let score = req.query.score;
     let comment = req.query.comment;
+    let rating = req.query.rating;
+    let disputed = req.query.disputed;
     
     res.render("play_result", {
       image : image,
@@ -35,8 +37,9 @@ router.get("/", function(req, res, next) {
       rate : rate,
       consensus : consensus,
       score : score,
-      comment : comment
-
+      comment : comment,
+      rating: rating,
+      disputed: disputed
     });
   });
 

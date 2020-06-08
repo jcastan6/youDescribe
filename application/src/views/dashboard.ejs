@@ -75,7 +75,21 @@
     color: rgb(19, 0, 128);
     /* border: 15px solid green; */
     padding: 10px;
-    margin-left: 1000px;
+ 
+
+  }
+
+  .accuracytimes {
+   /* background-color: rgb(238, 238, 238); */
+   width: 500px;
+    height: 25px;
+    color: rgb(128, 0, 85);
+    /* border: 15px solid green; */
+    padding: 10px;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    font-weight: bold;
 
   }
 
@@ -86,8 +100,9 @@
     color: rgb(128, 0, 85);
     /* border: 15px solid green; */
     padding: 10px;
-    margin-left: 1000px;
-
+    justify-content: center;
+    text-align: center;
+    margin: auto;
   }
 
   .table {
@@ -132,8 +147,18 @@
   <br>
   <h2 class="text-center text-info">Caption Rater - The Game!</h2>
   <br>
-
+  
   <h3 class="text-center text-info">Dashboard</h3>
+
+  
+  <form method="GET" action="/leaderboard" class="form-group" >
+    <input type="submit" name="submit" class="button_next" value="Leaderboard">
+  </form>
+
+<form method="GET" action="/play" class="form-group">
+  <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
+</form>
+
 
   <h5 class="attempt">Total Score: <%= users[0].total_score %></h5>
   <h5 class="attempt">Accuracy:
@@ -142,6 +167,13 @@
     <% } %>
 
     %
+  </h5>
+  <h5 class="accuracytimes">Score X Accuracy:
+    <% if(typeof  accuracy != 'undefined'){ %>
+    <%= users[0].total_score*.01*accuracy %>
+    <% } %> 
+
+    (This is the reward calculation.)
   </h5>
   <h5 class="attempt">Number of Attempts: <%= users[0].total_num_attempts %></h5>
 
@@ -170,7 +202,7 @@
               height=100 width=100 readonly /></td>
           <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>" readonly /> </td>
           <td><input type="text" name="rate" value="<%= ratings[i].rate %>" readonly /></td>
-          <td><input type="text" name="consensus" value="<%= ratings[i].consensus %>" readonly /></td>
+          <td><input type="text" name="consensus" value="<%= ratings[i].consensus[0] +'.' + ratings[i].consensus[2]  %>" readonly /></td>
           <td><input type="text" name="scores" value="<%= ratings[i].scores %>"
               onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly /></td>
           <input type="hidden" id="secret" name="hidden_test" value="<%= ratings[i].dispute %>" />
@@ -221,7 +253,5 @@
 </div>
 </div>
 
-<form method="GET" action="/play" class="form-group">
-  <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
-</form>
+
 </div>

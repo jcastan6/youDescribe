@@ -100,7 +100,18 @@
     <br>
     <h2 class= "text-center text-info">Caption Rater - The Game!</h2>
     <h5 class= "text-center text-info">Score:  <%= total_score %> </h5>
+    <h5 class= "text-center text-info">Score X Accuracy:
+     
+      <%= total_score*.01*accuracy %>
+  
+      (This is the reward calculation.)
+    </h5>
     <button class="button_instructions" onclick="show_hide_instructions()">Instructions</button>
+    <div>
+      <form method="GET" action="/dashboard" class="" >
+        <input type="submit" name="submit" class="button_next" value="dashboard">
+      </form>
+    </div>
   <div id="myDIV" style="display:none">
     <table class="table table-bordered">
       <thead class="thead-light">
