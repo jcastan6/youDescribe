@@ -219,6 +219,7 @@ async function getImageidFromCaptions(req, res, next) {
     req.caption_id = captions[0].cap_id;
     req.img_id_from_captions = captions[0].images_img_id;
     req.caption_from_captions = captions[0].caption;
+    console.log("bucket:" + bucket_num);
     console.log("req.caption_id " + req.caption_id);
     global_CapId = req.caption_id;
     global_ImgId = req.img_id_from_captions;

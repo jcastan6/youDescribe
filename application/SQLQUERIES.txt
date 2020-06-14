@@ -1,12 +1,5 @@
 CAPTION RATER SQL QUERIES
 
-//find the number of ratings each caption has
-select captions_cap_id, COUNT(*) as count
-FROM ratings
-group by captions_cap_id
-order by count DESC;
-
-
 //how many ratings in the last 24hrs
 SELECT COUNT(*) from (SELECT * 
 FROM ratings
