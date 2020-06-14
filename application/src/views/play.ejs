@@ -1,49 +1,69 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <title>Play</title>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
-    .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .button_next_before {
+    background-color: rgb(224, 138, 80);
+    background: #dddddd;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
+  .button_next {
+    background-color: rgb(224, 138, 80);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-.button_next{
-  background-color: rgb(224, 138, 80);
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 30px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.button_dashboard{
-  background-color: rgb(72, 83, 247);
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 30px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-.button_instructions {
+  .button_dashboard {
+    background-color: rgb(72, 83, 247);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .button_instructions {
     background-color: rgb(72, 83, 247);
     border: none;
     color: white;
@@ -60,14 +80,12 @@
     margin-right: auto;
   }
 
-.caption{
-  
-  color: rgb(3, 14, 3);
-  padding: 10px;
-  text-align: center;
-  
-}
-#myDIV {
+  .caption {
+    color: rgb(3, 14, 3);
+    padding: 10px;
+    text-align: center;
+  }
+  #myDIV {
     padding: 50px 0;
     text-align: center;
     margin-top: 20px;
@@ -86,32 +104,44 @@
   }
 </style>
 <script>
-      function show_hide_instructions() {
-      var x = document.getElementById("myDIV");
-      if (x.style.display !== "none") {
-        x.style.display = "none";
-      } else {
-        x.style.display = "block";
-      }
+  function show_hide_instructions() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display !== "none") {
+      x.style.display = "none";
+    } else {
+      x.style.display = "block";
     }
+  }
+
+  window.onload = setTimeout(function() {
+    var x = document.getElementById("submit");
+    x.removeAttribute("disabled");
+    x.classList.remove("button_next_before");
+    x.classList.add("button_next");
+  }, 5000);
 </script>
 
 <div>
-    <br>
-    <h2 class= "text-center text-info">Caption Rater - The Game!</h2>
-    <h5 class= "text-center text-info">Score:  <%= total_score %> </h5>
-    <h5 class= "text-center text-info">Score X Accuracy:
-     
-      <%= total_score*.01*accuracy %>
-  
-      (This is the reward calculation.)
-    </h5>
-    <button class="button_instructions" onclick="show_hide_instructions()">Instructions</button>
-    <div>
-      <form method="GET" action="/dashboard" class="" >
-        <input type="submit" name="submit" class="button_next" value="dashboard">
-      </form>
-    </div>
+  <br />
+  <h2 class="text-center text-info">Caption Rater - The Game!</h2>
+  <h5 class="text-center text-info">Score: <%= total_score %></h5>
+  <h5 class="text-center text-info">
+    Score X Accuracy: <%= total_score*.01*accuracy %> (This is the reward
+    calculation.)
+  </h5>
+  <button class="button_instructions" onclick="show_hide_instructions()">
+    Instructions
+  </button>
+  <div>
+    <form method="GET" action="/dashboard" class="">
+      <input
+        type="submit"
+        name="submit"
+        class="button_next"
+        value="dashboard"
+      />
+    </form>
+  </div>
   <div id="myDIV" style="display:none">
     <table class="table table-bordered">
       <thead class="thead-light">
@@ -150,47 +180,82 @@
       </tbody>
     </table>
   </div>
-    <!-- <div class="form-group">
+  <!-- <div class="form-group">
         <input type="submit" name="submit" class="button_dashboard" value="Dashboard">
     </div> -->
-    <br>
-    <img src= <%= imgURL %> width="400" height="300" class="center">
-    <br>
-    <h5 class="caption"> <%= caption_from_captions %> </h5>
-    <br>
-    <form class="form-group" action="/play" method="post">
-        <div style="text-align:center">
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
-            <label class="form-check-label" for="inlineRadio1">1</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
-            <label class="form-check-label" for="inlineRadio2">2</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
-            <label class="form-check-label" for="inlineRadio3">3</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4">
-            <label class="form-check-label" for="inlineRadio3">4</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="5">
-            <label class="form-check-label" for="inlineRadio3">5</label>
-          </div>
+  <br />
+  <img src= <%= imgURL %> width="400" height="300" class="center">
+  <br />
+  <h5 class="caption"><%= caption_from_captions %></h5>
+  <br />
+  <form class="form-group" action="/play" method="post">
+    <div style="text-align:center">
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio1"
+          value="1"
+        />
+        <label class="form-check-label" for="inlineRadio1">1</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio2"
+          value="2"
+        />
+        <label class="form-check-label" for="inlineRadio2">2</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio3"
+          value="3"
+        />
+        <label class="form-check-label" for="inlineRadio3">3</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio4"
+          value="4"
+        />
+        <label class="form-check-label" for="inlineRadio3">4</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio5"
+          value="5"
+        />
+        <label class="form-check-label" for="inlineRadio3">5</label>
+      </div>
     </div>
-    
-    <div >
-        <input type="submit" name="submit" class="button_next" value="Submit">
-        
+
+    <div>
+      <input
+        id="submit"
+        type="submit"
+        name="submit"
+        class="button_next_before"
+        value="Submit"
+        disabled
+      />
     </div>
-</form>
-<!-- <div>
+  </form>
+  <!-- <div>
   <form method="GET" action="/dashboard" class="button_dispute" >
     <input type="submit" name="submit" class="button_next" value="dashboard">
   </form>
 </div> -->
-    
-    </div>
+</div>
