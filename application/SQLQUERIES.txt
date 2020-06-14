@@ -1,0 +1,20 @@
+CAPTION RATER SQL QUERIES
+
+//find the number of ratings each caption has
+select captions_cap_id, COUNT(*) as count
+FROM ratings
+group by captions_cap_id
+order by count DESC;
+
+
+//how many ratings in the last 24hrs
+SELECT COUNT(*) from (SELECT * 
+FROM ratings
+WHERE ratings.date_time > DATE_SUB(CURDATE(), INTERVAL 2 DAY)) T1;
+
+//who has played in the last 24hrs
+SELECT distinct user.email as Email
+FROM ratings
+INNER JOIN users user
+ON users_user_id = user.id
+WHERE ratings.date_time > DATE_SUB(CURDATE(), INTERVAL 2 DAY);

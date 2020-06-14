@@ -63,6 +63,7 @@ const dashboardRouter = require("./src/routes/dashboardRoutes");
 const trainingRouter = require("./src/routes/trainingRoutes");
 const insertDataRouter = require("./src/routes/insertData");
 const leaderboardRouter = require("./src/routes/leaderboardRoutes");
+const extractDataRouter = require("./src/routes/extractData");
 
 app.use("/", loginRouter);
 app.use("/", homeRouter);
@@ -71,8 +72,7 @@ app.use("/", dashboardRouter);
 app.use("/", trainingRouter);
 app.use("/",insertDataRouter);
 app.use("/",leaderboardRouter);
-
-
+app.use("/",extractDataRouter);
 
 passport.use(
     new LocalStrategy(
