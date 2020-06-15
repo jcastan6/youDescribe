@@ -178,23 +178,18 @@ let global_CapId;
 let global_ImgId;
 let global_caption;
 async function checkIfDataExists(req, res, next) {
-  let userID = req.user.id;
-  let query =
-    " select * from db.captions where cap_id not in(select cap_id from db.captions where (bucket" +
-    bucket_num +
-    " = 5 or bucket" +
-    bucket_num +
-    " = 2)) and total_number_of_rates < 5 ";
-  await db.query(query, (err, res) => {
-    console.log(query);
-    if (err) throw err;
-    if (res[0] === undefined) {
-      bucket_num++;
-      checkIfDataExists(req, res, next);
-    } else {
-      next();
-    }
-  });
+  //   let userID = req.user.id;
+  //   let query = " select * from db.captions ";
+  //   await db.query(query, (err, res) => {
+  //     console.log(query);
+  //     if (err) throw err;
+  //     if (res[0] === undefined) {
+  //       bucket_num++;
+  //       checkIfDataExists(req, res, next);
+  //     } else {
+  //       next();
+  //     }
+  //   });
   next();
 }
 
@@ -206,9 +201,7 @@ async function getImageidFromCaptions(req, res, next) {
     userID +
     " and Consensus > 2.5 and consensus < 4.5) or ( consensus <= 1.5 and users_user_id =" +
     userID +
-    ")) and bucket" +
-    bucket_num +
-    " is not null)  t1 WHERE total_number_of_rates < (Select AVG(total_number_of_rates) from db.captions) ORDER BY RAND()";
+    ")))  t1 WHERE total_number_of_rates < (Select AVG(total_number_of_rates) from db.captions) ORDER BY RAND()";
 
   // console.log(userID);
   // console.log(query);
@@ -219,7 +212,6 @@ async function getImageidFromCaptions(req, res, next) {
     req.caption_id = captions[0].cap_id;
     req.img_id_from_captions = captions[0].images_img_id;
     req.caption_from_captions = captions[0].caption;
-    console.log("bucket:" + bucket_num);
     console.log("req.caption_id " + req.caption_id);
     global_CapId = req.caption_id;
     global_ImgId = req.img_id_from_captions;
