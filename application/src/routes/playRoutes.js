@@ -168,13 +168,13 @@ async function insertRatings(req, res, next) {
     current_score = 0;
   } else {
     if (difference <= 0.5) {
-      current_score = 20;
+      current_score = 5;
       current_success = 1;
     } else if (0.5 < difference && difference <= 0.75) {
-      current_score = 10;
+      current_score = 3;
       current_success = 1;
     } else if (0.75 < difference && difference <= 1) {
-      current_score = 5;
+      current_score = 1;
       current_success = 1;
     } else {
       current_score = 0;
@@ -310,95 +310,100 @@ async function updateConsensus(req, res, next) {
   //Scenario 1 : no consensus
   let current_consensus = req.consensus;
   let len = req.count_rate;
-  if (current_consensus === -1) {
-    console.log("Scenario 1 : no consensus , length = " + len);
-    // #case 1: Case that there is one previous rating
-    if (len === 2) {
-      let first = req.ratings[len - 2].rate;
-      let second = req.ratings[len - 1].rate;
-      if (Math.abs(first - second) <= 1) {
-        new_consensus = (first + second) / 2;
-      }
-      console.log(
-        "case 1: Case that there is one previous rating and new_consensus = " +
-          new_consensus
-      );
-      // # case 2: Case that there are two previous ratings
-    } else if (len === 3) {
-      let first = req.ratings[len - 3].rate;
-      let second = req.ratings[len - 2].rate;
-      let third = req.ratings[len - 1].rate;
-      let mean = (first + second + third) / 3;
-      let stdev = Math.sqrt(
-        (Math.pow(Math.abs(first - mean), 2) +
-          Math.pow(Math.abs(second - mean), 2) +
-          Math.pow(Math.abs(third - mean), 2)) /
-          2
-      );
-      if (stdev < 1.5) {
-        new_consensus = mean;
-      } else {
-        new_consensus = current_consensus;
-      }
-      console.log(
-        "case 2: Case that there are two previous ratings and new_consensus = " +
-          new_consensus
-      );
-      // # case 3: Case that there are three previous ratings
-    } else if (len === 4) {
-      let first = req.ratings[len - 4].rate;
-      let second = req.ratings[len - 3].rate;
-      let third = req.ratings[len - 2].rate;
-      let forth = req.ratings[len - 1].rate;
-      let mean = (first + second + third + forth) / 4;
-      let min = Math.min(first, second, third, forth);
-      let max = Math.max(first, second, third, forth);
-      let stdev = Math.sqrt(
-        (Math.pow(Math.abs(first - mean), 2) +
-          Math.pow(Math.abs(second - mean), 2) +
-          Math.pow(Math.abs(third - mean), 2) +
-          Math.pow(Math.abs(forth - mean), 2)) /
-          3
-      );
-      if (stdev < 1.5) {
-        new_consensus = mean;
-      } else {
-        if (mean >= 2.5) {
-          // remove lowest rating and calculate ave
-          new_consensus = (first + second + third + forth - min) / 3;
-        } else {
-          // remove highest rating and calculate ave
-          new_consensus = (first + second + third + forth - max) / 3;
+  if (Math.abs(req.body.inlineRadioOptions - current_consensus) <= 2) {
+    if (current_consensus === -1) {
+      console.log("Scenario 1 : no consensus , length = " + len);
+      // #case 1: Case that there is one previous rating
+      if (len === 2) {
+        let first = req.ratings[len - 2].rate;
+        let second = req.ratings[len - 1].rate;
+        if (Math.abs(first - second) <= 1) {
+          new_consensus = (first + second) / 2;
         }
+        console.log(
+          "case 1: Case that there is one previous rating and new_consensus = " +
+            new_consensus
+        );
+        // # case 2: Case that there are two previous ratings
+      } else if (len === 3) {
+        let first = req.ratings[len - 3].rate;
+        let second = req.ratings[len - 2].rate;
+        let third = req.ratings[len - 1].rate;
+        let mean = (first + second + third) / 3;
+        let stdev = Math.sqrt(
+          (Math.pow(Math.abs(first - mean), 2) +
+            Math.pow(Math.abs(second - mean), 2) +
+            Math.pow(Math.abs(third - mean), 2)) /
+            2
+        );
+        if (stdev < 1.5) {
+          new_consensus = mean;
+        } else {
+          new_consensus = current_consensus;
+        }
+        console.log(
+          "case 2: Case that there are two previous ratings and new_consensus = " +
+            new_consensus
+        );
+        // # case 3: Case that there are three previous ratings
+      } else if (len === 4) {
+        let first = req.ratings[len - 4].rate;
+        let second = req.ratings[len - 3].rate;
+        let third = req.ratings[len - 2].rate;
+        let forth = req.ratings[len - 1].rate;
+        let mean = (first + second + third + forth) / 4;
+        let min = Math.min(first, second, third, forth);
+        let max = Math.max(first, second, third, forth);
+        let stdev = Math.sqrt(
+          (Math.pow(Math.abs(first - mean), 2) +
+            Math.pow(Math.abs(second - mean), 2) +
+            Math.pow(Math.abs(third - mean), 2) +
+            Math.pow(Math.abs(forth - mean), 2)) /
+            3
+        );
+        if (stdev < 1.5) {
+          new_consensus = mean;
+        } else {
+          if (mean >= 2.5) {
+            // remove lowest rating and calculate ave
+            new_consensus = (first + second + third + forth - min) / 3;
+          } else {
+            // remove highest rating and calculate ave
+            new_consensus = (first + second + third + forth - max) / 3;
+          }
+        }
+        console.log(
+          "case 2: Case that there are two previous ratings and new_consensus = " +
+            new_consensus
+        );
       }
+    } else {
+      // Scenario 2: There exists a valid consensus
+      new_consensus = req.ave_rate;
+
       console.log(
-        "case 2: Case that there are two previous ratings and new_consensus = " +
+        "Scenario 2: There exists a valid consensus and new_consensus = " +
           new_consensus
       );
     }
+    let query =
+      " update db.captions SET consensus = " +
+      new_consensus +
+      ", total_number_of_rates = total_number_of_rates+1 where cap_id = " +
+      req.caption_id;
+    console.log("just updated consensus : " + new_consensus);
+    console.log(query);
+    await db.execute(query, (err, res) => {
+      if (err) throw err;
+      req.old_consensus = current_consensus;
+      req.new_consensus = new_consensus;
+      // req.ratings = ratings;
+      next();
+    });
   } else {
-    // Scenario 2: There exists a valid consensus
-    new_consensus = req.ave_rate;
-
-    console.log(
-      "Scenario 2: There exists a valid consensus and new_consensus = " +
-        new_consensus
-    );
-  }
-  let query =
-    " update db.captions SET consensus = " +
-    new_consensus +
-    ", total_number_of_rates = total_number_of_rates+1 where cap_id = " +
-    req.caption_id;
-  console.log("just updated consensus : " + new_consensus);
-  console.log(query);
-  await db.execute(query, (err, res) => {
-    if (err) throw err;
-    req.old_consensus = current_consensus;
-    req.new_consensus = new_consensus;
-    // req.ratings = ratings;
+    console.log("rating too far from consensus. Consensus was not updated");
     next();
-  });
+  }
 }
 
 router.get(
@@ -465,11 +470,11 @@ router.post(
     var random_very_bad_answer =
       very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
     var ans;
-    if (req.current_score < 5) {
+    if (req.current_score < 1) {
       ans = random_very_bad_answer;
-    } else if (req.current_score == 5) {
+    } else if (req.current_score == 1) {
       ans = random_bad_answer;
-    } else if (req.current_score == 10) {
+    } else if (req.current_score == 3) {
       ans = "So close! Try harder next time!";
     } else {
       ans = random_good_answer;
