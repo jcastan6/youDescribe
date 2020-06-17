@@ -11,3 +11,6 @@ FROM ratings
 INNER JOIN users user
 ON users_user_id = user.id
 WHERE ratings.date_time > DATE_SUB(CURDATE(), INTERVAL 2 DAY);
+
+//users with 500+ points
+SELECT email, (total_score*level)/100 as result  FROM db.users  where id not in (21,22,55) and (total_score*level)/100 > 500 order by result desc LIMIT 50 
