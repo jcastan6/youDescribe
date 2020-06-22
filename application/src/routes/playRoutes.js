@@ -86,8 +86,7 @@ async function getImageidFromCaptions(req, res, next) {
     req.caption_id = captions[0].cap_id;
     req.img_id_from_captions = captions[0].images_img_id;
     req.caption_from_captions = captions[0].caption;
-    console.log("req.caption_id " + req.caption_id);
-    global_CapId = req.caption_id;
+    global_CapId = req.body.hidden_input;
     global_ImgId = req.img_id_from_captions;
     global_caption = req.caption_from_captions;
     next();
@@ -96,17 +95,18 @@ async function getImageidFromCaptions(req, res, next) {
 
 async function getImageidFromCaptions_playresult(req, res, next) {
   let userID = req.user.id;
-  let query = " SELECT * from db.captions ";
+  let query =
+    " SELECT * from db.captions where cap_id=" + req.body.hidden_input;
   // console.log(userID);
 
   await db.execute(query, (err, captions) => {
     // console.log("captions[0].cap_id : "+captions[0].cap_id);
     if (err) throw err;
-    console.log(req.img_id_from_captions);
-    console.log("req.caption_id " + global);
-    req.caption_id = global_CapId;
-    req.img_id_from_captions = global_ImgId;
-    req.caption_from_captions = global_caption;
+
+    req.caption_id = req.body.hidden_input;
+    console.log(req.caption_id + "\n\n");
+    req.img_id_from_captions = captions[0].images_img_id;
+    req.caption_from_captions = captions[0].caption;
     next();
   });
 }
@@ -145,7 +145,8 @@ async function getUserInfo(req, res, next) {
 
 async function getCurrentConsensus(req, res, next) {
   // rate = req.body.inlineRadioOptions;
-  let query = " SELECT * FROM db.captions where cap_id = " + req.caption_id;
+  let query =
+    " SELECT * FROM db.captions where cap_id = " + req.body.hidden_input;
   // console.log(query);
   await db.execute(query, (err, consensus) => {
     if (err) throw err;
@@ -164,16 +165,18 @@ async function insertRatings(req, res, next) {
   // console.log("scores1 "+req.query.inlineRadioOptions);
   let current_success = 0;
   let difference = Math.abs(current_consensus - current_rate);
+  console.log(current_rate);
+  console.log(current_consensus + "\n\n");
   if (current_consensus === -1) {
     current_score = 0;
   } else {
     if (difference <= 0.5) {
       current_score = 5;
       current_success = 1;
-    } else if (0.5 < difference && difference <= 0.75) {
+    } else if (0.5 < difference && difference <= 1.25) {
       current_score = 3;
       current_success = 1;
-    } else if (0.75 < difference && difference <= 1) {
+    } else if (1.25 < difference && difference <= 2) {
       current_score = 1;
       current_success = 1;
     } else {
@@ -182,12 +185,6 @@ async function insertRatings(req, res, next) {
     }
     // req.query.inlineRadioOptions
     // parseInt(req.body.inlineRadioOptions)
-
-    console.log("current_consensus: " + current_consensus);
-    console.log("current_rate: " + current_rate);
-    console.log("difference: " + difference);
-    console.log("current_success: " + current_success);
-    console.log("current_score: " + current_score);
   }
 
   let query =
@@ -200,7 +197,7 @@ async function insertRatings(req, res, next) {
     ", " +
     req.user.id +
     ", " +
-    req.caption_id +
+    req.body.hidden_input +
     ", " +
     current_success +
     " ) ";
@@ -212,7 +209,7 @@ async function insertRatings(req, res, next) {
     if (err) throw err;
     req.rating = res.insertId;
     req.disputed = 0;
-    console.log(res);
+
     next();
   });
 }
@@ -263,9 +260,6 @@ async function updateUsersTable(req, res, next) {
   }
   //    let totalAttempt = (req.total_num_attempts + 1);
   //    let accuracy = (score+req.total_score / (totalAttempt*20)) * 100;
-  console.log("accuracy: " + accuracy);
-  console.log("accuracy_divisor : " + accuracy_divisor);
-  console.log("accuracy_divident: " + accuracy_divident);
 
   //increment the userAttempts by one
   let query =
@@ -292,7 +286,7 @@ async function updateUsersTable(req, res, next) {
 async function getRatingsAveForCap(req, res, next) {
   let query =
     "SELECT AVG(rate)  as ave_rate, count(rate) as count_rate FROM db.ratings where captions_cap_id = " +
-    req.caption_id;
+    req.body.hidden_input;
   console.log("ave " + query);
   await db.execute(query, (err, ratingForEachCaption) => {
     if (err) throw err;
@@ -390,8 +384,7 @@ async function updateConsensus(req, res, next) {
       " update db.captions SET consensus = " +
       new_consensus +
       ", total_number_of_rates = total_number_of_rates+1 where cap_id = " +
-      req.caption_id;
-    console.log("just updated consensus : " + new_consensus);
+      req.body.hidden_input;
     console.log(query);
     await db.execute(query, (err, res) => {
       if (err) throw err;
@@ -424,7 +417,8 @@ router.get(
       imgURL: imgURL,
       //    scores : scores,
       total_score: total_score,
-      accuracy: req.accuracy.toFixed(2)
+      accuracy: req.accuracy.toFixed(2),
+      caption_id: req.caption_id
     });
   }
 );
