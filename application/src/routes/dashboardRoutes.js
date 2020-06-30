@@ -25,14 +25,9 @@ async function getUserInfo(req, res, next) {
     // console.log(users[3].email);
     if (err) throw err;
     req.users = users;
-    var accuracy = 0;
     //  console.log("emaill: "+users[0].total_num_attempts);
-    var accuracy_divisor = users[0].total_num_attempts * 20;
-    var accuracy_divident = users[0].total_score;
-    if (accuracy_divisor !== 0) {
-      accuracy = (accuracy_divident / accuracy_divisor) * 100;
-    }
-    req.accuracy = accuracy;
+
+    req.accuracy = users[0].level;
 
     next();
   });
@@ -47,12 +42,8 @@ async function getUserInfo(req, res, next) {
     req.users = users;
     var accuracy = 0;
     //  console.log("emaill: "+users[0].total_num_attempts);
-    var accuracy_divisor = users[0].total_num_attempts * 20;
-    var accuracy_divident = users[0].total_score;
-    if (accuracy_divisor !== 0) {
-      accuracy = (accuracy_divident / accuracy_divisor) * 100;
-    }
-    req.accuracy = accuracy;
+
+    req.accuracy = parseFloat(users[0].level);
 
     next();
   });

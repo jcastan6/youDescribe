@@ -126,8 +126,8 @@
   <h2 class="text-center text-info">Caption Rater - The Game!</h2>
   <h5 class="text-center text-info">Score: <%= total_score %></h5>
   <h5 class="text-center text-info">
-    Score X Accuracy: <%= total_score*.01*accuracy %> (This is the reward
-    calculation.)
+    Score X Accuracy: <%= (total_score*.01*accuracy).toFixed(2) %> (This is the
+    reward calculation.)
   </h5>
   <button class="button_instructions" onclick="show_hide_instructions()">
     Instructions

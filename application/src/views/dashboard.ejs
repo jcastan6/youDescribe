@@ -170,7 +170,7 @@
   </h5>
   <h5 class="accuracytimes">Score X Accuracy:
     <% if(typeof  accuracy != 'undefined'){ %>
-    <%= users[0].total_score*.01*accuracy %>
+    <%= (users[0].total_score*.01*accuracy).toFixed(2) %>
     <% } %> 
 
     (This is the reward calculation.)

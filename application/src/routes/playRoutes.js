@@ -123,23 +123,67 @@ async function getImageUrlfromImageId(req, res, next) {
   });
 }
 
+// async function getUserInfo(req, res, next) {
+//   // rate = req.body.inlineRadioOptions;
+//   let query = " SELECT * FROM db.users where id = " + req.user.id;
+//   // console.log(query);
+//   await db.execute(query, (err, users) => {
+//     if (err) throw err;
+//     req.total_score = users[0].total_score;
+//     req.total_num_attempts = users[0].total_num_attempts;
+//     req.total_num_success = users[0].total_num_success;
+//     var accuracy = 0;
+//     var accuracy_divisor = users[0].total_num_attempts * 20;
+//     var accuracy_divident = users[0].total_score;
+//     if (accuracy_divisor !== 0) {
+//       accuracy = (accuracy_divident / accuracy_divisor) * 100;
+//     }
+//     req.accuracy = accuracy;
+//     next();
+//   });
+// }
+
 async function getUserInfo(req, res, next) {
+  //rating system changed, new scoring system puts 5 as maximum score. Accuracy is now calculated off of scores that were made before and after the change.
   // rate = req.body.inlineRadioOptions;
-  let query = " SELECT * FROM db.users where id = " + req.user.id;
-  // console.log(query);
-  await db.execute(query, (err, users) => {
+
+  //20 point system
+  console.log(req.body.userid);
+  let query1 =
+    "SELECT count(*) as count, sum(scores) as sum FROM db.ratings where users_user_id=" +
+    req.user.id +
+    " and date_time < '2020-06-18'";
+  let count1 = 0;
+  let sum1 = 0;
+
+  //5 point system
+  let query2 =
+    "SELECT count(*) as count, sum(scores) as sum FROM db.ratings where users_user_id=" +
+    req.user.id +
+    " and date_time >= '2020-06-18'";
+  let count2 = 0;
+  let sum2 = 0;
+
+  await db.execute(query1, async (err, data) => {
     if (err) throw err;
-    req.total_score = users[0].total_score;
-    req.total_num_attempts = users[0].total_num_attempts;
-    req.total_num_success = users[0].total_num_success;
-    var accuracy = 0;
-    var accuracy_divisor = users[0].total_num_attempts * 20;
-    var accuracy_divident = users[0].total_score;
-    if (accuracy_divisor !== 0) {
-      accuracy = (accuracy_divident / accuracy_divisor) * 100;
-    }
-    req.accuracy = accuracy;
-    next();
+    count1 = data[0].count;
+    sum1 = data[0].sum;
+
+    await db.execute(query2, (err, data) => {
+      if (err) throw err;
+      count2 = data[0].count;
+      sum2 = data[0].sum;
+
+      req.total_score = parseInt(sum1) + parseInt(sum2);
+      let total = count1 + count2;
+      let accuracy1 = (sum1 * 100) / (20 * total);
+      let accuracy2 = (sum2 * 100) / (5 * total);
+      console.log(accuracy1);
+      console.log(accuracy2);
+      console.log(req.accuracy);
+      req.accuracy = accuracy1 + accuracy2;
+      next();
+    });
   });
 }
 
@@ -251,13 +295,6 @@ async function updateUsersTable(req, res, next) {
     }
     */
 
-  var accuracy = 0;
-  //  console.log("emaill: "+users[0].total_num_attempts);
-  var accuracy_divisor = (req.total_num_attempts + 1) * 20;
-  var accuracy_divident = score + req.total_score;
-  if (accuracy_divisor !== 0) {
-    accuracy = (accuracy_divident / accuracy_divisor) * 100;
-  }
   //    let totalAttempt = (req.total_num_attempts + 1);
   //    let accuracy = (score+req.total_score / (totalAttempt*20)) * 100;
 
@@ -268,7 +305,7 @@ async function updateUsersTable(req, res, next) {
     score +
     " , " +
     "level = " +
-    accuracy +
+    req.accuracy +
     " , " +
     "total_num_attempts = total_num_attempts + 1 " +
     " , " +
