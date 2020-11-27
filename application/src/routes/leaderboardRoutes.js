@@ -5,7 +5,7 @@ const db = require("../models/database.js");
 async function sortByTotalScore(req, res, next) {
   // rate = req.body.inlineRadioOptions;
   let query =
-    "SELECT * FROM db.users  where id not in (21,22) order by total_score desc LIMIT 50;";
+    "SELECT * FROM db.users  where id not in (21,22) order by total_score desc LIMIT 50";
   console.log(query);
   try {
     await db.execute(query, (err, sortByTotalScore) => {
@@ -22,7 +22,7 @@ async function sortByTotalScore(req, res, next) {
 async function sortByAccuracy(req, res, next) {
   // rate = req.body.inlineRadioOptions;
   let query =
-    "SELECT * FROM db.users  where id not in (21,22) order by level desc LIMIT 50;";
+    "SELECT * FROM db.users  where id not in (21,22) order by level desc LIMIT 50";
   console.log(query);
   await db.execute(query, (err, sortByAccuracy) => {
     if (err) throw err;
@@ -34,7 +34,7 @@ async function sortByAccuracy(req, res, next) {
 async function sortByScoreAccuracy(req, res, next) {
   // rate = req.body.inlineRadioOptions;
   let query =
-    "SELECT *, (total_score*level)/100 as result  FROM db.users  where id not in (21,22) order by result desc LIMIT 50;";
+    "SELECT *, (total_score*level)/100 as result  FROM db.users  where id not in (21,22) order by result desc LIMIT 50";
   console.log(query);
   await db.execute(query, (err, sortByScoreAccuracy) => {
     if (err) throw err;
