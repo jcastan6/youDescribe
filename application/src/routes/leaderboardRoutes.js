@@ -7,13 +7,8 @@ async function sortByTotalScore(req, res, next) {
   let query =
     "SELECT * FROM db.users  where id not in (21,22) order by total_score desc LIMIT 50";
 
-  await db.execute(query, (err, sortByTotalScore) => {
-    console.log(err);
-    if (err) throw err;
-    req.sortByTotalScore = sortByTotalScore;
-
-    next();
-  });
+  req.sortByTotalScore = await db.execute(query);
+  next();
 }
 async function sortByAccuracy(req, res, next) {
   // rate = req.body.inlineRadioOptions;
