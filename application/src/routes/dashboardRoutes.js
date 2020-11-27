@@ -26,7 +26,7 @@ async function getUserInfo(req, res, next) {
   await db.execute(query).then(users => {
     console.log(users);
 
-    req.users = users;
+    req.users = users[0];
     //  console.log("emaill: "+users[0].total_num_attempts);
 
     req.accuracy = users[0].level;
