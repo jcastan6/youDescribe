@@ -14,7 +14,7 @@ var options = {
   user: "ubuntu",
   port: 3306,
   password: "n3WPass!",
-  host: "localhost",
+  host: "13.57.196.89",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
