@@ -20,15 +20,16 @@ async function getUserInfoFromRatings(req, res, next) {
 async function getUserInfo(req, res, next) {
   let query = " SELECT * FROM db.users where id = " + req.user.id;
   // console.log(query);
-  const users = await db.execute(query)[0];
+  await db.execute(query).then(users => {
+    console.log(users);
+
+    req.users = users;
+    //  console.log("emaill: "+users[0].total_num_attempts);
+
+    req.accuracy = users.level;
+    next();
+  });
   // console.log(users[3].email);
-  console.log(users);
-  req.users = users;
-  //  console.log("emaill: "+users[0].total_num_attempts);
-
-  req.accuracy = users.level;
-
-  next();
 }
 
 async function insertDispute(req, res, next) {
