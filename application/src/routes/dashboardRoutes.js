@@ -108,7 +108,7 @@ router.get("/dashboard", getUserInfoFromRatings, getUserInfo, function(
   res.render("dashboard", {
     ratings: ratings,
     users: users,
-    accuracy: accuracy.toFixed(2)
+    accuracy: accuracy
   });
 });
 
