@@ -22,7 +22,7 @@ async function getUserInfo(req, res, next) {
   // console.log(query);
   const users = await db.execute(query);
   // console.log(users[3].email);
-
+  console.log(users);
   req.users = users;
   //  console.log("emaill: "+users[0].total_num_attempts);
 
