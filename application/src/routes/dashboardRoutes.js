@@ -10,7 +10,7 @@ async function getUserInfoFromRatings(req, res, next) {
     userID +
     " order by R.rate_id DESC";
   // console.log("the query is: "+query);
-  await db.execute(query, (err, ratings) => {
+  await db.query(query, (err, ratings) => {
     if (err) throw err;
     req.ratings = ratings;
     // console.log(ratings[0].consensus[0])
@@ -21,7 +21,7 @@ async function getUserInfoFromRatings(req, res, next) {
 async function getUserInfo(req, res, next) {
   let query = " SELECT * FROM db.users where id = " + req.user.id;
   // console.log(query);
-  await db.execute(query, (err, users) => {
+  await db.query(query, (err, users) => {
     // console.log(users[3].email);
     if (err) throw err;
     req.users = users;
@@ -36,7 +36,7 @@ async function getUserInfo(req, res, next) {
 async function getUserInfo(req, res, next) {
   let query = " SELECT * FROM db.users where id = " + req.user.id;
   // console.log(query);
-  await db.execute(query, (err, users) => {
+  await db.query(query, (err, users) => {
     // console.log(users[3].email);
     if (err) throw err;
     req.users = users;
@@ -55,7 +55,7 @@ async function insertDispute(req, res, next) {
     //     let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND caption = "${req.body.caption}" AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
     let query = `UPDATE db.ratings SET dispute = 1, dispute_desc = "${req.body.dispute_description}" where rate_id = "${req.body.hidden_input}"`;
     console.log(query);
-    await db.execute(query, (err, captions) => {
+    await db.query(query, (err, captions) => {
       // console.log(query);
       // req.capID = captions[0].cap_id;
       // console.log(req.capID);
@@ -73,7 +73,7 @@ async function dispute(req, res, next) {
     // console.log("this is me2");
     let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND captions_cap_id = ${req.capID} AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
     // console.log(query);
-    await db.execute(query, (err, captions) => {
+    await db.query(query, (err, captions) => {
       if (err) throw err;
       next();
     });

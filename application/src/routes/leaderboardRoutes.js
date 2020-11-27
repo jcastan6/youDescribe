@@ -7,7 +7,7 @@ async function sortByTotalScore(req, res, next) {
   let query =
     "SELECT * FROM db.users  where id not in (21,22) order by total_score desc LIMIT 50";
   console.log(query);
-  const result = await db.execute(query);
+  const result = await db.query(query);
   console.log(result);
   req.sortByTotalScore = result[0];
   next();
@@ -17,7 +17,7 @@ async function sortByAccuracy(req, res, next) {
   let query =
     "SELECT * FROM db.users  where id not in (21,22) order by level desc LIMIT 50";
   console.log(query);
-  const result = await db.execute(query);
+  const result = await db.query(query);
   console.log(result);
   req.sortByAccuracy = result[0];
   next();
@@ -27,7 +27,7 @@ async function sortByScoreAccuracy(req, res, next) {
   let query =
     "SELECT *, (total_score*level)/100 as result  FROM db.users  where id not in (21,22) order by result desc LIMIT 50";
   console.log(query);
-  const result = await db.execute(query);
+  const result = await db.query(query);
   console.log(result);
   req.sortByScoreAccuracy = result[0];
   next();

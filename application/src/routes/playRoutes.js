@@ -80,7 +80,7 @@ async function getImageidFromCaptions(req, res, next) {
   // console.log(userID);
   // console.log(query);
 
-  await db.execute(query, (err, captions) => {
+  await db.query(query, (err, captions) => {
     // console.log("captions[0].cap_id : "+captions[0].cap_id);
     if (err) throw err;
     req.caption_id = captions[0].cap_id;
@@ -99,7 +99,7 @@ async function getImageidFromCaptions_playresult(req, res, next) {
     " SELECT * from db.captions where cap_id=" + req.body.hidden_input;
   // console.log(userID);
 
-  await db.execute(query, (err, captions) => {
+  await db.query(query, (err, captions) => {
     // console.log("captions[0].cap_id : "+captions[0].cap_id);
     if (err) throw err;
 
@@ -116,7 +116,7 @@ async function getImageUrlfromImageId(req, res, next) {
   let query =
     " SELECT img_url as img_url  FROM db.images where img_id =  " + imgID;
   console.log("query: " + query);
-  await db.execute(query, (err, imgURL) => {
+  await db.query(query, (err, imgURL) => {
     if (err) throw err;
     req.imgURL = imgURL[0].img_url;
     next();
@@ -127,7 +127,7 @@ async function getImageUrlfromImageId(req, res, next) {
 //   // rate = req.body.inlineRadioOptions;
 //   let query = " SELECT * FROM db.users where id = " + req.user.id;
 //   // console.log(query);
-//   await db.execute(query, (err, users) => {
+//   await db.query(query, (err, users) => {
 //     if (err) throw err;
 //     req.total_score = users[0].total_score;
 //     req.total_num_attempts = users[0].total_num_attempts;
@@ -164,12 +164,12 @@ async function getUserInfo(req, res, next) {
   let count2 = 0;
   let sum2 = 0;
 
-  await db.execute(query1, async (err, data) => {
+  await db.query(query1, async (err, data) => {
     if (err) throw err;
     count1 = data[0].count;
     sum1 = data[0].sum;
 
-    await db.execute(query2, (err, data) => {
+    await db.query(query2, (err, data) => {
       if (err) throw err;
       count2 = data[0].count;
       sum2 = data[0].sum;
@@ -192,7 +192,7 @@ async function getCurrentConsensus(req, res, next) {
   let query =
     " SELECT * FROM db.captions where cap_id = " + req.body.hidden_input;
   // console.log(query);
-  await db.execute(query, (err, consensus) => {
+  await db.query(query, (err, consensus) => {
     if (err) throw err;
 
     req.consensus = consensus[0].consensus;
@@ -248,7 +248,7 @@ async function insertRatings(req, res, next) {
 
   console.log(query);
 
-  await db.execute(query, (err, res) => {
+  await db.query(query, (err, res) => {
     req.current_score = current_score;
     if (err) throw err;
     req.rating = res.insertId;
@@ -264,7 +264,7 @@ async function getRatingsInfo(req, res, next) {
     " SELECT * FROM db.ratings R, db.captions C, db.images I where R.captions_cap_id = C.cap_id AND C.images_img_id = I.img_id AND R.users_user_id = " +
     userID;
   // console.log(query);
-  await db.execute(query, (err, ratings) => {
+  await db.query(query, (err, ratings) => {
     // req.current_score = ratings[0].scores;
     if (err) throw err;
     req.ratings = ratings;
@@ -314,7 +314,7 @@ async function updateUsersTable(req, res, next) {
     " where id = " +
     req.user.id;
   console.log("query is: " + query);
-  await db.execute(query, (err, res) => {
+  await db.query(query, (err, res) => {
     if (err) throw err;
     next();
   });
@@ -325,7 +325,7 @@ async function getRatingsAveForCap(req, res, next) {
     "SELECT AVG(rate)  as ave_rate, count(rate) as count_rate FROM db.ratings where captions_cap_id = " +
     req.body.hidden_input;
   console.log("ave " + query);
-  await db.execute(query, (err, ratingForEachCaption) => {
+  await db.query(query, (err, ratingForEachCaption) => {
     if (err) throw err;
     req.ave_rate = ratingForEachCaption[0].ave_rate;
     req.count_rate = ratingForEachCaption[0].count_rate;
@@ -423,7 +423,7 @@ async function updateConsensus(req, res, next) {
       ", total_number_of_rates = total_number_of_rates+1 where cap_id = " +
       req.body.hidden_input;
     console.log(query);
-    await db.execute(query, (err, res) => {
+    await db.query(query, (err, res) => {
       if (err) throw err;
       req.old_consensus = current_consensus;
       req.new_consensus = new_consensus;
@@ -467,7 +467,7 @@ async function insertDispute(req, res, next) {
     //     let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND caption = "${req.body.caption}" AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
     let query = `UPDATE db.ratings SET dispute = 1, dispute_desc = "${req.body.dispute_description}" where rate_id = "${req.body.hidden_input}"`;
     console.log(query);
-    await db.execute(query, (err, captions) => {
+    await db.query(query, (err, captions) => {
       // console.log(query);
       // req.capID = captions[0].cap_id;
       // console.log(req.capID);

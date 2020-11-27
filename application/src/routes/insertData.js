@@ -7,7 +7,7 @@ async function insertImages(req, res, next) {
   let query = " SELECT * FROM db.ratings ";
   // console.log("content");
 
-  await db.execute(query, async (err, captions) => {
+  await db.query(query, async (err, captions) => {
     var i;
     const content = fs.readFileSync(
       "C:/Users/Jose/Documents/youDescribe/application/src/newdata/coco_with_pythia_12800-14900_vsepp_ratings.json"
