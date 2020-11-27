@@ -15,7 +15,7 @@ var options = {
   user: "ubuntu",
   port:3306,
   password: "1235012350",
-  host: "54.183.110.192",
+  host: "13.57.196.89",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0

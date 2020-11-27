@@ -5,7 +5,7 @@ const url = require("url");
 
 router.get("/extractData", async (req, res) => {
   let query =
-    "SELECT image.img_url as Image, caption.caption as Caption, caption.cap_id as CapID, caption.consensus as Consensus from captions caption LEFT JOIN images image ON caption.images_img_id = image.img_id";
+    "SELECT image.img_url as Image, caption.caption as Caption, caption.cap_id as CapID, caption.consensus as Consensus from captions caption LEFT JOIN images image ON caption.images_img_id = image.img_id WHERE caption.cap_id < 10000";
   let images = await db.query(query);
   let array = images[0];
 
