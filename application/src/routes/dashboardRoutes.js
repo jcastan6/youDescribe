@@ -10,7 +10,7 @@ async function getUserInfoFromRatings(req, res, next) {
     userID +
     " order by R.rate_id DESC";
   // console.log("the query is: "+query);
-  const ratings = await db.execute(query)[0];
+  const ratings = await db.execute(query);
 
   req.ratings = ratings;
   // console.log(ratings[0].consensus[0])
