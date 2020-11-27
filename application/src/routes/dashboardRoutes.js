@@ -4,7 +4,7 @@ const db = require("../models/database.js");
 const url = require("url");
 
 async function getUserInfoFromRatings(req, res, next) {
-  let userID = req.user.id;
+  let userID = req.body.id;
   let query =
     " SELECT R.rate_id, R.rate, R.scores, R.consensus as consensus, R.users_user_id, R.captions_cap_id, R.success, R.dispute, R.date_time, C.cap_id, C.caption, C.images_img_id, C.dataset_name, I.img_id, I.img_name, I.img_url FROM db.ratings R, db.captions C, db.images I where R.captions_cap_id = C.cap_id AND C.images_img_id = I.img_id AND R.users_user_id =" +
     userID +
@@ -15,7 +15,7 @@ async function getUserInfoFromRatings(req, res, next) {
 }
 
 async function getUserInfo(req, res, next) {
-  let query = " SELECT * FROM db.users where id = " + req.user.id;
+  let query = " SELECT * FROM db.users where id = " + req.body.id;
   console.log(query);
   req.users = await db.query(query)[0];
   next();
