@@ -10,44 +10,17 @@ async function getUserInfoFromRatings(req, res, next) {
     userID +
     " order by R.rate_id DESC";
   console.log("the query is: " + query);
-  await db.query(query).then((err, ratings) => {
-    if (err) throw err;
-    req.ratings = ratings;
-    // console.log(ratings[0].consensus[0])
-    next();
-  });
+  req.ratings = await db.query(query)[0];
+  next();
 }
 
 async function getUserInfo(req, res, next) {
   let query = " SELECT * FROM db.users where id = " + req.user.id;
   console.log(query);
-  await db.query(query, (err, users) => {
-    // console.log(users[3].email);
-    if (err) throw err;
-    req.users = users;
-    //  console.log("emaill: "+users[0].total_num_attempts);
-
-    req.accuracy = users[0].level;
-
-    next();
-  });
+  req.users = await db.query(query)[0];
+  next();
 }
 
-async function getUserInfo(req, res, next) {
-  let query = " SELECT * FROM db.users where id = " + req.user.id;
-  console.log(query);
-  await db.query(query, (err, users) => {
-    // console.log(users[3].email);
-    if (err) throw err;
-    req.users = users;
-    var accuracy = 0;
-    //  console.log("emaill: "+users[0].total_num_attempts);
-
-    req.accuracy = parseFloat(users[0].level);
-
-    next();
-  });
-}
 async function insertDispute(req, res, next) {
   // console.log("params: "+req.body.image);
   if (req.body.dispute_description !== "undefined") {
