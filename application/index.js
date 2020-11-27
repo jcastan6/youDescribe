@@ -13,7 +13,7 @@ var options = {
   database: "db",
   user: "ubuntu",
   port: 3306,
-  password: "1235012350",
+  password: "n3WPass!",
   host: "13.57.196.89",
   waitForConnections: true,
   connectionLimit: 10,
