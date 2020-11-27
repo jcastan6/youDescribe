@@ -8,6 +8,7 @@ async function sortByTotalScore(req, res, next) {
     "SELECT * FROM db.users  where id not in (21,22) order by total_score desc LIMIT 50;";
   console.log(query);
   await db.execute(query, (err, sortByTotalScore) => {
+    console.log(err);
     if (err) throw err;
     req.sortByTotalScore = sortByTotalScore;
 
