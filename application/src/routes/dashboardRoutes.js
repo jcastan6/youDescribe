@@ -10,7 +10,7 @@ async function getUserInfoFromRatings(req, res, next) {
     userID +
     " order by R.rate_id DESC";
   // console.log("the query is: "+query);
-  const ratings = await db.execute(query);
+  const ratings = await db.execute(query)[0];
 
   req.ratings = ratings;
   // console.log(ratings[0].consensus[0])
@@ -20,7 +20,7 @@ async function getUserInfoFromRatings(req, res, next) {
 async function getUserInfo(req, res, next) {
   let query = " SELECT * FROM db.users where id = " + req.user.id;
   // console.log(query);
-  const users = await db.execute(query);
+  const users = await db.execute(query)[0];
   // console.log(users[3].email);
   console.log(users);
   req.users = users;
