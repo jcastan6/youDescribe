@@ -16,6 +16,7 @@ async function sortByAccuracy(req, res, next) {
     "SELECT * FROM db.users  where id not in (21,22) order by level desc LIMIT 50";
   console.log(query);
   req.sortByAccuracy = await db.execute(query);
+  next();
 }
 async function sortByScoreAccuracy(req, res, next) {
   // rate = req.body.inlineRadioOptions;
@@ -23,6 +24,7 @@ async function sortByScoreAccuracy(req, res, next) {
     "SELECT *, (total_score*level)/100 as result  FROM db.users  where id not in (21,22) order by result desc LIMIT 50";
   console.log(query);
   req.sortByScoreAccuracy = await db.execute(query);
+  next();
 }
 
 router.get(
