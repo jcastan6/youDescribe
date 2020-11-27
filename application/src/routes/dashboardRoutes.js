@@ -26,7 +26,7 @@ async function getUserInfo(req, res, next) {
   req.users = users;
   //  console.log("emaill: "+users[0].total_num_attempts);
 
-  req.accuracy = users[0].level;
+  req.accuracy = users.level;
 
   next();
 }
