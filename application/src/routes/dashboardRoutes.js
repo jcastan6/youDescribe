@@ -12,7 +12,8 @@ async function getUserInfoFromRatings(req, res, next) {
   // console.log("the query is: "+query);
 
   await db.execute(query).then(ratings => {
-    req.ratings = ratings;
+    console.log(ratings);
+    req.ratings = ratings[0];
     next();
   });
 
