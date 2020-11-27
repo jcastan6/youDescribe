@@ -9,45 +9,18 @@ async function getUserInfoFromRatings(req, res, next) {
     " SELECT R.rate_id, R.rate, R.scores, R.consensus as consensus, R.users_user_id, R.captions_cap_id, R.success, R.dispute, R.date_time, C.cap_id, C.caption, C.images_img_id, C.dataset_name, I.img_id, I.img_name, I.img_url FROM db.ratings R, db.captions C, db.images I where R.captions_cap_id = C.cap_id AND C.images_img_id = I.img_id AND R.users_user_id =" +
     userID +
     " order by R.rate_id DESC";
-  // console.log("the query is: "+query);
-  await db.execute(query, (err, ratings) => {
-    if (err) throw err;
-    req.ratings = ratings;
-    // console.log(ratings[0].consensus[0])
-    next();
-  });
+  console.log("the query is: " + query);
+  req.ratings = await db.query(query)[0];
+  next();
 }
 
 async function getUserInfo(req, res, next) {
   let query = " SELECT * FROM db.users where id = " + req.user.id;
-  // console.log(query);
-  await db.execute(query, (err, users) => {
-    // console.log(users[3].email);
-    if (err) throw err;
-    req.users = users;
-    //  console.log("emaill: "+users[0].total_num_attempts);
-
-    req.accuracy = users[0].level;
-
-    next();
-  });
+  console.log(query);
+  req.users = await db.query(query)[0];
+  next();
 }
 
-async function getUserInfo(req, res, next) {
-  let query = " SELECT * FROM db.users where id = " + req.user.id;
-  // console.log(query);
-  await db.execute(query, (err, users) => {
-    // console.log(users[3].email);
-    if (err) throw err;
-    req.users = users;
-    var accuracy = 0;
-    //  console.log("emaill: "+users[0].total_num_attempts);
-
-    req.accuracy = parseFloat(users[0].level);
-
-    next();
-  });
-}
 async function insertDispute(req, res, next) {
   // console.log("params: "+req.body.image);
   if (req.body.dispute_description !== "undefined") {
@@ -55,7 +28,7 @@ async function insertDispute(req, res, next) {
     //     let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND caption = "${req.body.caption}" AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
     let query = `UPDATE db.ratings SET dispute = 1, dispute_desc = "${req.body.dispute_description}" where rate_id = "${req.body.hidden_input}"`;
     console.log(query);
-    await db.execute(query, (err, captions) => {
+    await db.query(query, (err, captions) => {
       // console.log(query);
       // req.capID = captions[0].cap_id;
       // console.log(req.capID);
@@ -72,8 +45,8 @@ async function dispute(req, res, next) {
   if (req.body.submit === "Dispute") {
     // console.log("this is me2");
     let query = `UPDATE db.ratings SET dispute = 1 WHERE rate = ${req.body.rate} AND scores = ${req.body.scores} AND captions_cap_id = ${req.capID} AND consensus = ${req.body.consensus} AND users_user_id = ${req.user.id} `;
-    // console.log(query);
-    await db.execute(query, (err, captions) => {
+    console.log(query);
+    await db.query(query, (err, captions) => {
       if (err) throw err;
       next();
     });
