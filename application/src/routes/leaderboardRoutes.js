@@ -5,7 +5,7 @@ const db = require("../models/database.js");
 async function sortByTotalScore(req, res, next) {
   // rate = req.body.inlineRadioOptions;
   let query =
-    "SELECT * FROM db.users  where id not in (21,22) order by total_score desc LIMIT 50";
+    "SELECT * FROM captionrater.users  where id not in (21,22) order by total_score desc LIMIT 50";
   console.log(query);
   const result = await db.query(query);
   console.log(result);
@@ -15,7 +15,7 @@ async function sortByTotalScore(req, res, next) {
 async function sortByAccuracy(req, res, next) {
   // rate = req.body.inlineRadioOptions;
   let query =
-    "SELECT * FROM db.users  where id not in (21,22) order by level desc LIMIT 5";
+    "SELECT * FROM captionrater.users  where id not in (21,22) order by level desc LIMIT 5";
   console.log(query);
   const result = await db.query(query);
   console.log(result);
@@ -25,7 +25,7 @@ async function sortByAccuracy(req, res, next) {
 async function sortByScoreAccuracy(req, res, next) {
   // rate = req.body.inlineRadioOptions;
   let query =
-    "SELECT *, (total_score*level)/100 as result  FROM db.users  where id not in (21,22) order by result desc LIMIT 5";
+    "SELECT *, (total_score*level)/100 as result  FROM captionrater.users  where id not in (21,22) order by result desc LIMIT 5";
   console.log(query);
   const result = await db.query(query);
   console.log(result);
@@ -38,7 +38,7 @@ router.get(
   sortByTotalScore,
   sortByAccuracy,
   sortByScoreAccuracy,
-  function(req, res, next) {
+  function (req, res, next) {
     let sort_TotalScore = req.sortByTotalScore;
     let sort_ByAccuracy = req.sortByAccuracy;
     let sort_ByScoreAccuracy = req.sortByScoreAccuracy;
@@ -46,7 +46,7 @@ router.get(
     res.render("leaderboard", {
       sort_TotalScore: sort_TotalScore,
       sort_ByAccuracy: sort_ByAccuracy,
-      sort_ByScoreAccuracy: sort_ByScoreAccuracy
+      sort_ByScoreAccuracy: sort_ByScoreAccuracy,
     });
   }
 );

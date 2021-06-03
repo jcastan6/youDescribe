@@ -6,18 +6,19 @@ var MySQLStore = require("express-mysql-session")(session);
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var expressValidator = require("express-validator");
+const db = require("../application/src/sequelize-models/index.js");
 
 const PORT = 3000;
 
 var options = {
-  database: "db",
-  user: "ubuntu",
+  database: "captionrater",
+  user: "root",
   port: 3306,
-  password: "n3WPass!",
+  password: "csc648database",
   host: "localhost",
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
 };
 
 var sessionStore = new MySQLStore(options);
@@ -44,7 +45,7 @@ app.use(
     secret: "CSC Class",
     saveUninitialized: false,
     store: sessionStore,
-    resave: false
+    resave: false,
   })
 );
 
@@ -75,15 +76,15 @@ passport.use(
   new LocalStrategy(
     {
       usernameField: "email",
-      passwordField: "password"
+      passwordField: "password",
     },
-    function(email, password, done) {
+    function (email, password, done) {
       const isValid = User.findUser(email, password);
       console.log("isvalis? " + isValid);
       console.log("email is: " + email);
       console.log("password is: " + password);
 
-      isValid.then(res => {
+      isValid.then((res) => {
         if (res != false) {
           return done(null, res);
         }

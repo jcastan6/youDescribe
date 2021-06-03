@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "csc648database",
+    "database": "captionrater",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "csc648database",
+    "database": "captionrater",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "!K5-,w'(ZvT5Uy=3",
+    "database": "captionrater",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

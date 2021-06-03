@@ -29,7 +29,6 @@
     margin-left: auto;
     margin-right: auto;
   }
-
   .button_next {
     background-color: rgb(224, 138, 80);
     border: none;
@@ -46,7 +45,6 @@
     margin-left: auto;
     margin-right: auto;
   }
-
   .button_dashboard {
     background-color: rgb(72, 83, 247);
     border: none;
@@ -79,7 +77,6 @@
     margin-left: auto;
     margin-right: auto;
   }
-
   .caption {
     color: rgb(3, 14, 3);
     padding: 10px;
@@ -93,7 +90,6 @@
   .hide {
     display: none;
   }
-
   .show {
     display: block;
   }
@@ -112,8 +108,7 @@
       x.style.display = "block";
     }
   }
-
-  window.onload = setTimeout(function() {
+  window.onload = setTimeout(function () {
     var x = document.getElementById("submit");
     x.removeAttribute("disabled");
     x.classList.remove("button_next_before");
@@ -142,7 +137,7 @@
       />
     </form>
   </div>
-  <div id="myDIV" style="display:none">
+  <div id="myDIV" style="display: none">
     <table class="table table-bordered">
       <thead class="thead-light">
         <tr>
@@ -184,13 +179,13 @@
         <input type="submit" name="submit" class="button_dashboard" value="Dashboard">
     </div> -->
   <br />
-  <img src= <%= imgURL %> width="400" height="300" class="center">
+  <img src="<%= imgURL %>" width="400" height="300" class="center" />
   <br />
   <h5 class="caption"><%= caption_from_captions %></h5>
   <br />
 
   <form class="form-group" action="/play" method="post">
-    <div style="text-align:center">
+    <div style="text-align: center">
       <div class="form-check form-check-inline">
         <input
           class="form-check-input"

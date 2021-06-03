@@ -4,65 +4,67 @@ const db = require("../models/database.js");
 const fs = require("fs");
 
 async function insertImages(req, res, next) {
-  let query = " SELECT * FROM db.ratings ";
-  // console.log("content");
+  let query = " SELECT * FROM captionrater.ratings ";
+  console.log("ass");
 
-  await db.query(query, async (err, captions) => {
-    var i;
-    const content = fs.readFileSync(
-      "C:/Users/Jose/Documents/youDescribe/application/src/newdata/coco_with_pythia_12800-14900_vsepp_ratings.json"
-    );
+  console.log("My database is connected!");
 
-    images = JSON.parse(content).images;
-    ratings = JSON.parse(content).annotations;
+  var i;
+  const content = fs.readFileSync(
+    "C:/Users/Jose/Documents/captionrater/application/src/newdata/coco_with_pythia_12800-14900_vsepp_ratings.json"
+  );
 
-    await processImages(images);
-    await processCaptions(ratings);
+  images = JSON.parse(content).images;
+  ratings = JSON.parse(content).annotations;
+  processImages(images);
+  processCaptions(ratings, db);
 
-    if (err) throw err;
-    next();
-  });
+  res.send();
 }
 
-async function processCaptions(ratings) {
+function processCaptions(ratings, db) {
   for (const rating of ratings) {
-    let query = `INSERT INTO db.captions (caption, images_img_id, consensus,dataset_name) VALUES ( "${rating.caption}" , ${rating.image_id}  , ${rating.rating} , "COCO" ) `;
+    let query = `INSERT INTO captionrater.captions (caption, images_img_id, consensus,dataset_name) VALUES ( "${rating.caption}" , ${rating.image_id}  , ${rating.rating} , "COCO" ) `;
     console.log(query);
-    let caption = await db.query(query);
-    caption = caption[0];
-    await processRatings(caption.insertId, rating.rating);
+    db.query(query).then((results) => {
+      results = results[0];
+      console.log("The solution is: ", results);
+
+      processRatings(results.insertId, rating.rating);
+    });
   }
 }
 
-async function processRatings(cap_id, consensus) {
-  let query = ` INSERT INTO db.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 20, ${consensus} , 21, ${cap_id}, 1 ) `;
-  await db.query(query);
+function processRatings(cap_id, consensus) {
+  let query = ` INSERT INTO captionrater.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 20, ${consensus} , 21, ${cap_id}, 1 ) `;
+
+  db.query(query).then((results) => {});
   console.log(query);
-  query = ` INSERT INTO db.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 20, ${consensus} , 22, ${cap_id}, 1 ) `;
-  await db.query(query);
+  query = ` INSERT INTO captionrater.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 20, ${consensus} , 22, ${cap_id}, 1 ) `;
+  db.query(query).catch();
   console.log(query);
 }
 
-async function processImages(images) {
+function processImages(images) {
   for (const image of images) {
     console.log(image);
     let imgID = image.id;
     let imgName = image.file_name;
     let imgURL = image.coco_url;
-    await inner(imgID, imgName, imgURL);
+    inner(imgID, imgName, imgURL);
   }
 }
 
 async function inner(id, name, url) {
   let query =
-    "INSERT INTO db.images (img_id, img_name, img_url) VALUES ( " +
+    "INSERT INTO captionrater.images (img_id, img_name, img_url) VALUES ( " +
     id +
     " , '" +
     name +
     "' , '" +
     url +
     "' ) ";
-  await db.query(query);
+  db.query(query).catch();
 }
 
 router.get("/insertData", insertImages, (req, res, next) => {
