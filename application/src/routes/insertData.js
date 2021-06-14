@@ -5,7 +5,6 @@ const fs = require("fs");
 
 async function insertImages(req, res, next) {
   let query = " SELECT * FROM captionrater.ratings ";
-  console.log("ass");
 
   console.log("My database is connected!");
 
