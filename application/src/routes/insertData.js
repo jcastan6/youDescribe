@@ -14,6 +14,7 @@ async function insertImages(req, res, next) {
   );
 
   images = JSON.parse(content).images;
+
   ratings = JSON.parse(content).annotations;
   processImages(images);
   processCaptions(ratings, db);
@@ -47,7 +48,7 @@ function processRatings(cap_id, consensus) {
 function processImages(images) {
   for (const image of images) {
     console.log(image);
-    let imgID = image.id;
+    let imgID = image.image_id;
     let imgName = image.file_name;
     let imgURL = image.coco_url;
     inner(imgID, imgName, imgURL);
@@ -63,6 +64,7 @@ async function inner(id, name, url) {
     "' , '" +
     url +
     "' ) ";
+  console.log(query);
   db.query(query).catch();
 }
 
