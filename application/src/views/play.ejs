@@ -3,13 +3,22 @@
   rel="stylesheet"
   id="bootstrap-css"
 />
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+/>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <title>Play</title>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <style>
+  
   .center {
     display: block;
     margin-left: auto;
+
     margin-right: auto;
   }
   .button_next_before {
@@ -33,12 +42,12 @@
     background-color: rgb(224, 138, 80);
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 10px 30px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 30px;
+    margin: 20px;
     border-radius: 8px;
     cursor: pointer;
     display: block;
@@ -117,17 +126,24 @@
 </script>
 
 <div>
-  <br />
-  <h2 class="text-center text-info">Caption Rater - The Game!</h2>
-  <h5 class="text-center text-info">Score: <%= total_score %></h5>
-  <h5 class="text-center text-info">
-    Score X Accuracy: <%= (total_score*.01*accuracy).toFixed(2) %> (This is the
-    reward calculation.)
-  </h5>
-  <button class="button_instructions" onclick="show_hide_instructions()">
-    Instructions
-  </button>
-  <div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Caption Rater - The Game!</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+           <div>
     <form method="GET" action="/dashboard" class="">
       <input
         type="submit"
@@ -137,6 +153,20 @@
       />
     </form>
   </div>
+        </li>
+    </div>
+  </nav>
+  <br />
+  <h5 class="text-center text-info">Score: <%= total_score %></h5>
+  <h5 class="text-center text-info">
+    Score X Accuracy: <%= (total_score*.01*accuracy).toFixed(2) %> (This is the
+    reward calculation.)
+  </h5>
+  <button class="button_instructions" onclick="show_hide_instructions()">
+    rating system
+  </button>
+
+
   <div id="myDIV" style="display: none">
     <table class="table table-bordered">
       <thead class="thead-light">
@@ -179,12 +209,7 @@
         <input type="submit" name="submit" class="button_dashboard" value="Dashboard">
     </div> -->
   <br />
-  <img
-    src="https://caption.click/images<%= imgURL %>"
-    width="400"
-    height="300"
-    class="center"
-  />
+  <img src="<%= imgURL %>" width="70%" height="auto" class="center" />
   <br />
   <h5 class="caption"><%= caption_from_captions %></h5>
   <br />

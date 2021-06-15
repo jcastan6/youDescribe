@@ -27,6 +27,7 @@ const app = express();
 // logs requests to the backend
 const morgan = require("morgan");
 app.use(morgan("tiny"));
+app.use(express.static("public"));
 
 // sets view engine for ejs
 app.set("views", path.join(__dirname, "./src/views"));

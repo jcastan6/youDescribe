@@ -4,7 +4,8 @@
 
 <title>Dashboard</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -68,34 +69,14 @@
   }
 
 
-  .accuracyscore {
-    /* background-color: rgb(238, 238, 238); */
-    width: 500px;
-    height: 25px;
-    color: rgb(19, 0, 128);
-    /* border: 15px solid green; */
-    padding: 10px;
- 
-
-  }
 
   .accuracytimes {
-   /* background-color: rgb(238, 238, 238); */
-   width: 500px;
-    height: 25px;
-    color: rgb(128, 0, 85);
-    /* border: 15px solid green; */
-    padding: 10px;
-    justify-content: center;
-    text-align: center;
-    margin: auto;
-    font-weight: bold;
 
   }
 
   .attempt {
     /* background-color: rgb(238, 238, 238); */
-    width: 500px;
+   
     height: 25px;
     color: rgb(128, 0, 85);
     /* border: 15px solid green; */
@@ -168,7 +149,7 @@
 
     %
   </h5>
-  <h5 class="accuracytimes">Score X Accuracy:
+  <h5 class="attempt">Score X Accuracy:
     <% if(typeof  accuracy != 'undefined'){ %>
     <%= (users[0].total_score*.01*accuracy).toFixed(2) %>
     <% } %> 

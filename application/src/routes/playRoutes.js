@@ -221,12 +221,12 @@ async function insertRatings(req, res, next) {
     current_score = 0;
   } else {
     if (difference <= 0.5) {
-      current_score = 5;
-      current_success = 1;
-    } else if (0.5 < difference && difference <= 1.25) {
       current_score = 3;
       current_success = 1;
-    } else if (1.25 < difference && difference <= 2) {
+    } else if (0.5 < difference && difference <= 1) {
+      current_score = 2;
+      current_success = 1;
+    } else if (1 < difference && difference <= 1.5) {
       current_score = 1;
       current_success = 1;
     } else {

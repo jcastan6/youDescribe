@@ -1,62 +1,74 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+/>
 <style>
-    .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-.button_login{
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 40px 2px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-inline-start:25px;
-  /* margin-left: 250px;
+  .button_login {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 40px 2px;
+    border-radius: 8px;
+    cursor: pointer;
+
+    /* margin-left: 250px;
   margin-right: 250px; */
-}
+  }
 
-.button_register{
-  background-color: rgb(35, 90, 134);
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 40px 2px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-inline-start:500px;
-  /* margin-left: 250px;
-  margin-right: 250px; */
-}
-
+  .button_register {
+    background-color: rgb(35, 90, 134);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 40px 2px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
 </style>
 
 <div>
-    <br>
-    <h2 class= "text-center text-info">Caption Rater - The Game!</h2>
-    <br>
-    <img src="https://images.pexels.com/photos/1319515/pexels-photo-1319515.jpeg?cs=srgb&dl=photograph-of-giraffe-1319515.jpg&fm=jpg" width="450" height="350" class="center">
-    <div style="display: flex;">
-    <form method="GET" action="/register" class="form-group" >
-       
-        <input type="submit" name="submit" class="button_register" value="Register">
-
+  <br />
+  <h2 class="text-center text-info">Caption Rater - The Game!</h2>
+  <br />
+  <img
+    src="https://images.pexels.com/photos/1319515/pexels-photo-1319515.jpeg?cs=srgb&dl=photograph-of-giraffe-1319515.jpg&fm=jpg"
+    width="70%"
+    height="auto"
+    class="center"
+  />
+  <div style="display: flex">
+    <form method="GET" action="/register" class="form-group">
+      <input
+        type="submit"
+        name="submit"
+        class="button_register"
+        value="Register"
+      />
     </form>
-    <form method="GET" action="/login" class="form-group" >
-      <input type="submit" name="submit" class="button_login" value="Login">
+    <form method="GET" action="/login" class="form-group">
+      <input type="submit" name="submit" class="button_login" value="Login" />
     </form>
-    </div>
-    </div>
+  </div>
+</div>

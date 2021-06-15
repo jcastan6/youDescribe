@@ -10,37 +10,30 @@ const { validationResult } = require("express-validator/check");
 const passport = require("passport");
 var expressValidator = require("express-validator");
 
-
-
-
 // Gets registration page
-router.get("/register", function(req, res, next) {
-  console.log("10 : " + req.params+req.body);
+router.get("/register", function (req, res, next) {
+  console.log("10 : " + req.params + req.body);
   console.log("10 : " + req.isAuthenticated());
   res.render("register", {
     title: "Form Validation",
     // errors: errors
-
   });
   req.session.errors = null;
 });
 
 // Verifies that new user has filled in the signup form correctly and creates user
-router.post("/register", function(req, res, next) {
+router.post("/register", function (req, res, next) {
   console.log(req);
   req
     .check("username", "username must be between  6 and 18 character")
     .isLength({ min: 6, max: 18 }),
-    req
-      .check("email", "invalid email adress")
-      .exists()
-      .isEmail()
-      // .contains("mail.sfsu.edu");
-  req.check('email', 'Please enter your email');
+    req.check("email", "invalid email adress").exists().isEmail();
+  // .contains("mail.sfsu.edu");
+  req.check("email", "Please enter your email");
   req
     .check("password", "password must be between  6 and 18 character")
     .isLength({ min: 6, max: 18 }),
-    req.check('password', 'password not match').equals(req.body.passwordMatch);
+    req.check("password", "password not match").equals(req.body.passwordMatch);
   //   req.check("terms", "You must accept the terms and conditions.").equals("1");
   // req.check("privacy", "You must accept the privacy policy").equals("1");
 
@@ -55,19 +48,19 @@ router.post("/register", function(req, res, next) {
     //   errors: errors
     // });
   } else {
-    const { username, email, password , passwordMatch} = req.body;
+    const { username, email, password, passwordMatch } = req.body;
     console.log("email is: " + req.body.email);
     console.log("username is: " + req.body.username);
-    User.checkValid(email).then(isValid => {
+    User.checkValid(email).then((isValid) => {
       //if there is no similar user in the the user table--> insert the user
       if (isValid) {
         console.log("valid");
-        User.register(username, email, password).then(userID => {
+        User.register(username, email, password).then((userID) => {
           const user_id = userID;
-          req.login({ id: userID }, () => res.render("chooseHome"));
-          console.log("goes here ..."+user_id);
+          req.login({ id: userID }, () => res.render("dashboard"));
+          console.log("goes here ..." + user_id);
           console.log("user register post: " + req.user.id);
-          console.log("isAthenticated: "+req.isAuthenticated());
+          console.log("isAthenticated: " + req.isAuthenticated());
         });
 
         //if there is similar user exists in the table --> show error
@@ -84,7 +77,6 @@ router.post("/register", function(req, res, next) {
   }
 });
 
-
 // // Get login page
 // router.get("/login", function(req, res) {
 //   res.render("login", {
@@ -92,47 +84,45 @@ router.post("/register", function(req, res, next) {
 //   });
 // });
 
-
 // Redirect for failed login
 router.get("/login/failed", (req, res) => {
   // let errormessage = 'Incorrect email or password!';
-  console.log('login failed');
+  console.log("login failed");
   res.render("login", {
-    error_msg : 'login failed',
+    error_msg: "login failed",
     // errormessage : errormessage,
     // login: true,
     // loginError: true,
-    
-    isLoggedIn: req.isAuthenticated()
+
+    isLoggedIn: req.isAuthenticated(),
   });
 });
 
 // Get login page
-router.get("/login", function(req, res) {
+router.get("/login", function (req, res) {
   // console.log("10 : " + req);
   // console.log("102 : " + req.isAuthenticated());
   // console.log("103 : " + req.user.id);
 
   res.render("login", {
-    error_msg :'',
+    error_msg: "",
     title: "Login",
-    isLoggedIn: req.isAuthenticated()
+    isLoggedIn: req.isAuthenticated(),
   });
-
 });
 
 // Logs in user
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/chooseHome",
+    successRedirect: "/dashboard",
     failureRedirect: "/login/failed",
-    failureFlash: false
+    failureFlash: false,
   })
 );
 
 // Logs out user
-router.get("/logout", function(req, res) {
+router.get("/logout", function (req, res) {
   req.logout();
   req.session.destroy();
   res.redirect("/");
@@ -145,6 +135,5 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   done(null, id);
 });
-
 
 module.exports = router;
