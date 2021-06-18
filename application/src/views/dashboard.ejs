@@ -25,12 +25,21 @@
     .desktop {
       display: none;
     }
+
+    .mobile{
+      border-spacing: 0px 8px ;
+    
+    }
+
+    .gif{
+      width:100%
+    }
   }
   @media screen and (min-width: 900px) {
     .wrapper {
       background-color: #e0e1dd;
-      margin-left: 20%;
-      margin-right: 20%;
+      margin-left: 10%;
+      margin-right: 10%;
       margin-top: 5%;
       box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
       border-radius: 15px;
@@ -38,6 +47,14 @@
 
     .mobile {
       display: none;
+    }
+
+    
+    .gif{
+      width: 30%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
@@ -49,7 +66,7 @@
   .myclass{
     height:70px;
     width:100%;
-    word-break: break-word;
+
   }
 
   .center {
@@ -62,15 +79,18 @@
     background-color: rgb(224, 138, 80);
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 15px ;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    
     font-size: 16px;
-    margin: 4px;
+    width:fit-content;
     border-radius: 8px;
     cursor: pointer;
-    margin-inline-start: 7px;
+  
     /* margin-left: 250px;
   margin-right: 250px; */
   }
@@ -103,11 +123,19 @@
     margin-right: auto;
   }
 
- .entry{
-    margin: 4% !important;
-    padding:3% !important;
+ .entry{  
+  
+    padding:2%;
+    background-color: #e0e1dd;
+    box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+    border-radius: 15px;
   }
-
+  
+  table {
+    border-collapse: separate;
+    border-spacing: 1px;
+    
+  }
   .attempt {
     /* background-color: rgb(238, 238, 238); */
    
@@ -118,11 +146,7 @@
     justify-content: center;
     text-align: center;
     margin: auto;
-  }
-
-  .table {
-    margin: auto;
-    width: 75% !important;
+    
   }
 
   input[value="Disputed"] {
@@ -131,13 +155,16 @@
 
   input[type=text],
   select {
-    width: 100%;
     padding: 1px 1px;
     margin: 8px 0;
-    display: inline-block;
+    background-color: #e0e1dd;
     border: none;
+    width: 100%;
     border-radius: 4px;
-    resize: vertical;
+    word-wrap: break-word;
+    word-break: break-all;
+        
+ 
   }
 </style>
 <script>
@@ -160,13 +187,15 @@
 
 <body class="body">
 <div class="wrapper">
-  <br>
+
+
   <div class="header">
+    <br>
   <h2 class="text-center text-info">Caption Rater - The Game!</h2>
   <br>
   
   <h3 class="text-center text-info">Dashboard</h3>
-
+  <img src= "https://caption.click/gifs/dashboard.gif" class="gif">
   
   <form method="GET" action="/leaderboard" class="form-group" >
     <input type="submit" name="submit" class="button_next" value="Leaderboard">
@@ -175,7 +204,7 @@
 <form method="GET" action="/play" class="form-group">
   <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
 </form>
-  <img src= "file:///C:/Users/Jose/Documents/captionrater/application/src/public/gifs/dashboard.gif">
+ 
   <h5 class="attempt">Total Score: <%= users[0].total_score %></h5>
   <h5 class="attempt">Accuracy:
     <% if(typeof  accuracy != 'undefined'){ %>
@@ -236,13 +265,12 @@
       </tbody>
     </table>
 
-    <table class="mobile">
-
+    <table class=" mobile">
       <tbody>
 
         <% for(var i=0; i < ratings.length; i++) { %>
 
-        <tr >
+        <tr  >
 
           <!-- <td><img src=<%= ratings[i].img_url %> alt="" border=3 height=100 width=100></img></td>    -->
           <!-- <td><input type="image" name="image" src="https://caption.click/images<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>" alt=""
@@ -262,12 +290,13 @@
           <input class="button_dispute" id="button" name="submit"
               value="<% if(ratings[i].dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
               onclick="changeToModal('<%= ratings[i].rate_id %>')" />
+            
             </td>
           <!-- data-toggle="modal" data-target="#myModal" -->
-
+            
         </tr>
-
         <% } %>
+         
       </tbody>
     </table>
   </div>
