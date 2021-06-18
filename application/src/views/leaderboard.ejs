@@ -1,8 +1,47 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
+  @media screen and (max-width: 900px) {
+    .wrapper {
+      background-color: #e0e1dd;
+      margin: 5%;
+      border-radius: 10px;
+    }
+
+    .table{
+      width: 90%;
+    }
+  }
+  @media screen and (min-width: 900px) {
+    .wrapper {
+      background-color: #e0e1dd;
+      margin-left: 20%;
+      margin-right: 20%;
+      margin-top:3%;
+      border-radius: 15px;
+    }
+    .table{
+      width: 50%;
+    }
+  }
+  .body {
+    background-color: #1b263b;
+    color: #778da9;
+  }
+
+  .table {
+    border-color: #1b263b;
+    border-radius: 1px;
+    border-width: 3px;
+    background-color: #1b263b;
+    margin: auto;
+
+    overflow:auto;
+  }
+
   .center {
     display: block;
     margin-left: auto;
@@ -27,99 +66,98 @@
   }
 
 
-  .table {
-    margin: auto;
-    width: 50% !important;
  
-    overflow:auto;
-  }
 </style>
 
-<div>
-  <br>
-  <h2 class="text-center text-info">Caption Rater - The Game!</h2>
-  <br>
-  <h4 class="text-center text-info">Leaderboard</h4>
-  <br>
-    <table class="table table-bordered">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">User</th>
-          <th style="text-align: center" scope="col">Score X Accuracy</th>
-        </tr>
-      </thead>
-      <br>
-      
-      <h4 class="text-center">Champions!</h4>
-      <br>
-      <tbody>
-        <% for(var i=0; i < sort_ByScoreAccuracy.length; i++) { %>
+<body class="body"> 
+  <div class="wrapper">
+    <br>
+    <h2 class="text-center  ">Caption Rater - The Game!</h2>
+    <br>
+    <h4 class="text-center  ">Leaderboard</h4>
+    <br>
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">User</th>
+            <th style="text-align: center" scope="col">Score X Accuracy</th>
+          </tr>
+        </thead>
+        <br>
+        
+        <h4 class="text-center">Champions!</h4>
+        <br>
+        <tbody>
+          <% for(var i=0; i < sort_ByScoreAccuracy.length; i++) { %>
 
-        <tr>
-          <th scope="row"><%= sort_ByScoreAccuracy[i].username %></th>
-          <td style="text-align: center"><%= Number(sort_ByScoreAccuracy[i].result).toFixed(0) %></td>
-          </td>
-        </tr>
+          <tr>
+            <th scope="row"><%= sort_ByScoreAccuracy[i].username %></th>
+            <td style="text-align: center"><%= Number(sort_ByScoreAccuracy[i].result).toFixed(0) %></td>
+            </td>
+          </tr>
 
-        <% } %>
-      </tbody>
-      
-    </table>
-  </div>
-  <br>
-  <h4 class="text-center">5 top highest score players!</h4>
-  <br>
-  <div>
-    <table class="table table-bordered">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">User</th>
-          <th style="text-align: center" scope="col">Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(var i=0; i < sort_TotalScore.length; i++) { %>
+          <% } %>
+        </tbody>
+        
+      </table>
+   
+    <br>
+    <h4 class="text-center">5 top highest score players!</h4>
+    <br>
+    <div>
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">User</th>
+            <th style="text-align: center" scope="col">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0; i < sort_TotalScore.length; i++) { %>
 
-        <tr>
-          <th scope="row"><%= sort_TotalScore[i].username %></th>
-          <td style="text-align: center" ><%= sort_TotalScore[i].total_score %></td>
-          </td>
-        </tr>
+          <tr>
+            <th scope="row"><%= sort_TotalScore[i].username %></th>
+            <td style="text-align: center" ><%= sort_TotalScore[i].total_score %></td>
+            </td>
+          </tr>
 
-        <% } %>
-      </tbody>
-    </table>
-  </div>
-  <br>
-  <div>
-    <table class="table table-bordered">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">User</th>
-          <th style="text-align: center" scope="col">Accuracy</th>
-        </tr>
-      </thead>
-      <br>
-      <br>
-      <h4 class="text-center">5 top highest accurate players!</h4>
-      <tbody>
-        <% for(var i=0; i < sort_ByAccuracy.length; i++) { %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+ 
+    <div>
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">User</th>
+            <th style="text-align: center" scope="col">Accuracy</th>
+          </tr>
+        </thead>
+     
+        <br>
+        <h4 class="text-center">5 top highest accurate players!</h4>
+        <br>
+        <tbody>
+          <% for(var i=0; i < sort_ByAccuracy.length; i++) { %>
 
-        <tr>
-          <th scope="row"><%= sort_ByAccuracy[i].username %></th>
-          <td style="text-align: center"><%= Number(sort_ByAccuracy[i].level).toFixed(0)  %>%</td>
-          </td>
-        </tr>
+          <tr>
+            <th scope="row"><%= sort_ByAccuracy[i].username %></th>
+            <td style="text-align: center"><%= Number(sort_ByAccuracy[i].level).toFixed(0)  %>%</td>
+            </td>
+          </tr>
 
-        <% } %>
-      </tbody>
-      
-    </table>
-  </div>
-
-  
-
-  <form  method="GET" action="/play" class="form-group">
-    <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
-  </form>
-</div>
+          <% } %>
+        </tbody>
+        
+      </table>
+    </div>
+    <form  method="GET" action="/play" class="form-group">
+      <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
+    </form>
+    <form  method="GET" action="/dashboard" class="form-group">
+      <input class="button_next" type="submit" name="submit" class="button_primary" value="Back to Dashboard">
+    </form>
+    <br>
+  </div>  
+</body>

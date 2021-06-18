@@ -10,6 +10,30 @@
   content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
 />
 <style>
+  @media screen and (max-width: 900px) {
+    .wrapper {
+      background-color: #e0e1dd;
+      margin: 3%;
+      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+      border-radius: 10px;
+    }
+  }
+  @media screen and (min-width: 900px) {
+    .wrapper {
+      background-color: #e0e1dd;
+      margin-left: 20%;
+      margin-right: 20%;
+      margin-top: 5%;
+      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+      border-radius: 15px;
+    }
+  }
+  .body {
+    font-family: "Noto Sans JP", sans-serif;
+    background-color: #778da9;
+    color: #000000;
+  }
+
   .center {
     display: block;
     margin-left: auto;
@@ -34,7 +58,7 @@
   }
 
   .button_register {
-    background-color: rgb(35, 90, 134);
+    background-color: (35, 90, 134);
     border: none;
     color: white;
     padding: 15px 32px;
@@ -48,26 +72,70 @@
   }
 </style>
 
-<div>
-  <br />
-  <h2 class="text-center text-info">Caption Rater - The Game!</h2>
-  <br />
-  <img
-    src="https://images.pexels.com/photos/1319515/pexels-photo-1319515.jpeg?cs=srgb&dl=photograph-of-giraffe-1319515.jpg&fm=jpg"
-    width="50%"
-    class="center"
-  />
-  <div style="display: flex">
-    <form method="GET" action="/register" class="form-group">
-      <input
-        type="submit"
-        name="submit"
-        class="button_register"
-        value="Register"
-      />
-    </form>
-    <form method="GET" action="/login" class="form-group">
-      <input type="submit" name="submit" class="button_login" value="Login" />
-    </form>
+<body class="body">
+  <div class="wrapper">
+    <br />
+    <div class="text-container">
+      <h2 class="text-center">Caption Rater</h2>
+    </div>
+    <br />
+
+    <div style="display: flex">
+      <!-- <image
+        src="https://lh3.googleusercontent.com/proxy/MjLBu20T96wG-PVKK_Qnq3cGYHIBhpnqd0VWL-0kE-IAxRYiPMB1i0p5CcZnHxLl6EmU5gXKXcIZwrMiUeexfm6IBuYpO6I"
+      ></image> -->
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div id="login">
+      <div class="container">
+        <div
+          id="login-row"
+          class="row justify-content-center align-items-center"
+        >
+          <div id="login-column" class="col-md-8">
+            <div id="login-box" class="col-md-12">
+              <form id="login-form" class="form" action="/login" method="post">
+                <%if (error_msg.length > 0) { %>
+                <h1 style="color: red">Login failed, please try again!</h1>
+                <% } %>
+                <h3 class="text-center">Login</h3>
+                <div class="form-group">
+                  <label for="email" class="">Email:</label><br />
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password" class="">Password:</label><br />
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    type="submit"
+                    name="submit"
+                    class="btn btn-info btn-md"
+                    value="Submit"
+                  />
+                </div>
+                <div id="register-link" class="text-right">
+                  <a href="/register" class="">Register here</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</body>

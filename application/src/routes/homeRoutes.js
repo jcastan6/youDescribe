@@ -1,11 +1,18 @@
 const express = require("express");
+const passport = require("passport");
+
+const { User } = require("../models/user.js");
 const router = express.Router();
 // const db = require("../models/database.js");
 // const fs = require('fs');
 // const content = fs.readFileSync('/Users/rayafarshad/Documents/SFSU/SPRING2020/Independent\ Study/JSON/vsepp_glac_with_rating_5000-6000.json');
 
 router.get("/", function (req, res, next) {
-  res.render("home", {});
+  res.render("home", {
+    error_msg: "",
+    title: "Login",
+    isLoggedIn: req.isAuthenticated(),
+  });
 });
 
 router.get("/chooseHome", function (req, res, next) {

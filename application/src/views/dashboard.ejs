@@ -1,7 +1,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
 <title>Dashboard</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
@@ -11,6 +11,41 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style>
+    @media screen and (max-width: 900px) {
+    .wrapper {
+      margin: 3%;
+     
+      border-radius: 10px;
+    }
+    .header{
+      background-color: #e0e1dd;
+      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+      border-radius: 15px;
+    }
+    .desktop {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 900px) {
+    .wrapper {
+      background-color: #e0e1dd;
+      margin-left: 20%;
+      margin-right: 20%;
+      margin-top: 5%;
+      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+      border-radius: 15px;
+    }
+
+    .mobile {
+      display: none;
+    }
+  }
+
+  .body {
+    font-family: "Noto Sans JP", sans-serif;
+    background-color: #778da9;
+    color: #000000;
+  }
   .myclass{
     height:70px;
     width:100%;
@@ -68,10 +103,9 @@
     margin-right: auto;
   }
 
-
-
-  .accuracytimes {
-
+ .entry{
+    margin: 4% !important;
+    padding:3% !important;
   }
 
   .attempt {
@@ -124,8 +158,10 @@
   }
 </script>
 
-<div>
+<body class="body">
+<div class="wrapper">
   <br>
+  <div class="header">
   <h2 class="text-center text-info">Caption Rater - The Game!</h2>
   <br>
   
@@ -139,8 +175,7 @@
 <form method="GET" action="/play" class="form-group">
   <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
 </form>
-
-
+  <img src= "file:///C:/Users/Jose/Documents/captionrater/application/src/public/gifs/dashboard.gif">
   <h5 class="attempt">Total Score: <%= users[0].total_score %></h5>
   <h5 class="attempt">Accuracy:
     <% if(typeof  accuracy != 'undefined'){ %>
@@ -152,15 +187,16 @@
   <h5 class="attempt">Score X Accuracy:
     <% if(typeof  accuracy != 'undefined'){ %>
     <%= (users[0].total_score*.01*accuracy).toFixed(2) %>
-    <% } %> 
+    <% } %> (This is the reward calculation.)
 
-    (This is the reward calculation.)
   </h5>
+  <br>
   <h5 class="attempt">Number of Attempts: <%= users[0].total_num_attempts %></h5>
-
+  <br>
+</div>
   <br>
   <div>
-    <table class="table table-bordered">
+    <table class="table table-bordered desktop">
       <thead class="thead-light">
         <tr>
           <th scope="col">Image</th>
@@ -193,6 +229,41 @@
               onclick="changeToModal('<%= ratings[i].rate_id %>')" /></td>
           <!-- data-toggle="modal" data-target="#myModal" -->
           </td>
+
+        </tr>
+
+        <% } %>
+      </tbody>
+    </table>
+
+    <table class="mobile">
+
+      <tbody>
+
+        <% for(var i=0; i < ratings.length; i++) { %>
+
+        <tr >
+
+          <!-- <td><img src=<%= ratings[i].img_url %> alt="" border=3 height=100 width=100></img></td>    -->
+          <!-- <td><input type="image" name="image" src="https://caption.click/images<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>" alt=""
+            height=100 width=100 readonly /></td> -->
+          <td class="entry">
+            <input type="image" name="image" src="<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>" alt=""
+               width=100% readonly />
+              <input type="text" name="consensus" value="Consensus: <%= ratings[i].consensus  %>" readonly />
+              <input type="text" name="caption" value="<%= ratings[i].caption %>" readonly />
+          <!--  </td> -->
+          <!-- <td><input type="text" name="rate" value="<%= ratings[i].rate %>" readonly /></td>
+          
+          <td><input type="text" name="scores" value="<%= ratings[i].scores %>"
+              onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly /></td> -->
+          <input type="hidden" id="secret" name="hidden_test" value="<%= ratings[i].dispute %>" />
+          <!-- <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" /> -->
+          <input class="button_dispute" id="button" name="submit"
+              value="<% if(ratings[i].dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
+              onclick="changeToModal('<%= ratings[i].rate_id %>')" />
+            </td>
+          <!-- data-toggle="modal" data-target="#myModal" -->
 
         </tr>
 
@@ -233,6 +304,6 @@
   </div>
 </div>
 </div>
-
+</body>
 
 </div>
