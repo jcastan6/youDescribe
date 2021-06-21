@@ -28,8 +28,10 @@ router.get("/play_result", function (req, res, next) {
   let comment = req.query.comment;
   let rating = req.query.rating;
   let disputed = req.query.disputed;
+  let gif = req.query.gif;
 
   res.render("play_result", {
+    gif: gif,
     image: image,
     caption: caption,
     rate: rate,

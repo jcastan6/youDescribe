@@ -49,9 +49,6 @@ var very_bad_guess = [
   "Whomp whomp!",
 ];
 
-let global_CapId;
-let global_ImgId;
-let global_caption;
 async function checkIfDataExists(req, res, next) {
   //   let userID = req.user.id;
   //   let query = " select * from captionrater.captions ";
@@ -117,78 +114,38 @@ async function getImageUrlfromImageId(req, res, next) {
   });
 }
 
-// async function getUserInfo(req, res, next) {
-//   // rate = req.body.inlineRadioOptions;
-//   let query = " SELECT * FROM db.users where id = " + req.user.id;
-//   // console.log(query);
-//   await db.query(query, (err, users) => {
-//     if (err) throw err;
-//     req.total_score = users[0].total_score;
-//     req.total_num_attempts = users[0].total_num_attempts;
-//     req.total_num_success = users[0].total_num_success;
-//     var accuracy = 0;
-//     var accuracy_divisor = users[0].total_num_attempts * 20;
-//     var accuracy_divident = users[0].total_score;
-//     if (accuracy_divisor !== 0) {
-//       accuracy = (accuracy_divident / accuracy_divisor) * 100;
-//     }
-//     req.accuracy = accuracy;
-//     next();
-//   });
-// }
-
 async function getUserInfo(req, res, next) {
-  //rating system changed, new scoring system puts 5 as maximum score. Accuracy is now calculated off of scores that were made before and after the change.
+  //rating system changed, new scoring system puts 3 as maximum score. Accuracy is now calculated off of scores that were made before and after the change.
   // rate = req.body.inlineRadioOptions;
 
-  //20 point system
-
-  console.log("userid: " + req.user.id);
-  let query1 =
-    "SELECT count(*) as count, sum(scores) as sum FROM captionrater.ratings where users_user_id=" +
-    req.user.id +
-    " and createdAt < '2020-06-18'";
-  let count1 = 0;
-  let sum1 = 0;
-
-  //5 point system
-  let query2 =
+  //3 point system
+  let query =
     "SELECT count(*) as count, sum(scores) as sum FROM captionrater.ratings where users_user_id=" +
     req.user.id +
     " and createdAt >= '2020-06-18'";
-  let count2 = 0;
-  let sum2 = 0;
+  let count = 0;
+  let sum = 0;
 
-  await db.query(query1).then(async (data) => {
+  await db.query(query).then(async (data) => {
     data = data[0];
 
-    if (sum1 === null) {
-      sum1 = 0;
+    count = data[0].count;
+    sum = data[0].sum;
+
+    data = data[0];
+    let total = sum;
+    let accuracy = (sum * 100) / (3 * total);
+
+    if (accuracy < 40) {
+      req.total_score = total;
     }
-    count1 = data[0].count;
-    sum1 = data[0].sum;
 
-    await db.query(query2).then((data) => {
-      data = data[0];
-      count2 = data[0].count;
-      sum2 = data[0].sum;
+    console.log("totalscore: " + req.total_score);
 
-      if (sum2 === null) {
-        sum2 = 0;
-      }
+    req.accuracy = accuracy;
+    console.log("accuracy: " + req.accuracy);
 
-      req.total_score = sum1 + sum2;
-      console.log("totalscore: " + req.total_score);
-      let total = count1 + count2;
-      let accuracy1 = (sum1 * 100) / (20 * total);
-      let accuracy2 = (sum2 * 100) / (5 * total);
-      console.log("accuracy 1: " + accuracy1);
-      console.log("accuracy 2: " + accuracy2);
-      req.accuracy = accuracy1 + accuracy2;
-      console.log("accuracy: " + req.accuracy);
-
-      next();
-    });
+    next();
   });
 }
 
@@ -291,22 +248,6 @@ async function updateUsersTable(req, res, next) {
   let score = req.ratings[req.ratings.length - 1].scores;
   // add total_success to users table
   let success = req.ratings[req.ratings.length - 1].success;
-
-  /*
-    //calculate the level and add it to the users table
-    let levelPoints = 0;
-    let level = 0;
-    let userSuccessRate = req.total_num_success/req.total_num_attempts;
-    if(userSuccessRate>0.25){
-        levelPoints = parseInt(req.total_num_attempts*(1+userSuccessRate));
-    }
-    if(levelPoints != 0 && (levelPoints%100 === 0)){
-        level = level+1;
-    }
-    */
-
-  //    let totalAttempt = (req.total_num_attempts + 1);
-  //    let accuracy = (score+req.total_score / (totalAttempt*20)) * 100;
 
   //increment the userAttempts by one
   let query =
@@ -503,9 +444,6 @@ router.post(
   updateConsensus,
   insertDispute,
   (req, res) => {
-    //   "/play_result"
-    // console.log("imgURL 2:" + req.imgURL);
-    // console.log("req.consensus 2: " + req.consensus);
     var random_good_answer =
       good_guess[Math.floor(Math.random() * good_guess.length)];
     var random_bad_answer =
@@ -513,13 +451,18 @@ router.post(
     var random_very_bad_answer =
       very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
     var ans;
+    let gif2 = "";
     if (req.current_score < 1) {
+      gif2 = "https://caption.click/gifs/Actual_Animation_(3).gif";
       ans = random_very_bad_answer;
     } else if (req.current_score == 1) {
+      gif2 = "https://caption.click/gifs/Actual_Animation_(4).gif";
       ans = random_bad_answer;
-    } else if (req.current_score == 3) {
+    } else if (req.current_score == 2) {
+      gif2 = "https://caption.click/gifs/Actual_Animation_(5).gif";
       ans = "So close! Try harder next time!";
     } else {
+      gif2 = "https://caption.click/gifs/play.gif";
       ans = random_good_answer;
     }
     // ans = (req.current_score <= 5) ? random_bad_answer : random_good_answer;
@@ -532,6 +475,7 @@ router.post(
       url.format({
         pathname: "/play_result",
         query: {
+          gif: gif2,
           comment: ans,
           rating: req.rating,
           rate: parseInt(req.body.inlineRadioOptions),

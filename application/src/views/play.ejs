@@ -336,29 +336,38 @@
           </div>
           <br>
           <div>
-            
-            <input
-              id="submit"
-              type="submit"
-              name="submit"
-              class="button_next_before"
-              value="Submit"
-              disabled
-            />
-            
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                <input
+                  id="submit"
+                  type="submit"
+                  name="submit"
+                  class="button_next_before"
+                  value="Submit"
+                  disabled
+                />
+                </div>
+              </div>
+            </form>
+            <div class="col">
+            <form method="GET" action="/dashboard" class="">
+              <input
+                type="submit"
+                name="submit"
+                class="button_next"
+                value="Back To Dashboard"
+              />
+            </form>
+            </div>
+            <div class = "col">
+            <button class="button_instructions" onclick="show_hide_instructions()">
+              How do i rate a caption?
+            </button>
+            </div>
           </div>
-        </form>
-        <form method="GET" action="/dashboard" class="">
-          <input
-            type="submit"
-            name="submit"
-            class="button_next"
-            value="Back To Dashboard"
-          />
-        </form>
-        <button class="button_instructions" onclick="show_hide_instructions()">
-          How do i rate a caption?
-        </button>
+        </div>
+      
         <div id="myDIV" style="display: none">
           <table class="table table-bordered">
             <thead class="thead-light">

@@ -52,6 +52,12 @@
       margin: 3%;
       padding: 1%;
     }
+    .gif {
+      width: 100%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
   @media screen and (min-width: 900px) {
     .mobile {
@@ -90,6 +96,7 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
+      margin-bottom: -50px;
     }
   }
   .center {
@@ -194,6 +201,13 @@
   .caption1 {
     color: rgb(3, 14, 3);
     padding: 2px;
+    font-size: 16px;
+    text-align: center;
+  }
+  .caption2 {
+    color: rgb(3, 14, 3);
+    padding: 2px;
+    font-size: 30px;
     text-align: center;
   }
   .table {
@@ -223,12 +237,9 @@
 <body class="body">
   <div class="row">
     <div class="col-md-3 animation">
-      <img
-        src="https://caption.click/gifs/Actual_Animations_.gif"
-        class="gif"
-      />
+      <img src="<%= gif %>" class="gif" />
+      <h5 class="caption2"><%= comment %></h5>
       <div id="hidden_div" class="box desktop">
-        <h5 class="caption1"><%= comment %></h5>
         <h6 class="caption1">Your rating: <%= rate %></h6>
         <h6 class="caption1">Consensus: <%= consensus %></h6>
         <h6 class="caption1">Scores Earned:<%= score %></h6>
@@ -240,13 +251,25 @@
         src="https://caption.click/images<%= image %>"
         class="center image"
       />
+
       <h5 class="caption"><%= caption %></h5>
+
       <div id="hidden_div" class="box mobile">
-        <h5 class="caption1"><%= comment %></h5>
-        <h6 class="caption1">Your rating: <%= rate %></h6>
-        <h6 class="caption1">Consensus: <%= consensus %></h6>
-        <h6 class="caption1">Scores Earned:<%= score %></h6>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <img src="<%= gif %>" class="gif" />
+              <h5 class="caption2"><%= comment %></h5>
+            </div>
+            <div class="col">
+              <h6 class="caption1">Your rating: <%= rate %></h6>
+              <h6 class="caption1">Consensus: <%= consensus %></h6>
+              <h6 class="caption1">Scores Earned:<%= score %></h6>
+            </div>
+          </div>
+        </div>
       </div>
+
       <form action="/play" method="GET">
         <div class="form-group">
           <input
