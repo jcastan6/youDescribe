@@ -29,7 +29,7 @@ if (config.use_env_variable) {
     config.username,
     config.password,
     {
-      host: "localhost",
+      host: "54.177.22.144",
       dialect: "mysql",
     }
   );

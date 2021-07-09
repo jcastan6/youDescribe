@@ -3,14 +3,14 @@
     "username": "root",
     "password": "csc648database",
     "database": "captionrater",
-    "host": "127.0.0.1",
+    "host": "54.177.22.144",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": "csc648database",
     "database": "captionrater",
-    "host": "127.0.0.1",
+    "host": "54.177.22.144",
     "dialect": "mysql"
   },
   "production": {
