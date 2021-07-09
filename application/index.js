@@ -15,7 +15,7 @@ var options = {
   user: "root",
   port: 3306,
   password: "csc648database",
-  host: "localhost",
+  host: "54.177.22.144",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
