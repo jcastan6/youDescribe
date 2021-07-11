@@ -10,7 +10,7 @@ async function insertImages(req, res, next) {
 
   var i;
   const content = fs.readFileSync(
-    "C:/Users/Jose/Documents/captionrater/application/src/newdata/coco_with_pythia_12800-14900_vsepp_ratings.json"
+    "/home/ubuntu/caption-rater/application/src/newdata/coco_with_pythia_12800-14900_vsepp_ratings.json"
   );
 
   images = JSON.parse(content).images;
@@ -36,12 +36,8 @@ function processCaptions(ratings, db) {
 }
 
 function processRatings(cap_id, consensus) {
-  let query = ` INSERT INTO captionrater.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 20, ${consensus} , 21, ${cap_id}, 1 ) `;
-
+  let query = ` INSERT INTO captionrater.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 3, ${consensus}, 1, ${cap_id}, 1 ) `;
   db.query(query).then((results) => {});
-  console.log(query);
-  query = ` INSERT INTO captionrater.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 20, ${consensus} , 22, ${cap_id}, 1 ) `;
-  db.query(query).catch();
   console.log(query);
 }
 

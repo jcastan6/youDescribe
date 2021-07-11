@@ -13,6 +13,7 @@ let dbConnection;
 
 mysql
   .createConnection({
+    host: config.host,
     user: config.username,
     password: config.password,
   })
