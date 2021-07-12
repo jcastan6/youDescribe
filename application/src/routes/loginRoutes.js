@@ -57,7 +57,13 @@ router.post("/register", function (req, res, next) {
         console.log("valid");
         User.register(username, email, password).then((userID) => {
           const user_id = userID;
-          req.login({ id: userID }, () => res.render("dashboard"));
+          req.login({ id: userID }, () =>
+            res.render("home", {
+              error_msg: "",
+              title: "Login",
+              isLoggedIn: req.isAuthenticated(),
+            })
+          );
           console.log("goes here ..." + user_id);
           console.log("user register post: " + req.user.id);
           console.log("isAthenticated: " + req.isAuthenticated());
