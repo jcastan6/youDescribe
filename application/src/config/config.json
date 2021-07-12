@@ -15,9 +15,9 @@
   },
   "production": {
     "username": "root",
-    "password": "!K5-,w'(ZvT5Uy=3",
+    "password": "csc648database",
     "database": "captionrater",
-    "host": "127.0.0.1",
+    "host": "54.177.22.144",
     "dialect": "mysql"
   }
 }
