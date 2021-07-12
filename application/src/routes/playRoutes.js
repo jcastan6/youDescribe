@@ -165,62 +165,78 @@ async function getCurrentConsensus(req, res, next) {
 
 async function insertRatings(req, res, next) {
   //calculateScore and check the success (if true) -> add one to success column
-  let current_consensus = req.consensus;
-  let current_score = 0;
-  // console.log("success1 ");
-  let current_rate = parseInt(req.body.inlineRadioOptions);
-  // console.log("scores1 "+req.query.inlineRadioOptions);
-  let current_success = 0;
-  let difference = Math.abs(current_consensus - current_rate);
-  console.log(current_rate);
-  console.log(current_consensus + "\n\n");
-  if (current_consensus === -1) {
-    current_score = 0;
-  } else {
-    if (difference <= 0.5) {
-      current_score = 3;
-      current_success = 1;
-    } else if (0.5 < difference && difference <= 1) {
-      current_score = 2;
-      current_success = 1;
-    } else if (1 < difference && difference <= 1.5) {
-      current_score = 1;
-      current_success = 1;
-    } else {
-      current_score = 0;
-      current_success = 0;
-    }
-    // req.query.inlineRadioOptions
-    // parseInt(req.body.inlineRadioOptions)
-  }
-
-  let query =
-    "Insert INTO captionrater.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success ) VALUES  ( " +
-    parseInt(req.body.inlineRadioOptions) +
-    ", " +
-    current_score +
-    ", " +
-    current_consensus +
-    ", " +
-    req.user.id +
-    ", " +
-    req.body.hidden_input +
-    ", " +
-    current_success +
-    " ) ";
-
-  console.log(query);
-
+  let query2 = `SELECT ratings.rate FROM captionrater.ratings where captions_cap_id = ${req.body.hidden_input} `;
   await db
-    .query(query)
-    .then((res) => {
+    .query(query2)
+    .then(async (res) => {
       res = res[0];
-      console.log("\n\n" + res);
-      req.current_score = current_score;
 
-      req.rating = res.insertId;
-      req.disputed = 0;
-      next();
+      const ratings = [];
+      res.forEach((rate) => {
+        ratings.push(rate["rate"]);
+      });
+      console.log(ratings);
+      req.past_ratings = ratings;
+
+      let n = ratings.length;
+      const average = (arr) => arr.reduce((acc, v) => acc + v) / arr.length;
+      let avg = average(ratings);
+      const variance = (arr) =>
+        arr.reduce((acc, v) => avg + Math.pow(v - avg, 2)) / n;
+      let Var = variance(ratings);
+      let r = 1 + (1 + ((n - 1) * Var) / 4) / Math.pow(n, 2);
+      console.log(`average: ${avg}`);
+      console.log(`variance: ${Var}`);
+      console.log(`r: ${r}`);
+
+      let current_consensus = req.consensus;
+      let current_score = 0;
+
+      let current_rate = parseInt(req.body.inlineRadioOptions);
+
+      let current_success = 0;
+      let difference = Math.abs(current_rate - avg);
+
+      if (difference <= 0.5 * r) {
+        current_score = 3;
+      } else if (difference <= r) {
+        current_score = 2;
+      } else if (difference <= 1.5 * r) {
+        current_score = 1;
+      } else if (difference <= 2 * r) {
+        current_score = 1;
+      } else {
+        current_score = -1;
+      }
+
+      let query =
+        "Insert INTO captionrater.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success ) VALUES  ( " +
+        parseInt(req.body.inlineRadioOptions) +
+        ", " +
+        current_score +
+        ", " +
+        current_consensus +
+        ", " +
+        req.user.id +
+        ", " +
+        req.body.hidden_input +
+        ", " +
+        current_success +
+        " ) ";
+
+      console.log(query);
+
+      await db
+        .query(query)
+        .then((res) => {
+          res = res[0];
+          console.log("\n\n" + res);
+          req.current_score = current_score;
+          req.rating = res.insertId;
+          req.disputed = 0;
+          next();
+        })
+        .catch();
     })
     .catch();
 }
@@ -457,10 +473,10 @@ router.post(
       ans = random_very_bad_answer;
     } else if (req.current_score == 1) {
       gif2 = "https://caption.click/gifs/Actual_Animation_(4).gif";
-      ans = random_bad_answer;
+      ans = "So close! Try harder next time!";
     } else if (req.current_score == 2) {
       gif2 = "https://caption.click/gifs/Actual_Animation_(5).gif";
-      ans = "So close! Try harder next time!";
+      ans = random_good_answer;
     } else {
       gif2 = "https://caption.click/gifs/play.gif";
       ans = random_good_answer;

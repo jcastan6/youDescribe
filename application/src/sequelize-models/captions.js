@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     total_number_of_rates: {
       type: Sequelize.INTEGER,
-      defaultValue: 2,
+      defaultValue: 1,
       allowNull: true,
     },
     consensus: {
