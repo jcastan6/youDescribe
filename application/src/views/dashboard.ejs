@@ -1,12 +1,13 @@
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
 <title>Dashboard</title>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -54,8 +55,8 @@
     .gif{
       width: 30%;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+      /* margin-left: auto;
+      margin-right: auto; */
     }
   /* } */
 
@@ -113,21 +114,35 @@
 
   }
 
+  /* dashboard page buttons*/
   .button_next {
-    background-color: rgb(224, 138, 80);
-    border: none;
+    background-color: rgb(224, 156, 108);
     color: white;
-    /* padding: 15px 32px; */
-    text-align: center;
-    text-decoration: none;
-    /* display: inline-block; */
-    font-size: 16px;
-    margin: 30px;
     border-radius: 8px;
     cursor: pointer;
-    /* display: block; */
-    /* margin-left: auto;
-    margin-right: auto; */
+  }  
+  .selected-tab {
+    background-color: rgb(223, 131, 70);
+    box-shadow:  4px 10px 4px #6e6e6c;
+  }
+  .selected-tab:hover {
+    color: ivory;
+  }
+  .not-selected-tab {
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+  }
+  .not-selected-tab:hover {
+    background-color: rgb(223, 131, 70);
+    color: ivory;
+  }
+  .not-selected-tab:focus {
+    background-color: rgb(223, 131, 70);
+    color: ivory;
+  }
+  .anime {
+    margin-top: -40px;
+    margin-bottom: -70px;
   }
 
  .entry{  
@@ -193,34 +208,38 @@
 
 <body class="body">
 <div class="wrapper">
-
-
   <div class="header">
-    <br>
+    <br />
   <h2 class="text-center heading-text">Caption Rater - The Game!</h2>
-  
-  
   <br />
-  <div class="d-flex justify-content-center">
-    <form method="GET" action="/leaderboard" class="form-group mx-4" >
-      <input type="submit" name="submit" class="btn btn-warning" value="Dashboard">
+  <div class="d-flex justify-content-center mt-2 flex-wrap">
+    <form class="form-group mx-4" >
+      <input type="submit" name="submit" class="form-group btn button_next selected-tab" value="Dashboard">
     </form>
     <form method="GET" action="/leaderboard" class="form-group mx-4" >
-      <input type="submit" name="submit" class="btn btn-warning" value="Leaderboard">
+      <input type="submit" name="submit" class="btn button_next not-selected-tab" value="Leaderboard">
     </form>
-  <form method="GET" action="/play" class="form-group mx-4">
-    <input class="btn btn-warning" type="submit" name="submit"value="Play">
-  </form>
-  
-  <form method="GET" action="/logout" class="form-group mx-4">
-    <input class="btn btn-warning" type="submit" name="submit"value="Logout">
-  </form>
+  <form method="GET" action="/play" class="form-group mx-4 ">
+    <input class="btn button_next not-selected-tab" type="submit" name="submit"value="Play">
+  </form>  
+  <form class="form-group mx-4">
+    <input
+    class="btn btn-secondary not-selected-tab"
+    type="submit" name="submit"
+    aria-hidden="true"
+    data-toggle="modal"
+    data-target="#signout"
+    value="Logout">
+</input>
+</form>
   </div>
 
-  <h3 class="text-center text-info font-italic font-weight-bold">Dashboard</h3>
-  <img src= "https://caption.click/gifs/dashboard.gif" class="gif">
-
- 
+  <h3 class="text-center text-success font-italic font-weight-bold">Dashboard</h3>
+  <div class="d-flex justify-content-center flex-wrap">
+  <img src= "https://caption.click/gifs/dashboard.gif" class="gif anime"> 
+  <div>
+    <br />
+    <br />
   <h5 class="attempt">Total Score: <%= users[0].total_score %></h5>
   <h5 class="attempt">Accuracy:
     <% if(typeof  accuracy != 'undefined'){ %>
@@ -237,7 +256,8 @@
   </h5>
   <br>
   <h5 class="attempt">Number of Attempts: <%= users[0].total_num_attempts %></h5>
-  <br>
+</div>
+</div>
 </div>
   <br>
   <div>
@@ -317,7 +337,7 @@
     </table>
   </div>
 
-  <!-- Modal -->
+<!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -346,9 +366,41 @@
         </form>
       </div>
     </div>
+</div>
+</div>
+
+
+<!-- signout modal -->
+<div
+class="modal fade"
+id="signout"
+role="dialog"
+tabindex="-1" 
+aria-labelledby="signoutLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-body modal-edit mx-auto">
+      <div>
+      <h4 class="text-secondary"> Are you sure? </h4>
+    </div>
+      <div>
+      <form method="GET" action="/logout" class="" >
+        <input type="submit" name="submit" class="btn bg-info btn-lg text-center text-white"
+        data-dismiss="modal" value="Yes">     
+        <button
+        type="button"
+        class="btn bg-info btn-lg text-center text-white"
+        data-dismiss="modal"
+      >
+          No
+        </button>
+      </form>
+      </div>
+    </div>
   </div>
 </div>
 </div>
-</body>
 
-</div>
+</body>
