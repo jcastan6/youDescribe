@@ -52,13 +52,13 @@
     }
 
     
-    .gif{
+    /* .gif{
       width: 30%;
       display: block;
-      /* margin-left: auto;
-      margin-right: auto; */
+      margin-left: auto;
+      margin-right: auto;
     }
-  /* } */
+  } */
 
   .body {
     font-family: "Noto Sans JP", sans-serif;
@@ -136,8 +136,8 @@
     background-color: rgb(223, 131, 70);
     color: ivory;
   }
-  .not-selected-tab:focus {
-    background-color: rgb(223, 131, 70);
+  .btn-logout:focus {
+    outline: none !important;
     color: ivory;
   }
   .anime {
@@ -157,17 +157,19 @@
     border-spacing: 1px;
     
   }
+  .card-score {    
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  background-color: rgb(255, 255, 255);
+  }
   .attempt {
-    /* background-color: rgb(238, 238, 238); */
-   
+    /* background-color: rgb(238, 238, 238); */   
     height: 25px;
     color: rgb(128, 0, 85);
     /* border: 15px solid green; */
-    padding: 10px;
-    justify-content: center;
+    /* justify-content: center; */
     text-align: center;
-    margin: auto;
-    
+    /* margin: auto;     */
   }
 
   input[value="Disputed"] {
@@ -216,16 +218,16 @@
     <form class="form-group mx-4" >
       <input type="submit" name="submit" class="form-group btn button_next selected-tab" value="Dashboard">
     </form>
+    <form method="GET" action="/play" class="form-group mx-4 ">
+      <input class="btn button_next not-selected-tab" type="submit" name="submit"value="Play">
+    </form>
     <form method="GET" action="/leaderboard" class="form-group mx-4" >
       <input type="submit" name="submit" class="btn button_next not-selected-tab" value="Leaderboard">
-    </form>
-  <form method="GET" action="/play" class="form-group mx-4 ">
-    <input class="btn button_next not-selected-tab" type="submit" name="submit"value="Play">
-  </form>  
+    </form>  
   <form class="form-group mx-4">
     <input
-    class="btn btn-secondary not-selected-tab"
-    type="submit" name="submit"
+    class="btn btn-secondary not-selected-tab btn-logout"
+    type="submit"
     aria-hidden="true"
     data-toggle="modal"
     data-target="#signout"
@@ -233,26 +235,21 @@
 </input>
 </form>
   </div>
-
-  <h3 class="text-center text-success font-italic font-weight-bold">Dashboard</h3>
+  <h3 class="text-center text-info font-italic font-weight-bold">Dashboard</h3>
+  <br />
   <div class="d-flex justify-content-center flex-wrap">
-  <img src= "https://caption.click/gifs/dashboard.gif" class="gif anime"> 
-  <div>
-    <br />
-    <br />
-  <h5 class="attempt">Total Score: <%= users[0].total_score %></h5>
+  <img src= "https://caption.click/gifs/dashboard.gif" class="anime mx-3 w-25"> 
+  <div class="card card-score p-3">
+  <h4 class="attempt font-weight-bold text-success">Total Score: <%= users[0].total_score %></h5>
   <h5 class="attempt">Accuracy:
     <% if(typeof  accuracy != 'undefined'){ %>
-    <%= accuracy %>
-    <% } %>
-
-    %
+    <%=accuracy%>
+    <%}%>%
   </h5>
   <h5 class="attempt">Score X Accuracy:
     <% if(typeof  accuracy != 'undefined'){ %>
     <%= (users[0].total_score*.01*accuracy).toFixed(2) %>
-    <% } %> (This is the reward calculation.)
-
+    <% } %> <br /> (This is the reward calculation)
   </h5>
   <br>
   <h5 class="attempt">Number of Attempts: <%= users[0].total_num_attempts %></h5>
@@ -387,16 +384,17 @@ aria-hidden="true"
     </div>
       <div>
       <form method="GET" action="/logout" class="" >
-        <input type="submit" name="submit" class="btn bg-info btn-lg text-center text-white"
+        <input type="submit" name="submit" class="btn bg-info btn-lg btn-block text-center text-white"
         data-dismiss="modal" value="Yes">     
+      </form>
         <button
         type="button"
-        class="btn bg-info btn-lg text-center text-white"
+        class="btn bg-info btn-lg text-center btn-block text-white"
         data-dismiss="modal"
       >
           No
         </button>
-      </form>
+      
       </div>
     </div>
   </div>
