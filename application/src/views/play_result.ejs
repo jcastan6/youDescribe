@@ -73,50 +73,21 @@
     background-color: #717ea1;
     color: #000000;
   }
-  .button_dispute {
-    background-color: rgb(224, 138, 80);
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-inline-start: 7px;
-    /* margin-left: 250px;
-   margin-right: 250px; */
-  }
   .row {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
   .button_dashboard {
     background-color: rgb(224, 138, 80);
-    border: none;
     color: white;
-    padding: 10px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    /* margin: 30px; */
-    border-radius: 8px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
   }
-
   .margin-dashboard-btn {
-    margin-bottom: -5px;
-    margin-top: 20px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-bottom: -10px;
+    margin-top: 15px;
   }
-
+  .btn-lg {
+    padding: 8px 10px;
+  }
   .button_instructions {
     background-color: rgb(72, 83, 247);
     border: none;
@@ -203,12 +174,20 @@
           <h6 class="caption1 font-weight-bold">
             <kbd class="p-1"> Score Earned: <%= score %></kbd>
           </h6>
-          <form method="GET" action="/dashboard" class="margin-dashboard-btn">
+          <form action="/play" method="GET">
             <input
               type="submit"
               name="submit"
-              class="button_dashboard"
-              value="Back to Dashboard"
+              class="
+                btn btn-lg btn-warning
+                text-dark
+                mx-auto
+                d-block
+                margin-dashboard-btn
+                font-weight-bold
+              "
+              value="Next Image"
+              id="submitButton"
             />
           </form>
         </div>
@@ -223,26 +202,26 @@
         </div>
         <h5 class="caption mt-3 font-weight-bold"><%= caption %></h5>
 
-        <form action="/play" method="GET">
-          <div
-            class="form-group d-flex justify-content-center mx-auto w-25 mt-5"
-          >
+        <div class="form-group d-flex justify-content-center mx-auto w-25 mt-5">
+          <form method="GET" action="/dashboard">
             <input
               type="submit"
               name="submit"
-              class="btn btn-lg btn-warning mr-4 text-dark"
-              value="Next"
-              id="submitButton"
+              class="btn btn-lg button_dashboard mr-4"
+              value="Back to Dashboard"
             />
+          </form>
+          <form>
             <input
               type="submit"
               name="submit"
-              class="btn btn-danger ml-4 btn-lg"
+              class="btn btn-danger btn-lg ml-4"
               value="<% if(rating.dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
               onclick="changeToModal('<%= rating %>')"
             />
-          </div>
-        </form>
+          </form>
+        </div>
+
         <!-- Modal -->
         <div
           class="modal fade"
