@@ -16,7 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <style>
-  @media screen and (max-width: 900px) {
+  /* @media screen and (max-width: 900px) {
     .wrapper {
       background-color: #e0e1dd;
       margin: 3%;
@@ -35,8 +35,8 @@
       margin-top: auto;
       display: none;
       background-color: #e0e1dd;
-      /* margin-left: 30%;
-      margin-right: 10%; */
+      margin-left: 30%;
+      margin-right: 10%;
       height: fit-content;
       margin:3%;
       padding: 1%;
@@ -47,13 +47,14 @@
     margin: auto;
     padding: 2%;
     border-radius: 4px;
+    background-color: white;
     text-align: center;
     box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
   }
     .table {
       margin: auto;
-      width: 100% !important;
-      font-size: 12;
+      width: 90% !important;
+      font-size: 14;
     }
     .gif{
       width: 120%;
@@ -61,12 +62,12 @@
       margin-left: auto;
       margin-right: auto;
     }
-  }
-  @media screen and (min-width: 900px) {
+  } */
+  /* @media screen and (min-width: 900px) { */
     .table {
       margin: auto;
-      width: 37% !important;
-      font-size: 12;
+      width: 80% !important;
+      font-size: 14;
     }
     .image {
       border-radius: 15px 15px 0 0px;
@@ -86,13 +87,13 @@
       padding-left: 0 !important;
       padding-right: 0 !important;
       border-radius: 15px;
+      /* width: fit-content; */
     }
 
     .animation{  
-      top: 50%;
+      /* top: 50%; */
       background-color: #dfddd4;
       /* margin-left: 30%;
-      
       margin-right: 10%; */
       box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
       height: 50%;
@@ -107,6 +108,7 @@
     .img-div {
      background-color: rgb(109, 109, 109);
      border-radius: 15px;
+     /* width: fit-content; */
     }
 
     .caption {
@@ -126,7 +128,7 @@
       margin-left: auto;
       margin-right: auto;
     }
-  }
+  /* } */
   
   .body {
     font-family: "Noto Sans JP", sans-serif;
@@ -139,16 +141,16 @@
     margin-right: auto;
   } */
   .button_next_before {
-    background-color: rgb(224, 138, 80);
-    background: #dddddd;
+    /* background-color: rgb(224, 138, 80); */
+    background: #afadad;
     border: none;
-    color: white;
-    padding: 10px 30px;
+    color: rgb(0, 0, 0);
+    padding: 10px 10px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 2 0px;
+    /* display: inline-block; */
+    font-size: 14px;
+    /* margin: 2 0px; */
     border-radius: 8px;
     cursor: pointer;
     display: block;
@@ -159,19 +161,19 @@
     background-color: rgb(224, 138, 80);
     border: none;
     color: white;
-    padding: 10px 30px;
+    padding: 10px 10px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 2 0px;
+    /* display: inline-block; */
+    font-size: 14px;
+    /* margin: 2 0px; */
     border-radius: 8px;
     cursor: pointer;
     display: block;
     margin-left: auto;
     margin-right: auto;
   }
-  .button_dashboard {
+  /* .button_dashboard {
     background-color: rgb(72, 83, 247);
     border: none;
     color: white;
@@ -186,16 +188,16 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-  }
+  } */
   .button_instructions {
     background-color: rgb(72, 83, 247);
     border: none;
     color: white;
-    padding: 13px 20px;
+    padding: 10px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 15px;
+    font-size: 14px;
     margin: 30px;
     border-radius: 8px;
     cursor: pointer;
@@ -204,10 +206,10 @@
     margin-right: auto;
   }
 
-  #myDIV {
-   
+  #myDIV {   
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 20px;
   }
   
   .hide {
@@ -290,8 +292,8 @@
             </div>
           </div>
         </div>
-        <div class="text-center img-div">
-        <img src="https://caption.click/images<%= imgURL %>" class="image" />
+        <div class="text-center img-div mx-auto d-block">
+        <img src="https://caption.click/images<%= imgURL %>" class="img-fluid image" />
         <!-- <img src="https://caption.click/images/val2014/COCO_val2014_000000052155.jpg" class="image" /> -->
         <!-- https://caption.click/images/val2014/COCO_val2014_000000052155.jpg -->
       </div>
@@ -376,16 +378,6 @@
                 </div>
               </div>
             </form>
-            <!-- <div class="col">
-            <form method="GET" action="/dashboard" class="">
-              <input
-                type="submit"
-                name="submit"
-                class="button_next"
-                value="Back To Dashboard"
-              />
-            </form>
-            </div> -->
             <div class = "col">
             <button class="button_instructions" onclick="show_hide_instructions()">
               Rating Guide
@@ -394,9 +386,11 @@
           </div>
         </div>
       
-        <div id="myDIV" style="display: none">
-          <table class="table table-bordered table-info">
-            <thead class="thead-dark">
+        <div id="myDIV"
+        style="display: none">
+        
+          <table class="table table-bordered table-secondary table-responsive text-center">
+            <thead class="thead-light">
               <tr>
                 <th scope="col">Rating</th>
                 <th scope="col">Description</th>
