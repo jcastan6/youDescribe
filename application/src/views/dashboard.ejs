@@ -12,31 +12,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style>
-    /* @media screen and (max-width: 900px) {
-    .wrapper {
-      margin: 3%;
-     
-      border-radius: 10px;
-    }
-    .header{
-      background-color: #e0e1dd;
-      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
-      border-radius: 15px;
-    }
-    .desktop {
-      display: none;
-    }
-
-    .mobile{
-      border-spacing: 0px 8px ;
-    
-    }
-
-    .gif{
-      width:100%
-    }
-  } */
-  /* @media screen and (min-width: 900px) { */
     .wrapper {
       background-color: #dfddd4;
       margin-left: 10%;
@@ -50,16 +25,6 @@
     .mobile {
       display: none;
     }
-
-    
-    /* .gif{
-      width: 30%;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  } */
-
   .body {
     font-family: "Noto Sans JP", sans-serif;
     background-color: #717ea1;
@@ -92,15 +57,11 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    text-decoration: none;
-    
+    text-decoration: none;    
     font-size: 16px;
     width:fit-content;
     border-radius: 8px;
     cursor: pointer;
-  
-    /* margin-left: 250px;
-  margin-right: 250px; */
   }
 
   button_color .totalscore {
@@ -142,12 +103,18 @@
   }
   .anime {
     margin-top: -40px;
-    margin-bottom: -70px;
+    margin-bottom: -40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    height: auto;
+    /* min-width: 60%;
+    max-width: 80%; */
   }
 
  .entry{  
     padding:2%;
-    background-color: #e0e1dd;
+    background-color: #babbb7;
     box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
     border-radius: 15px;
   }
@@ -161,16 +128,29 @@
   border-radius: 10px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
   background-color: rgb(255, 255, 255);
+  width: max-content;
   }
   .attempt {
-    /* background-color: rgb(238, 238, 238); */   
-    height: 25px;
     color: rgb(128, 0, 85);
-    /* border: 15px solid green; */
-    /* justify-content: center; */
-    text-align: center;
-    /* margin: auto;     */
+    text-align: center;    
   }
+
+  @media screen and (min-width: 685px) {
+    .anime{
+      width: 40%;
+      max-width: 40%;
+    }
+  }
+
+  @media screen and (min-width: 1100px) {
+    .anime{
+      width: 30%;
+      max-width: 30%;
+      margin-bottom: -90px;
+    }
+  }
+
+
 
   input[value="Disputed"] {
     background: rgb(141, 122, 109);
@@ -212,7 +192,7 @@
 <div class="wrapper">
   <div class="header">
     <br />
-  <h2 class="text-center heading-text">Caption Rater - The Game!</h2>
+  <h1 class="text-center heading-text">Caption Rater - The Game!</h1>
   <br />
   <div class="d-flex justify-content-center mt-2 flex-wrap">
     <form class="form-group mx-4" >
@@ -235,29 +215,31 @@
 </input>
 </form>
   </div>
-  <h3 class="text-center text-info font-italic font-weight-bold">Dashboard</h3>
+  <h2 class="text-center text-info font-italic font-weight-bold"><u>Dashboard</u></h2>
   <br />
-  <div class="d-flex justify-content-center flex-wrap">
-  <img src= "https://caption.click/gifs/dashboard.gif" class="anime mx-3 w-25"> 
-  <div class="card card-score p-3">
-  <h4 class="attempt font-weight-bold text-success">Total Score: <%= users[0].total_score %></h5>
-  <h5 class="attempt">Accuracy:
-    <% if(typeof  accuracy != 'undefined'){ %>
-    <%=accuracy%>
-    <%}%>%
-  </h5>
-  <h5 class="attempt">Score X Accuracy:
-    <% if(typeof  accuracy != 'undefined'){ %>
-    <%= (users[0].total_score*.01*accuracy).toFixed(2) %>
-    <% } %> <br /> (This is the reward calculation)
-  </h5>
+  <div class="d-flex justify-content-around flex-wrap">
+    <img src= "https://caption.click/gifs/dashboard.gif" class="img-fluid anime">
+    <div  class="d-block mx-auto">
+    <div class="card card-score p-3 m-3">
+      <h4 class="attempt font-weight-bold text-success">Total Score: <%= users[0].total_score %></h5>
+      <h5 class="attempt">Accuracy:
+        <% if(typeof  accuracy != 'undefined'){ %>
+        <%=accuracy%>
+        <%}%>%
+      </h5>
+      <h5 class="attempt">Score X Accuracy:
+        <% if(typeof  accuracy != 'undefined'){ %>
+        <%= (users[0].total_score*.01*accuracy).toFixed(2) %>
+        <% } %> <br /> (This is the reward calculation)
+      </h5>
+      <br>
+      <h5 class="attempt">Number of Attempts: <%= users[0].total_num_attempts %></h5>
+    </div>
+  </div>
+  </div>
+</div>
   <br>
-  <h5 class="attempt">Number of Attempts: <%= users[0].total_num_attempts %></h5>
-</div>
-</div>
-</div>
-  <br>
-  <div>
+<div>
     <table class="table table-bordered desktop">
       <thead class="thead-light">
         <tr>
