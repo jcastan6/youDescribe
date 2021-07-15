@@ -1,72 +1,41 @@
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
 <title>Dashboard</title>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style>
-    @media screen and (max-width: 900px) {
     .wrapper {
-      margin: 3%;
-     
-      border-radius: 10px;
-    }
-    .header{
-      background-color: #e0e1dd;
+      background-color: #dfddd4;
+      /* margin-left: 10%;
+      margin-right: 10%; */
+      margin-top: 3%;
+      margin-bottom: 3%;
       box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
       border-radius: 15px;
+      padding-bottom: 20px;
     }
-    .desktop {
-      display: none;
-    }
-
-    .mobile{
-      border-spacing: 0px 8px ;
-    
-    }
-
-    .gif{
-      width:100%
-    }
-  }
-  @media screen and (min-width: 900px) {
-    .wrapper {
-      background-color: #e0e1dd;
-      margin-left: 10%;
-      margin-right: 10%;
-      margin-top: 5%;
-      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
-      border-radius: 15px;
-    }
-
-    .mobile {
-      display: none;
-    }
-
-    
-    .gif{
-      width: 30%;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
   .body {
     font-family: "Noto Sans JP", sans-serif;
-    background-color: #778da9;
+    background-color: #717ea1;
     color: #000000;
   }
+
+  .heading-text {
+      color:#61259e;
+      font-weight: 900;
+  }
+
   .myclass{
     height:70px;
     width:100%;
-
   }
 
   .center {
@@ -75,7 +44,7 @@
     margin-right: auto;
   }
 
-  .button_dispute {
+  /* .button_dispute {
     background-color: rgb(224, 138, 80);
     border: none;
     color: white;
@@ -84,16 +53,12 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    text-decoration: none;
-    
+    text-decoration: none;    
     font-size: 16px;
-    width:fit-content;
+    width: 100px;
     border-radius: 8px;
     cursor: pointer;
-  
-    /* margin-left: 250px;
-  margin-right: 250px; */
-  }
+  } */
 
   button_color .totalscore {
     /* background-color: rgb(238, 238, 238); */
@@ -106,47 +71,73 @@
 
   }
 
+  /* dashboard page buttons*/
   .button_next {
-    background-color: rgb(224, 138, 80);
-    border: none;
+    background-color: rgb(224, 156, 108);
     color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 30px;
     border-radius: 8px;
     cursor: pointer;
-    display: block;
+  }  
+  .selected-tab {
+    background-color: rgb(223, 131, 70);
+    box-shadow:  4px 10px 4px #6e6e6c;
+  }
+  .selected-tab:hover {
+    color: ivory;
+  }
+  .not-selected-tab {
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+  }
+  .not-selected-tab:hover {
+    background-color: rgb(223, 131, 70);
+    color: ivory;
+  }
+  .btn-logout:focus {
+    outline: none !important;
+    color: ivory;
+  }
+  .anime {
+    margin-top: -40px;
+    margin-bottom: -40px;
     margin-left: auto;
     margin-right: auto;
+    width: 60%;
+    height: auto;
+    /* min-width: 60%;
+    max-width: 80%; */
   }
 
  .entry{  
-  
     padding:2%;
-    background-color: #e0e1dd;
+    /* background-color: #babbb7; */
+    text-align: center;
     box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
     border-radius: 15px;
+    border: 3.5px solid rgb(133, 97, 160);
+    background-color: rgb(211, 187, 161);
   }
   
   table {
     border-collapse: separate;
-    border-spacing: 1px;
-    
+    border-spacing: 1px;    
+  }
+  .card-score {    
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  background-color: rgb(255, 255, 255);
+  width: max-content;
   }
   .attempt {
-    /* background-color: rgb(238, 238, 238); */
-   
-    height: 25px;
     color: rgb(128, 0, 85);
-    /* border: 15px solid green; */
-    padding: 10px;
-    justify-content: center;
+    text-align: center;    
+  }
+
+  /* dashboard table */
+  .table-div {
     text-align: center;
-    margin: auto;
-    
+    border: 3.5px solid rgb(133, 97, 160);
+    border-radius: 13px;
   }
 
   input[value="Disputed"] {
@@ -157,14 +148,61 @@
   select {
     padding: 1px 1px;
     margin: 8px 0;
-    background-color: #e0e1dd;
+    /* background-color: #e0e1dd; */
     border: none;
     width: 100%;
     border-radius: 4px;
     word-wrap: break-word;
     word-break: break-all;
-        
- 
+    text-align: center;
+  }
+
+  .table th {
+   text-align: center;
+   background-color: rgb(211, 187, 161);
+}
+.table td {
+   text-align: center;
+   background-color: rgb(238, 224, 204);
+}
+
+  /* media queries */
+  @media screen and (min-width: 685px) {
+    .anime{
+      width: 40%;
+      max-width: 40%;
+    }
+  }
+
+  @media screen and (min-width: 1100px) {
+    .anime{
+      width: 30%;
+      max-width: 30%;
+      margin-bottom: -90px;
+    }
+  }
+  @media screen and (max-width: 900px) {
+  .desktop {
+      display: none;
+    }
+    .mobile{
+      border-spacing: 0px 8px ;    
+    }
+  }
+  @media screen and (min-width: 900px) {
+  .mobile {
+      display: none;
+    }
+  }
+  @media (max-width: 586px) {
+    .container {
+        max-width: 450px;
+    }
+  }
+  @media (max-width: 499px) {
+    .container {
+        max-width: 380px;
+    }
   }
 </style>
 <script>
@@ -186,47 +224,59 @@
 </script>
 
 <body class="body">
-<div class="wrapper">
-
-
+<div class="container wrapper">
   <div class="header">
-    <br>
-  <h2 class="text-center text-info">Caption Rater - The Game!</h2>
-  <br>
-  
-  <h3 class="text-center text-info">Dashboard</h3>
-  <img src= "https://caption.click/gifs/dashboard.gif" class="gif">
-  
-  <form method="GET" action="/leaderboard" class="form-group" >
-    <input type="submit" name="submit" class="button_next" value="Leaderboard">
-  </form>
-
-<form method="GET" action="/play" class="form-group">
-  <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
+    <br />
+  <h1 class="text-center heading-text">Caption Rater - The Game!</h1>
+  <br />
+  <div class="d-flex justify-content-center mt-2 flex-wrap">
+    <form class="form-group mx-4" >
+      <input type="submit" name="submit" class="form-group btn button_next selected-tab" value="Dashboard">
+    </form>
+    <form method="GET" action="/play" class="form-group mx-4 ">
+      <input class="btn button_next not-selected-tab" type="submit" name="submit"value="Play">
+    </form>
+    <form method="GET" action="/leaderboard" class="form-group mx-4" >
+      <input type="submit" name="submit" class="btn button_next not-selected-tab" value="Leaderboard">
+    </form>  
+  <form class="form-group mx-4">
+    <input
+    class="btn btn-secondary not-selected-tab btn-logout"
+    type="submit"
+    aria-hidden="true"
+    data-toggle="modal"
+    data-target="#signout"
+    value="Logout">
+</input>
 </form>
- 
-  <h5 class="attempt">Total Score: <%= users[0].total_score %></h5>
-  <h5 class="attempt">Accuracy:
-    <% if(typeof  accuracy != 'undefined'){ %>
-    <%= accuracy %>
-    <% } %>
-
-    %
-  </h5>
-  <h5 class="attempt">Score X Accuracy:
-    <% if(typeof  accuracy != 'undefined'){ %>
-    <%= (users[0].total_score*.01*accuracy).toFixed(2) %>
-    <% } %> (This is the reward calculation.)
-
-  </h5>
-  <br>
-  <h5 class="attempt">Number of Attempts: <%= users[0].total_num_attempts %></h5>
-  <br>
+  </div>
+  <h2 class="text-center text-info font-italic font-weight-bold"><u>Dashboard</u></h2>
+  <br />
+  <div class="d-flex justify-content-around flex-wrap">
+    <img src= "https://caption.click/gifs/dashboard.gif" class="img-fluid anime">
+    <div  class="d-block mx-auto">
+    <div class="card card-score p-3 m-3">
+      <h4 class="attempt font-weight-bold text-success">Total Score: <%= users[0].total_score %></h5>
+      <h5 class="attempt">Accuracy:
+        <% if(typeof  accuracy != 'undefined'){ %>
+        <%=accuracy%>
+        <%}%>%
+      </h5>
+      <h5 class="attempt">Score X Accuracy:
+        <% if(typeof  accuracy != 'undefined'){ %>
+        <%= (users[0].total_score*.01*accuracy).toFixed(2) %>
+        <% } %> <br /> (This is the reward calculation)
+      </h5>
+      <br>
+      <h5 class="attempt">Number of Attempts: <%= users[0].total_num_attempts %></h5>
+    </div>
+  </div>
+  </div>
 </div>
   <br>
-  <div>
-    <table class="table table-bordered desktop">
-      <thead class="thead-light">
+<div class="p-4 table-responsive">
+    <table class="table desktop text-center table-div">
+      <thead class="">
         <tr>
           <th scope="col">Image</th>
           <th scope="col">Caption</th>
@@ -242,18 +292,19 @@
 
         <tr>
 
-          <td><img src="https://caption.click/images<%= ratings[i].img_url %>" alt="" border=3 height=100 width=100></img></td>   
+          <td><img src="https://caption.click/images<%= ratings[i].img_url %>" alt="" class="border border-dark rounded" height=100 width=100></img></td>   
 
           <!-- <td><input type="image" name="image" src="https://caption.click/images<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>" alt=""
               height=100 width=100 readonly /></td> -->
-          <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>" readonly /> </td>
+          <!-- <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>" readonly /> </td> -->
+          <td style="width:500px;" class="font-weight-bold text-dark"><%= ratings[i].caption %></td>
           <td><input type="text" name="rate" value="<%= ratings[i].rate %>" readonly /></td>
           <td><input type="text" name="consensus" value="<%= ratings[i].consensus  %>" readonly /></td>
-          <td><input type="text" name="scores" value="<%= ratings[i].scores %>"
+          <td><input type="text" name="scores" class="text-success font-weight-bold" value="<%= ratings[i].scores %>"
               onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly /></td>
           <input type="hidden" id="secret" name="hidden_test" value="<%= ratings[i].dispute %>" />
           <!-- <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" /> -->
-          <td><input class="button_dispute" id="button" name="submit"
+          <td><input style="width:100px;" class="btn btn-danger btn-lg mx-auto p-3" id="button" name="submit"
               value="<% if(ratings[i].dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
               onclick="changeToModal('<%= ratings[i].rate_id %>')" /></td>
           <!-- data-toggle="modal" data-target="#myModal" -->
@@ -265,7 +316,7 @@
       </tbody>
     </table>
 
-    <table class=" mobile">
+    <table class="mobile">
       <tbody>
 
         <% for(var i=0; i < ratings.length; i++) { %>
@@ -278,8 +329,9 @@
           <td class="entry">
             <input type="image" name="image" src="https://caption.click/images<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>" alt=""
                width=100% readonly />
-              <input type="text" name="consensus" value="Consensus: <%= ratings[i].consensus  %>" readonly />
-              <input type="text" name="caption" value="<%= ratings[i].caption %>" readonly />
+              <input style="width: fit-content;" type="text" name="consensus" value="Consensus: <%= ratings[i].consensus  %>" readonly />
+              <!-- <input type="text" name="caption" value="<%= ratings[i].caption %>" readonly /> -->
+              <p class="p-2"><kbd><%= ratings[i].caption %></kbd></p>
           <!--  </td> -->
           <!-- <td><input type="text" name="rate" value="<%= ratings[i].rate %>" readonly /></td>
           
@@ -287,7 +339,7 @@
               onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly /></td> -->
           <input type="hidden" id="secret" name="hidden_test" value="<%= ratings[i].dispute %>" />
           <!-- <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" /> -->
-          <input class="button_dispute" id="button" name="submit"
+          <input class="btn btn-danger btn-lg mx-auto w-25 p-2 mt-2" id="button" name="submit"
               value="<% if(ratings[i].dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
               onclick="changeToModal('<%= ratings[i].rate_id %>')" />
             
@@ -301,7 +353,7 @@
     </table>
   </div>
 
-  <!-- Modal -->
+<!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -330,9 +382,42 @@
         </form>
       </div>
     </div>
+</div>
+</div>
+
+
+<!-- signout modal -->
+<div
+class="modal fade"
+id="signout"
+role="dialog"
+tabindex="-1" 
+aria-labelledby="signoutLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-body modal-edit mx-auto">
+      <div>
+      <h4 class="text-secondary"> Are you sure? </h4>
+    </div>
+      <div>
+      <form method="GET" action="/logout" class="" >
+        <input type="submit" name="submit" class="btn bg-info btn-lg btn-block text-center text-white"
+        data-dismiss="modal" value="Yes">     
+      </form>
+        <button
+        type="button"
+        class="btn bg-info btn-lg text-center btn-block text-white"
+        data-dismiss="modal"
+      >
+          No
+        </button>
+      
+      </div>
+    </div>
   </div>
 </div>
 </div>
-</body>
 
-</div>
+</body>

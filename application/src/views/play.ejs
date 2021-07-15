@@ -16,64 +16,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <style>
-  @media screen and (max-width: 900px) {
-    .wrapper {
-      background-color: #e0e1dd;
-      margin: 3%;
-      padding: 0%;
+    .table {
+      margin: auto;
+      width: 80% !important;
+      font-size: 14;
+      border: 3.5px solid rgb(99, 99, 155);
       border-radius: 10px;
-      box-shadow:0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
-    }
-    .image {
-      width:100%
-    }
-
-    .info{
-      padding: 10px;
-    }
-    .animation{
-      margin-top: auto;
-      display: none;
-      background-color: #e0e1dd;
-      /* margin-left: 30%;
-      margin-right: 10%; */
-      height: fit-content;
-      margin:3%;
-      padding: 1%;
-    }
-    .caption {
-    color: rgb(3, 14, 3);
-    width: fit-content;
-    margin: auto;
-    padding: 2%;
-    border-radius: 4px;
-    text-align: center;
-    box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
-  }
-    .table {
-      margin: auto;
-      width: 100% !important;
-      font-size: 12;
-    }
-    .gif{
-      width: 120%;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-  @media screen and (min-width: 900px) {
-    .table {
-      margin: auto;
-      width: 37% !important;
-      font-size: 12;
     }
     .image {
       border-radius: 15px 15px 0 0px;
-      width:100%
+      width: 100%;
+      /* width: fit-content; */
+      height: auto;
+      /* background-size: 100% 100%; */
       }
     .wrapper {
-      background-color: #e0e1dd;
+      background-color: #dddfd4;
       /* margin-left: 30%;
       margin-right: 10%; */
       height: 30%;
@@ -83,13 +41,13 @@
       padding-left: 0 !important;
       padding-right: 0 !important;
       border-radius: 15px;
+      /* width: fit-content; */
     }
 
     .animation{  
-      top: 50%;
-      background-color: #e0e1dd;
+      /* top: 50%; */
+      background-color: #dfddd4;
       /* margin-left: 30%;
-      
       margin-right: 10%; */
       box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
       height: 50%;
@@ -101,47 +59,78 @@
       display: none;
     }
 
+    .img-div {
+     /* background-color: rgb(109, 109, 109); */
+     border-radius: 15px;
+     /* width: fit-content; */
+    }
+
     .caption {
-    color: rgb(3, 14, 3);
-   
+    color: rgb(3, 14, 3);   
     width: fit-content;
     margin: auto;
-    padding: 4px;
+    /* padding: 4px; */
+    background-color: white;
     box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
-    padding: 1%;
-    border-radius: 4px;
+    padding: 8px;
+    border-radius: 8px;
     text-align: center;
   }
   .gif{
-      width: 100%;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-  
-  .body {
-    font-family: "Noto Sans JP", sans-serif;
-    background-color: #778da9;
-    color: #000000;
-  }
-  .center {
+    width: 100%;
     display: block;
     margin-left: auto;
-
     margin-right: auto;
   }
+
+  @media screen and (max-width: 768px) {
+    .gif{
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .animation{
+    padding: 25px;
+  }
+  }
+
+  .body {
+    font-family: "Noto Sans JP", sans-serif;
+    background-color: #717ea1;
+    color: #000000;
+  }
   .button_next_before {
-    background-color: rgb(224, 138, 80);
-    background: #dddddd;
+    /* background-color: rgb(224, 138, 80); */
+    background: #afadad;
     border: none;
-    color: white;
-    padding: 10px 30px;
+    color: rgb(0, 0, 0);
+    padding: 10px 16px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 2 0px;
+    /* display: inline-block; */
+    font-size: 18px;
+    line-height: 1.333;
+    font-weight: 400;
+    /* margin: 2 0px; */
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .button_dashboard {
+    background-color: rgb(224, 138, 80);
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-size: 14px;
+    line-height: 1.333;
+    font-weight: 400;
+    /* margin: 2 0px; */
     border-radius: 8px;
     cursor: pointer;
     display: block;
@@ -152,28 +141,14 @@
     background-color: rgb(224, 138, 80);
     border: none;
     color: white;
-    padding: 10px 30px;
+    padding: 10px 16px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 2 0px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .button_dashboard {
-    background-color: rgb(72, 83, 247);
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 30px;
+    /* display: inline-block; */
+    font-size: 18px;
+    line-height: 1.333;
+    font-weight: 400;
+    /* margin: 2 0px; */
     border-radius: 8px;
     cursor: pointer;
     display: block;
@@ -184,11 +159,11 @@
     background-color: rgb(72, 83, 247);
     border: none;
     color: white;
-    padding: 13px 20px;
+    padding: 10px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 15px;
+    font-size: 14px;
     margin: 30px;
     border-radius: 8px;
     cursor: pointer;
@@ -197,10 +172,10 @@
     margin-right: auto;
   }
 
-  #myDIV {
-   
+  #myDIV {   
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 20px;
   }
   
   .hide {
@@ -209,8 +184,7 @@
   .show {
     display: block;
   }
- 
-}
+
 </style>
 <script>
   function show_hide_instructions() {
@@ -234,16 +208,25 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3 animation">
-      
+        <h3 class="text-center text-info font-italic font-weight-bold">Let's Play!!</h3>
         <img src= "https://caption.click/gifs/play.gif" class="gif">
          
         <div class="caption">
      
-        <h5 class="text-center">Total Score: <%= total_score %></h5>
-        <h5 class="text-center">
-          Score X Accuracy: <%= (total_score*.01*accuracy).toFixed(2) %> (This is your
-          reward calculation.)
-        </h5>
+        <h5 class="font-weight-bold text-success">Total Score: <%= total_score %></h5>
+        <h6 class="text-center mt-3">
+          Score X Accuracy: <%= (total_score*.01*accuracy).toFixed(2) %> 
+          <br/>(This is your
+          reward calculation)
+        </h6>        
+        <form method="GET" action="/dashboard" class="mt-3">
+          <input
+            type="submit"
+            name="submit"
+            class="button_dashboard"
+            value="Back To Dashboard"
+          />
+        </form>
         </div>
       
       </div>
@@ -254,23 +237,35 @@
           <div class="container">
             <div class="row">
               <div class="col">
+                <h3 class="text-center text-info font-italic font-weight-bold">Let's Play!!</h3>
                <img src= "https://caption.click/gifs/play.gif" class="gif">
               </div>
-              <div class="col">
-                <h5 class="text-center">Total Score: <%= total_score %></h5>
+              <div class="col caption">
+                <h5 class="font-weight-bold text-success">Total Score: <%= total_score %></h5>
                 <br>
-                <h5 class="text-center">
+                <h6 class="text-center">
                   Score X Accuracy: <%= (total_score*.01*accuracy).toFixed(2) %> (This is your
-                  reward calculation.)
-                </h5>
+                  reward calculation)
+                </h6>
+                <form method="GET" action="/dashboard" class="mt-3">
+                  <input
+                    type="submit"
+                    name="submit"
+                    class="button_dashboard"
+                    value="Back To Dashboard"
+                  />
+                </form>
               </div>
             </div>
           </div>
         </div>
-        <img src="https://caption.click/images<%= imgURL %>" class="center image" />
-        <!-- <img src="<%= imgURL %>" class="center image" /> -->
+        <div class="text-center img-div mx-auto d-block">
+        <img src="https://caption.click/images<%= imgURL %>" class="img-fluid image" />
+        <!-- <img src="https://caption.click/images/val2014/COCO_val2014_000000052155.jpg" class="image" /> -->
+        <!-- https://caption.click/images/val2014/COCO_val2014_000000052155.jpg -->
+      </div>
         <br />
-        <h5 class="caption"><%= caption_from_captions %></h5>
+        <h5 class="caption mt-3 font-weight-bold"><%= caption_from_captions %></h5>
         <br />
       
         <form class="form-group" action="/play" method="post">
@@ -350,16 +345,6 @@
                 </div>
               </div>
             </form>
-            <div class="col">
-            <form method="GET" action="/dashboard" class="">
-              <input
-                type="submit"
-                name="submit"
-                class="button_next"
-                value="Back To Dashboard"
-              />
-            </form>
-            </div>
             <div class = "col">
             <button class="button_instructions" onclick="show_hide_instructions()">
               Rating Guide
@@ -368,8 +353,10 @@
           </div>
         </div>
       
-        <div id="myDIV" style="display: none">
-          <table class="table table-bordered">
+        <div id="myDIV"
+        style="display: none">
+        
+          <table class="table table-bordered table-secondary table-responsive text-center">
             <thead class="thead-light">
               <tr>
                 <th scope="col">Rating</th>

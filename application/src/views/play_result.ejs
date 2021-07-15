@@ -21,145 +21,72 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-  @media screen and (max-width: 900px) {
-    .desktop {
-      display: none;
-    }
-
-    .wrapper {
-      background-color: #e0e1dd;
-      margin: 3% !important;
-      padding: 0%;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
-    }
-    .header {
-      background-color: #e0e1dd;
-      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
-      border-radius: 15px;
-    }
-
-    .image {
-      width: 100%;
-    }
-    .animation {
-      margin-top: auto;
-      display: none;
-      background-color: #e0e1dd;
-      /* margin-left: 30%;
-   margin-right: 10%; */
-      height: fit-content;
-      margin: 3%;
-      padding: 1%;
-    }
-    .gif {
-      width: 100%;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
+  .wrapper {
+    background-color: #dddfd4;
+    height: 30%;
+    margin: 3%;
+    box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+    padding: 0%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-radius: 15px;
   }
-  @media screen and (min-width: 900px) {
-    .mobile {
-      display: none;
-    }
-    .wrapper {
-      background-color: #e0e1dd;
-      /* margin-left: 30%;
-      margin-right: 10%; */
-      height: 30%;
-      margin: 3%;
-      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
-      padding: 0%;
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-      border-radius: 15px;
-    }
 
-    .animation {
-      top: 50%;
-      background-color: #e0e1dd;
-      /* margin-left: 30%;
-   margin-right: 10%; */
-      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
-      height: 50%;
-      margin: 3%;
-      padding: 1%;
-      border-radius: 15px;
-    }
-    .image {
-      border-radius: 15px 15px 0 0px;
-      width: 100%;
-    }
-    .gif {
-      width: 100%;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: -50px;
-    }
+  .animation {
+    top: 50%;
+    background-color: #dddfd4;
+    box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+    height: 50%;
+    margin: 3%;
+    padding: 1%;
+    border-radius: 15px;
   }
-  .center {
+  .gif {
+    width: 100%;
     display: block;
     margin-left: auto;
     margin-right: auto;
   }
-  .body {
-    font-family: "Noto Sans JP", sans-serif;
-    background-color: #778da9;
-    color: #000000;
+  @media screen and (max-width: 768px) {
+    .gif {
+      width: 50%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .animation {
+      padding: 20px;
+    }
   }
-  .button_dispute {
-    background-color: rgb(224, 138, 80);
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-inline-start: 7px;
-    /* margin-left: 250px;
-   margin-right: 250px; */
+  .image {
+    border-radius: 15px 15px 0 0px;
+    width: 100%;
+    height: auto;
+  }
+  .img-div {
+    /* background-color: rgb(109, 109, 109); */
+    border-radius: 15px;
+    /* width: fit-content; */
+  }
+  .body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #717ea1;
+    color: #000000;
   }
   .row {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
-  .button_next1 {
+  .button_dashboard {
     background-color: rgb(224, 138, 80);
-    border: none;
     color: white;
-    padding: 12px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 13px;
-    margin: 0px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
   }
-  .button_next {
-    background-color: rgb(224, 138, 80);
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 30px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  .margin-dashboard-btn {
+    margin-bottom: -10px;
+    margin-top: 15px;
+  }
+  .btn-lg {
+    padding: 8px 10px;
   }
   .button_instructions {
     background-color: rgb(72, 83, 247);
@@ -179,20 +106,23 @@
   }
   .box {
     background-color: lightblue;
-    width: 200px;
+    width: fit-content;
     border: 4px solid rgb(96, 99, 96);
-    padding: 15px;
-    margin: 15px;
+    /* padding: 10px; */
+    /* margin: 15px; */
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100 px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
   }
   .caption {
     color: rgb(3, 14, 3);
     display: block;
+    font-size: 16px;
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
+    background-color: white;
     padding: 2%;
     border-radius: 4px;
     text-align: center;
@@ -203,13 +133,9 @@
     padding: 2px;
     font-size: 16px;
     text-align: center;
+    margin-top: 0px !important;
   }
-  .caption2 {
-    color: rgb(3, 14, 3);
-    padding: 2px;
-    font-size: 30px;
-    text-align: center;
-  }
+
   .table {
     margin: auto;
     width: 37% !important;
@@ -222,142 +148,139 @@
   // })
   window.onload = function () {
     if (!window.location.hash) {
-      window.location = window.location + "#modal-submit";
+      window.location = window.location + '#modal-submit';
       window.location.reload();
     }
   };
 
   function changeToModal(index) {
     console.log(index);
-    $("#hidden_input").val(index);
-    $("#location").val("result");
-    $("#myModal").modal("show");
+    $('#hidden_input').val(index);
+    $('#location').val('result');
+    $('#myModal').modal('show');
   }
 </script>
 <body class="body">
-  <div class="row">
-    <div class="col-md-3 animation">
-      <img src="<%= gif %>" class="gif" />
-      <h5 class="caption2"><%= comment %></h5>
-      <div id="hidden_div" class="box desktop">
-        <h6 class="caption1">Your rating: <%= rate %></h6>
-        <h6 class="caption1">Consensus: <%= consensus %></h6>
-        <h6 class="caption1">Scores Earned:<%= score %></h6>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 animation">
+        <h3 class="text-center text-info font-italic font-weight-bold">
+          <%= comment %>
+        </h3>
+        <img src="<%= gif %>" class="gif" />
+        <div id="hidden_div" class="box">
+          <h6 class="caption1">Your rating: <%= rate %></h6>
+          <h6 class="caption1">Consensus: <%= consensus %></h6>
+          <h6 class="caption1 font-weight-bold">
+            <kbd class="p-1"> Score Earned: <%= score %></kbd>
+          </h6>
+          <form action="/play" method="GET">
+            <input
+              type="submit"
+              name="submit"
+              class="
+                btn btn-lg btn-warning
+                text-dark
+                mx-auto
+                d-block
+                margin-dashboard-btn
+                font-weight-bold
+              "
+              value="Next Image"
+              id="submitButton"
+            />
+          </form>
+        </div>
       </div>
-    </div>
-    <div class="col-md-7 wrapper">
-      <!-- <img src="<%= image %>" class="center image" /> -->
-      <img
-        src="https://caption.click/images<%= image %>"
-        class="center image"
-      />
+      <div class="col-md-7 wrapper">
+        <!-- <img src="<%= image %>" class="center image" /> -->
+        <div class="text-center img-div mx-auto d-block">
+          <img
+            src="https://caption.click/images<%= image %>"
+            class="img-fluid image"
+          />
+        </div>
+        <h5 class="caption mt-3 font-weight-bold"><%= caption %></h5>
 
-      <h5 class="caption"><%= caption %></h5>
-
-      <div id="hidden_div" class="box mobile">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <img src="<%= gif %>" class="gif" />
-              <h5 class="caption2"><%= comment %></h5>
-            </div>
-            <div class="col">
-              <h6 class="caption1">Your rating: <%= rate %></h6>
-              <h6 class="caption1">Consensus: <%= consensus %></h6>
-              <h6 class="caption1">Scores Earned:<%= score %></h6>
-            </div>
+        <div class="form-group d-flex justify-content-center mx-auto w-25 mt-5">
+          <form method="GET" action="/dashboard">
+            <input
+              type="submit"
+              name="submit"
+              class="btn btn-lg button_dashboard mr-4"
+              value="Back to Dashboard"
+            />
+          </form>
+          <div>
+            <input
+              type="submit"
+              name="submit"
+              class="btn btn-danger btn-lg ml-4"
+              value="<% if(rating.dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
+              onclick="changeToModal('<%= rating %>')"
+            />
           </div>
         </div>
-      </div>
 
-      <form action="/play" method="GET">
-        <div class="form-group">
-          <input
-            type="submit"
-            name="submit"
-            class="button_next"
-            value="Next"
-            id="submitButton"
-          />
-        </div>
-      </form>
-      <div>
-        <form method="GET" action="/dashboard" class="">
-          <input
-            type="submit"
-            name="submit"
-            class="button_next"
-            value="dashboard"
-          />
-        </form>
-      </div>
-      <div>
-        <input
-          type="submit"
-          name="submit"
-          class="button_next"
-          value="<% if(rating.dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
-          onclick="changeToModal('<%= rating %>')"
-        />
-      </div>
-      <!-- Modal -->
-      <div
-        class="modal fade"
-        id="myModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header text-center">
-              <h4 class="modal-title w-100 font-weight-bold">
-                Tell us the reason for dispute
-              </h4>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <form action="/addDispute" method="POST">
-              <div class="modal-body mx-3">
-                <div class="md-form">
-                  <i class="fas fa-pencil prefix grey-text"></i>
-                  <label
-                    data-error="wrong"
-                    data-success="right"
-                    for="form8"
-                    style="color: red"
-                    >* Your message :</label
-                  >
-                  <input
-                    type="text"
-                    id="dispute_description"
-                    name="dispute_description"
-                    class="myclass"
-                    style="background-color: antiquewhite"
-                    required
-                  />
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="myModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="myModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">
+                  Tell us the reason for dispute
+                </h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="/addDispute" method="POST">
+                <div class="modal-body mx-3">
+                  <div class="md-form">
+                    <i class="fas fa-pencil prefix grey-text"></i>
+                    <label
+                      data-error="wrong"
+                      data-success="right"
+                      for="form8"
+                      style="color: red"
+                      >* Your message :</label
+                    >
+                    <input
+                      type="text"
+                      id="dispute_description"
+                      name="dispute_description"
+                      class="myclass"
+                      style="background-color: antiquewhite"
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
-              <div class="modal-footer d-flex justify-content-center">
-                <input type="hidden" id="hidden_input" name="hidden_input" />
-                <input type="hidden" id="location" name="location" />
-                <input
-                  id="modal-submit"
-                  type="submit"
-                  name="submit"
-                  value="Submit"
-                  class="btn btn-unique"
-                  style="background-color: goldenrod"
-                /><i class="fas fa-paper-plane-o ml-1"></i>
-              </div>
-            </form>
+                <div class="modal-footer d-flex justify-content-center">
+                  <input type="hidden" id="hidden_input" name="hidden_input" />
+                  <input type="hidden" id="location" name="location" />
+                  <input
+                    id="modal-submit"
+                    type="submit"
+                    name="submit"
+                    value="Submit"
+                    class="btn btn-unique"
+                    style="background-color: goldenrod"
+                  /><i class="fas fa-paper-plane-o ml-1"></i>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
