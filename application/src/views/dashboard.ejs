@@ -14,16 +14,13 @@
 <style>
     .wrapper {
       background-color: #dfddd4;
-      margin-left: 10%;
-      margin-right: 10%;
+      /* margin-left: 10%;
+      margin-right: 10%; */
       margin-top: 3%;
       margin-bottom: 3%;
       box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
       border-radius: 15px;
-    }
-
-    .mobile {
-      display: none;
+      padding-bottom: 20px;
     }
   .body {
     font-family: "Noto Sans JP", sans-serif;
@@ -39,7 +36,6 @@
   .myclass{
     height:70px;
     width:100%;
-
   }
 
   .center {
@@ -48,7 +44,7 @@
     margin-right: auto;
   }
 
-  .button_dispute {
+  /* .button_dispute {
     background-color: rgb(224, 138, 80);
     border: none;
     color: white;
@@ -59,10 +55,10 @@
     text-align: center;
     text-decoration: none;    
     font-size: 16px;
-    width:fit-content;
+    width: 100px;
     border-radius: 8px;
     cursor: pointer;
-  }
+  } */
 
   button_color .totalscore {
     /* background-color: rgb(238, 238, 238); */
@@ -114,15 +110,17 @@
 
  .entry{  
     padding:2%;
-    background-color: #babbb7;
+    /* background-color: #babbb7; */
+    text-align: center;
     box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
     border-radius: 15px;
+    border: 3.5px solid rgb(133, 97, 160);
+    background-color: rgb(211, 187, 161);
   }
   
   table {
     border-collapse: separate;
-    border-spacing: 1px;
-    
+    border-spacing: 1px;    
   }
   .card-score {    
   border-radius: 10px;
@@ -135,6 +133,40 @@
     text-align: center;    
   }
 
+  /* dashboard table */
+  .table-div {
+    text-align: center;
+    border: 3.5px solid rgb(133, 97, 160);
+    border-radius: 13px;
+  }
+
+  input[value="Disputed"] {
+    background: rgb(141, 122, 109);
+  }
+
+  input[type=text],
+  select {
+    padding: 1px 1px;
+    margin: 8px 0;
+    /* background-color: #e0e1dd; */
+    border: none;
+    width: 100%;
+    border-radius: 4px;
+    word-wrap: break-word;
+    word-break: break-all;
+    text-align: center;
+  }
+
+  .table th {
+   text-align: center;
+   background-color: rgb(211, 187, 161);
+}
+.table td {
+   text-align: center;
+   background-color: rgb(238, 224, 204);
+}
+
+  /* media queries */
   @media screen and (min-width: 685px) {
     .anime{
       width: 40%;
@@ -149,25 +181,28 @@
       margin-bottom: -90px;
     }
   }
-
-
-
-  input[value="Disputed"] {
-    background: rgb(141, 122, 109);
+  @media screen and (max-width: 900px) {
+  .desktop {
+      display: none;
+    }
+    .mobile{
+      border-spacing: 0px 8px ;    
+    }
   }
-
-  input[type=text],
-  select {
-    padding: 1px 1px;
-    margin: 8px 0;
-    background-color: #e0e1dd;
-    border: none;
-    width: 100%;
-    border-radius: 4px;
-    word-wrap: break-word;
-    word-break: break-all;
-        
- 
+  @media screen and (min-width: 900px) {
+  .mobile {
+      display: none;
+    }
+  }
+  @media (max-width: 586px) {
+    .container {
+        max-width: 450px;
+    }
+  }
+  @media (max-width: 499px) {
+    .container {
+        max-width: 380px;
+    }
   }
 </style>
 <script>
@@ -189,7 +224,7 @@
 </script>
 
 <body class="body">
-<div class="wrapper">
+<div class="container wrapper">
   <div class="header">
     <br />
   <h1 class="text-center heading-text">Caption Rater - The Game!</h1>
@@ -239,9 +274,9 @@
   </div>
 </div>
   <br>
-<div>
-    <table class="table table-bordered desktop">
-      <thead class="thead-light">
+<div class="p-4 table-responsive">
+    <table class="table desktop text-center table-div">
+      <thead class="">
         <tr>
           <th scope="col">Image</th>
           <th scope="col">Caption</th>
@@ -257,18 +292,19 @@
 
         <tr>
 
-          <td><img src="https://caption.click/images<%= ratings[i].img_url %>" alt="" border=3 height=100 width=100></img></td>   
+          <td><img src="https://caption.click/images<%= ratings[i].img_url %>" alt="" class="border border-dark rounded" height=100 width=100></img></td>   
 
           <!-- <td><input type="image" name="image" src="https://caption.click/images<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>" alt=""
               height=100 width=100 readonly /></td> -->
-          <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>" readonly /> </td>
+          <!-- <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>" readonly /> </td> -->
+          <td style="width:500px;" class="font-weight-bold text-dark"><%= ratings[i].caption %></td>
           <td><input type="text" name="rate" value="<%= ratings[i].rate %>" readonly /></td>
           <td><input type="text" name="consensus" value="<%= ratings[i].consensus  %>" readonly /></td>
-          <td><input type="text" name="scores" value="<%= ratings[i].scores %>"
+          <td><input type="text" name="scores" class="text-success font-weight-bold" value="<%= ratings[i].scores %>"
               onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly /></td>
           <input type="hidden" id="secret" name="hidden_test" value="<%= ratings[i].dispute %>" />
           <!-- <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" /> -->
-          <td><input class="button_dispute" id="button" name="submit"
+          <td><input style="width:100px;" class="btn btn-danger btn-lg mx-auto p-3" id="button" name="submit"
               value="<% if(ratings[i].dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
               onclick="changeToModal('<%= ratings[i].rate_id %>')" /></td>
           <!-- data-toggle="modal" data-target="#myModal" -->
@@ -280,7 +316,7 @@
       </tbody>
     </table>
 
-    <table class=" mobile">
+    <table class="mobile">
       <tbody>
 
         <% for(var i=0; i < ratings.length; i++) { %>
@@ -293,8 +329,9 @@
           <td class="entry">
             <input type="image" name="image" src="https://caption.click/images<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>" alt=""
                width=100% readonly />
-              <input type="text" name="consensus" value="Consensus: <%= ratings[i].consensus  %>" readonly />
-              <input type="text" name="caption" value="<%= ratings[i].caption %>" readonly />
+              <input style="width: fit-content;" type="text" name="consensus" value="Consensus: <%= ratings[i].consensus  %>" readonly />
+              <!-- <input type="text" name="caption" value="<%= ratings[i].caption %>" readonly /> -->
+              <p class="p-2"><kbd><%= ratings[i].caption %></kbd></p>
           <!--  </td> -->
           <!-- <td><input type="text" name="rate" value="<%= ratings[i].rate %>" readonly /></td>
           
@@ -302,7 +339,7 @@
               onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly /></td> -->
           <input type="hidden" id="secret" name="hidden_test" value="<%= ratings[i].dispute %>" />
           <!-- <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" /> -->
-          <input class="button_dispute" id="button" name="submit"
+          <input class="btn btn-danger btn-lg mx-auto w-25 p-2 mt-2" id="button" name="submit"
               value="<% if(ratings[i].dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
               onclick="changeToModal('<%= ratings[i].rate_id %>')" />
             
