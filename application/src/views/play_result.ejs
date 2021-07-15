@@ -211,7 +211,7 @@
               value="Back to Dashboard"
             />
           </form>
-          <form>
+          <div>
             <input
               type="submit"
               name="submit"
@@ -219,7 +219,7 @@
               value="<% if(rating.dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
               onclick="changeToModal('<%= rating %>')"
             />
-          </form>
+          </div>
         </div>
 
         <!-- Modal -->
