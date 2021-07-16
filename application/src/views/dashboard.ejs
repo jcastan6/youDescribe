@@ -314,15 +314,13 @@
           <td class="entry">
             <input type="image" name="image" src="https://caption.click/images<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>" alt=""
                width=100% readonly />
-              <input style="width: fit-content;" type="text" name="consensus" value="Consensus: <%= ratings[i].consensus  %>" readonly />
-              <!-- <input type="text" name="caption" value="<%= ratings[i].caption %>" readonly /> -->
-              <p class="p-2"><kbd><%= ratings[i].caption %></kbd></p>
-          <!--  </td> -->
-          <!-- <td><input type="text" name="rate" value="<%= ratings[i].rate %>" readonly /></td>
-          
-          <td><input type="text" name="scores" value="<%= ratings[i].scores %>"
-              onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly /></td> -->
+              <p class="p-2 m-3"><kbd><%= ratings[i].caption %></kbd></p>
+          <input style="width: fit-content;" type="text" name="consensus" value="Consensus: <%= ratings[i].consensus  %>" readonly />
+          <input style="width: fit-content;" type="text" name="rate" value="Your Rating: <%= ratings[i].rate %>" readonly />          
+          <input style="width: fit-content;" type="text" name="scores" value="Score: <%= ratings[i].scores %>"
+              onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly />
           <input type="hidden" id="secret" name="hidden_test" value="<%= ratings[i].dispute %>" />
+          <br />
           <!-- <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" /> -->
           <input class="btn btn-danger btn-lg mx-auto w-25 p-2 mt-2" id="button" name="submit"
               value="<% if(ratings[i].dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
