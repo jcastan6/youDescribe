@@ -43,34 +43,7 @@
     margin-left: auto;
     margin-right: auto;
   }
-
-  /* .button_dispute {
-    background-color: rgb(224, 138, 80);
-    border: none;
-    color: white;
-    padding: 15px ;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    text-decoration: none;    
-    font-size: 16px;
-    width: 100px;
-    border-radius: 8px;
-    cursor: pointer;
-  } */
-
-  button_color .totalscore {
-    /* background-color: rgb(238, 238, 238); */
-    width: 500px;
-    height: 25px;
-    color: green;
-    /* border: 15px solid green; */
-    padding: 10px;
-    margin-left: 1000px;
-
-  }
-
+  
   /* dashboard page buttons*/
   .button_next {
     background-color: rgb(224, 156, 108);
@@ -97,6 +70,18 @@
     outline: none !important;
     color: ivory;
   }
+  .button-play {
+    background-color: rgb(87, 187, 170);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+  }
+  .button-play:hover {
+    background-color: rgb(40, 151, 133);
+    color: ivory;
+  }
+
   .anime {
     margin-top: -40px;
     margin-bottom: -40px;
@@ -234,7 +219,7 @@
       <input type="submit" name="submit" class="form-group btn button_next selected-tab" value="Dashboard">
     </form>
     <form method="GET" action="/play" class="form-group mx-4 ">
-      <input class="btn button_next not-selected-tab" type="submit" name="submit"value="Play">
+      <input class="btn button-play" type="submit" name="submit"value="Play">
     </form>
     <form method="GET" action="/leaderboard" class="form-group mx-4" >
       <input type="submit" name="submit" class="btn button_next not-selected-tab" value="Leaderboard">
@@ -404,7 +389,7 @@ aria-hidden="true"
       <div>
       <form method="GET" action="/logout" class="" >
         <input type="submit" name="submit" class="btn bg-info btn-lg btn-block text-center text-white"
-        data-dismiss="modal" value="Yes">     
+        data-dismiss="modal" value="Yes" />     
       </form>
         <button
         type="button"

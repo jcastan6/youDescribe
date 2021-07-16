@@ -14,7 +14,7 @@
       width: 90%;
     }
     .gif{
-      width:100%
+      max-width:100%
     }
    }
   @media screen and (min-width: 900px) {
@@ -23,6 +23,7 @@
       margin-left: 20%;
       margin-right: 20%;
       margin-top:3%;
+      margin-bottom:3%;
       border-radius: 15px;
     }
     .table{
@@ -64,29 +65,44 @@
     border-left: 1px solid #dee2e6;
   }
 
-  .button_next {
-    background-color: rgb(224, 138, 80);
-    border: none;
+  .button-dashboard {
+    background-color: rgb(224, 156, 108);
     color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 30px;
     border-radius: 8px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  } 
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+  }
+  .button-dashboard:hover {
+    background-color: rgb(223, 131, 70);
+    color: ivory;
+  }
+
+  .button-play {
+    background-color: rgb(87, 187, 170);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+  }
+  .button-play:hover {
+    background-color: rgb(40, 151, 133);
+    color: ivory;
+  }
+
 </style>
 
 <body class="body"> 
   <div class="wrapper">
     <br>
     <h1 class="text-center heading-text">Caption Rater - The Game!</h1>
-    <br>
+    <div class="d-flex justify-content-center">
+      <form  method="GET" action="/dashboard" class="form-group">
+        <input class="btn m-3 button-dashboard" type="submit" name="submit" value="Back to Dashboard">
+      </form>
+    <form  method="GET" action="/play" class="form-group">
+      <input class="btn m-3 button-play" type="submit" name="submit" value="Play">
+    </form>   
+  </div>
     <h3 class="text-center text-info font-italic font-weight-bold"><u>Leaderboard</u></h3>
     <img src= "https://caption.click/gifs/dashboard.gif" class="gif">
       <table class="table table-dark">
@@ -160,16 +176,9 @@
             </td>
           </tr>
           <% } %>
-        </tbody>
-        
-      </table>
-    </div>
-    <form  method="GET" action="/play" class="form-group">
-      <input class="button_next" type="submit" name="submit" class="button_next" value="Play">
-    </form>
-    <form  method="GET" action="/dashboard" class="form-group">
-      <input class="button_next" type="submit" name="submit" class="button_primary" value="Back to Dashboard">
-    </form>
+        </tbody></table>
+    </div>   
+    <br>
     <br>
   </div>  
 </body>
