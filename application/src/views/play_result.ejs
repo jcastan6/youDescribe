@@ -141,6 +141,57 @@
     width: 37% !important;
     font-size: 12;
   }
+
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(167, 165, 165);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .disappear {
+    animation: vanish 1s forwards;
+  }
+
+  @keyframes vanish {
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  .vanish-div {
+    box-shadow: 4px 4px 10px 4px #606883;
+    border-radius: 15px;
+    background-color: rgb(94, 94, 94);
+    width: 75%;
+  }
+  .vanish-text {
+    font-size: 50px;
+  }
+  .vanish-gif {
+    width: 50%;
+  }
+  @media screen and (max-width: 648px) {
+    .vanish-text {
+      font-size: 40px;
+    }
+  }
+  @media screen and (max-width: 800px) {
+    .vanish-gif {
+      width: 100%;
+    }
+    .vanish-div {
+      width: 100%;
+      padding: 10%;
+      margin: 10%;
+    }
+  }
 </style>
 <script>
   // $('#button').one('submit', function() {
@@ -152,6 +203,10 @@
       window.location.reload();
     }
   };
+  window.onload = setTimeout(function () {
+    var x = document.getElementById('loader');
+    x.classList.add('disappear');
+  }, 2000);
 
   function changeToModal(index) {
     console.log(index);
@@ -284,6 +339,25 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="loader" id="loader">
+    <div
+      class="
+        d-flex
+        justify-content-center
+        align-items-center
+        vanish-div
+        flex-wrap
+      "
+    >
+      <img src="<%= gif %>" class="vanish-gif" />
+      <h1
+        class="text-center text-light font-italic font-weight-bold vanish-text"
+      >
+        <%= comment %>
+      </h1>
     </div>
   </div>
 </body>
