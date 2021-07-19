@@ -1,4 +1,8 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
@@ -71,27 +75,21 @@
   }
 
   .caption {
-
     color: rgb(3, 14, 3);
     padding: 10px;
     text-align: center;
-
   }
 
   .caption1 {
-
     color: rgb(3, 14, 3);
     padding: 2px;
     text-align: center;
-
   }
   .caption2 {
-
-color: darkred;
-padding: 2px;
-text-align: center;
-
-}
+    color: darkred;
+    padding: 2px;
+    text-align: center;
+  }
 
   .hide {
     display: none;
@@ -119,32 +117,38 @@ text-align: center;
 </style>
 
 <div>
-  <br>
+  <br />
   <h2 class="text-center text-info">Caption Rater - The Game!</h2>
- <img src="http://images.cocodataset.org/val2014/COCO_val2014_000000130812.jpg" width="400" height="300" class="center">  <br>
- <br>
+  <img
+    src="https://caption.click/images/val2014/COCO_val2014_000000130812.jpg"
+    width="400"
+    height="300"
+    class="center"
+  />
+  <br />
+  <br />
   <div id="hidden_div" class="box">
-
     <h5 class="caption"><%= ans %></h5>
     <h6 class="caption1">Your rating: <%= rate %></h6>
     <h6 class="caption1">Consensus: 1</h6>
     <h6 class="caption1">Scores Earned: <%= score %></h6>
-
   </div>
   <h5 class="caption">A man is standing in front of a large statue.</h5>
-  <h5 class="caption2">Explanation for the consensus: The caption is totaly irrelevant to the image. The caption doesnt mention any key words like skateboard or jumping. </h5>
-  <br>
-
-
+  <h5 class="caption2">
+    Explanation for the consensus: The caption is totaly irrelevant to the
+    image. The caption doesnt mention any key words like skateboard or jumping.
+  </h5>
+  <br />
 
   <form action="/chooseHome" method="GET">
     <div class="form-group">
-      <input type="submit" name="submit" class="button_next" value="Next" id="submitButton">
+      <input
+        type="submit"
+        name="submit"
+        class="button_next"
+        value="Next"
+        id="submitButton"
+      />
     </div>
   </form>
-
-    
-
-
-
 </div>

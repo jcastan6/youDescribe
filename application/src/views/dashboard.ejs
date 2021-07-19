@@ -262,12 +262,7 @@
         <%=accuracy%>
         <%}%>%
       </h5>
-      <h5 class="attempt">Score X Accuracy:
-        <% if(typeof  accuracy != 'undefined'){ %>
-        <%= (users[0].total_score*.01*accuracy).toFixed(2) %>
-        <% } %> <br /> (This is the reward calculation)
-      </h5>
-      <br>
+      
       <h5 class="attempt">Number of Attempts: <%= users[0].total_num_attempts %></h5>
     </div>
   </div>
