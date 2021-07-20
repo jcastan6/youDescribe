@@ -269,6 +269,7 @@
           <th scope="col">Caption</th>
           <th scope="col">Your Rating</th>
           <th scope="col">Consensus</th>
+          <th scope="col">TBD</th> <!-- yet to change -->
           <th scope="col">Scores earned</th>
           <th scope="col">Create a dispute</th>
         </tr>
@@ -284,8 +285,10 @@
           <!-- <td><input type="image" name="image" src="https://caption.click/images<%= ratings[i].img_url %>" value="<%= ratings[i].img_url %>" alt=""
               height=100 width=100 readonly /></td> -->
           <!-- <td style="width:550px;"><input type="text" name="caption" value="<%= ratings[i].caption %>" readonly /> </td> -->
-          <td style="width:500px;" class="font-weight-bold text-dark"><%= ratings[i].caption %></td>
+          <td style="width:450px;" class="font-weight-bold text-dark"><%= ratings[i].caption %></td>
           <td><input type="text" name="rate" value="<%= ratings[i].rate %>" readonly /></td>
+          <td><input type="text" name="consensus" value="<%= ratings[i].consensus  %>" readonly /></td>
+          <!-- yet to change -->
           <td><input type="text" name="consensus" value="<%= ratings[i].consensus  %>" readonly /></td>
           <td><input type="text" name="scores" class="text-success font-weight-bold" value="<%= ratings[i].scores %>"
               onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly /></td>
