@@ -1,4 +1,8 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
@@ -71,27 +75,21 @@
   }
 
   .caption {
-
     color: rgb(3, 14, 3);
     padding: 10px;
     text-align: center;
-
   }
 
   .caption2 {
-
-    color:darkred;
+    color: darkred;
     padding: 10px;
     text-align: center;
-
   }
 
   .caption1 {
-
     color: rgb(3, 14, 3);
     padding: 2px;
     text-align: center;
-
   }
 
   .hide {
@@ -120,7 +118,7 @@
 </style>
 
 <div>
-  <br>
+  <br />
   <h2 class="text-center text-info">Caption Rater - The Game!</h2>
   <!-- <button class="button_instructions" onclick="show_hide_instructions()">Instructions</button>
   <div id="myDIV" style="display:none">
@@ -162,9 +160,6 @@
     </table>
   </div> -->
   <script>
-
-
-
     // function show_hide_instructions() {
     //   var x = document.getElementById("myDIV");
     //   if (x.style.display !== "none") {
@@ -187,25 +182,27 @@
     //   document.getElementById('nextButton').classList.add('show');
     //   document.getElementById('submitButton').classList.add('hide');
     // }
-
-
   </script>
-  <img src="http://images.cocodataset.org/val2014/COCO_val2014_000000522418.jpg" width="400" height="300" class="center">
+  <img
+    src="https://caption.click/images/val2014/COCO_val2014_000000522418.jpg"
+    width="400"
+    height="300"
+    class="center"
+  />
 
-  <br>
+  <br />
   <div id="hidden_div" class="box">
-
     <h5 class="caption"><%= ans %></h5>
     <h6 class="caption1">Your rating: <%= rate %></h6>
     <h6 class="caption1">Consensus: 4</h6>
     <h6 class="caption1">Scores Earned: <%= score %></h6>
-
   </div>
   <h5 class="caption">A woman wearing a net on her head cutting a cake.</h5>
-  <h5 class="caption2">Explanation for the consensus: We expect to recieve more explanation about the background of the image!</h5>
-  <br>
-
-
+  <h5 class="caption2">
+    Explanation for the consensus: We expect to recieve more explanation about
+    the background of the image!
+  </h5>
+  <br />
 
   <form action="/trainingExample2" method="GET">
     <!-- <div style="text-align:center">
@@ -234,12 +231,13 @@
       <input type="submit" name="submit" class="button_next" value="Submit" id="nextButton">
     </div> -->
     <div class="form-group">
-      <input type="submit" name="submit" class="button_next" value="Next" id="submitButton">
+      <input
+        type="submit"
+        name="submit"
+        class="button_next"
+        value="Next"
+        id="submitButton"
+      />
     </div>
   </form>
-
-
-
-
-
 </div>

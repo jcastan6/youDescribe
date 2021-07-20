@@ -36,9 +36,9 @@ function processCaptions(ratings, db) {
 }
 
 function processRatings(cap_id, consensus) {
-  let query = ` INSERT INTO captionrater.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 3, ${consensus}, 1, ${cap_id}, 1 ) `;
-  db.query(query).then((results) => {});
-  console.log(query);
+  // let query = ` INSERT INTO captionrater.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 3, ${consensus}, 1, ${cap_id}, 1 ) `;
+  // db.query(query).then((results) => {});
+  // console.log(query);
 }
 
 function processImages(images) {
