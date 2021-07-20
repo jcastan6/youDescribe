@@ -176,6 +176,7 @@
   }
   .vanish-gif {
     width: 50%;
+    margin-bottom: -100px;
   }
   @media screen and (max-width: 648px) {
     .vanish-text {
@@ -198,16 +199,21 @@
   //     $(this).find('input[type="submit"]').attr('disabled','disabled');
   // })
   window.onload = function () {
+    // let audio = new Audio('Negative_tone.mp3');
+    // audio.play();
+    hide_loader();
     if (!window.location.hash) {
       window.location = window.location + '#modal-submit';
       window.location.reload();
     }
   };
-  window.onload = setTimeout(function () {
-    var x = document.getElementById('loader');
-    x.classList.add('disappear');
-  }, 2000);
 
+  function hide_loader() {
+    setTimeout(function () {
+      let x = document.getElementById('loader');
+      x.classList.add('disappear');
+    }, 1000);
+  }
   function changeToModal(index) {
     console.log(index);
     $('#hidden_input').val(index);
@@ -353,6 +359,10 @@
       "
     >
       <img src="<%= gif %>" class="vanish-gif" />
+      <audio id="audio-tone" autoplay>
+        <source src="Negative_tone.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
       <h1
         class="text-center text-light font-italic font-weight-bold vanish-text"
       >
