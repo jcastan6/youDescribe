@@ -188,6 +188,7 @@
 </style>
 <script>
   function show_hide_instructions() {
+    event.preventDefault();
     var x = document.getElementById("myDIV");
     if (x.style.display !== "none") {
       x.style.display = "none";
