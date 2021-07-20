@@ -117,6 +117,7 @@
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
   background-color: rgb(255, 255, 255);
   width: max-content;
+  min-height: 170px;
   }
   .attempt {
     color: rgb(128, 0, 85);
@@ -246,7 +247,7 @@
   <div class="d-flex justify-content-around flex-wrap">
     <img src= "https://caption.click/gifs/dashboard.gif" class="img-fluid anime">
     <div  class="d-block mx-auto">
-    <div class="card card-score p-3 m-3">
+    <div class="card card-score p-3 m-3 align-items-center justify-content-center">
       <h4 class="attempt font-weight-bold text-success">Total Score: <%= users[0].total_score %></h5>
       <h5 class="attempt">Accuracy:
         <% if(typeof  accuracy != 'undefined'){ %>
