@@ -360,10 +360,19 @@
       "
     >
       <img src="<%= gif %>" class="vanish-gif" />
+       <% if(comment === 'Awesome!' || comment === 'Great Job!' || comment === 'Bullseye!' || comment === 'Nailed it!' || comment === 'Excellent!' || comment === 'I knew you had it in you!' || comment === 'Well done you!' || comment === 'Keep it up champ!' || comment === 'Slam dunk!' || comment === 'Success!' || comment === 'You GOT this!' || comment ===  'Alriiiight!'
+      ){ %>
+      <audio id="audio-tone" autoplay>
+        <source src="Positive_tone.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <% } else { %>
       <audio id="audio-tone" autoplay>
         <source src="Negative_tone.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
+      <% } %> 
+
       <h1
         class="text-center text-light font-italic font-weight-bold vanish-text"
       >
