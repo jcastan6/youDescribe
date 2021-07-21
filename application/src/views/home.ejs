@@ -19,9 +19,9 @@
     /* margin-top: -90px;
       margin-bottom: -90px; */
     width: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    /* display: block; */
+    /* margin-left: auto;
+    margin-right: auto; */
   }
   .heading-text {
     color: #61259e;
@@ -39,6 +39,7 @@
     box-shadow: 4px 4px 10px 4px #606883;
     border-radius: 15px;
     background-color: rgb(163, 196, 196);
+    width: 35%;
   }
 
   @media screen and (max-width: 900px) {
@@ -79,7 +80,7 @@
 <body class="body">
   <div class="wrapper">
     <h1 class="text-center heading-text">Caption Rater - The Game!</h1>
-    <div class="img-div w-25 d-block mx-auto">
+    <div class="img-div d-block mx-auto">
       <img src="https://caption.click/gifs/Loginregister.gif" class="image" />
     </div>
 
@@ -91,7 +92,7 @@
         <div id="login-box" class="col-md-12">
           <form id="login-form" class="form" action="/login" method="post">
             <%if (error_msg.length > 0) { %>
-            <h3 style="color: red">Login failed, please try again!</h3>
+            <h6 style="color: red">Login failed, please try again!</h6>
             <% } %>
             <div class="form-group">
               <label for="email" class="fields-text">Email:</label><br />
