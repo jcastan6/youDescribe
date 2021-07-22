@@ -25,6 +25,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
+    confidence: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
     dispute_desc: {
       type: Sequelize.STRING(45),
       allowNull: true,
