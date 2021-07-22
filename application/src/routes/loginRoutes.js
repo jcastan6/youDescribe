@@ -94,7 +94,7 @@ router.post("/register", function (req, res, next) {
 router.get("/login/failed", (req, res) => {
   // let errormessage = 'Incorrect email or password!';
   console.log("login failed");
-  res.render("home", {
+  res.render("homes", {
     error_msg: "login failed",
     // errormessage : errormessage,
     // login: true,

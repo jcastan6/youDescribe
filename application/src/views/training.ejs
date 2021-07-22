@@ -1,89 +1,105 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
-    .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  p {
+    margin-right: 20%;
+    margin-top: auto;
+    margin-bottom: 1rem;
+    margin-left: 20%;
+  }
+  .button_next {
+    background-color: rgb(224, 138, 80);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-}
-p {
-  margin-right: 20%;
-  margin-top: auto;
-  margin-bottom: 1rem;
-  margin-left: 20%;
-}
-.button_next{
-  background-color: rgb(224, 138, 80);
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 30px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.table {
-   margin: auto;
-   width: 50% !important; 
-}
-
+  .table {
+    margin: auto;
+    width: 50% !important;
+  }
 </style>
 
 <div>
-    <br>
-    <h2 class= "text-center text-info">Caption Rater - The Game!</h2>
-    <br>
-    <p class="text-center text-info">You will be presented with a series of images, along with a caption that describes the image.</p>
-    <p class="text-center text-info"> Your goal: Rate how well the caption fits the image, using the scale below.
-      The closer your rating matches to a group consensus, the more points you earn!
-      </p>
-      <p class="text-center" style="color: red;"  >
-        Because we use AI to rate the captions before we show them to humans, the initial consensus may not be accurate. If you think the consensus is not accurate, please dispute in the dashboard and tell us why. The more people who play the game, the more accurate the consensus will be!
-      </p>
-      <br>
-      <div>
-      <table  class="table table-bordered">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">Rating</th>
-            <th scope="col">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Poor caption. Completely wrong.</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Captures part of image</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Captures part of image, weird language or action.</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>Describes image mostly.</td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>Describes the image perfectly!</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <br />
+  <h2 class="text-center text-info">Caption Rater - The Game!</h2>
+  <br />
+  <p class="text-center text-info">
+    You will be presented with a series of images, along with a caption that
+    describes the image.
+  </p>
+  <p class="text-center text-info">
+    Your goal: Rate how well the caption fits the image, using the scale below.
+    The closer your rating matches to a group consensus, the more points you
+    earn!
+  </p>
+  <p class="text-center" style="color: red">
+    Because we use AI to rate the captions before we show them to humans, the
+    initial consensus may not be accurate. If you think the consensus is not
+    accurate, please dispute in the dashboard and tell us why. The more people
+    who play the game, the more accurate the consensus will be!
+  </p>
+  <br />
+  <div>
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Rating</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Poor caption. Completely wrong.</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Captures part of image</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Captures part of image, weird language or action.</td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>Describes image mostly.</td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>Describes the image perfectly!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-   <form method="GET" action="/trainingExample1" class="form-group" >
-    <input  class = "button_next" type="submit" name="submit" class="button_next" value="Next">
+  <form method="GET" action="/tutorial/1" class="form-group">
+    <input
+      class="button_next"
+      type="submit"
+      name="submit"
+      class="button_next"
+      value="Next"
+    />
   </form>
-    </div>
+</div>

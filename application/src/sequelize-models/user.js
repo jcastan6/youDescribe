@@ -36,6 +36,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
+    probation_images: {
+      type: Sequelize.INTEGER,
+      defaultValue: 20,
+    },
     level: {
       type: Sequelize.INTEGER,
       defaultValue: 0,

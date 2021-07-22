@@ -176,7 +176,7 @@ async function insertRatings(req, res, next) {
         arr.reduce((acc, v) => avg + Math.pow(v - avg, 2)) / n;
       let avg = average(ratings);
       let Var = variance(ratings);
-      let r = 1 + (1 + ((n - 1) * Var) / 4) / Math.pow(n, 1);
+      let r = 1 + (1 + ((n - 1) * Var) / 4) / n;
       console.log(`average: ${avg}`);
       console.log(`variance: ${Var}`);
       console.log(`r: ${r}`);
