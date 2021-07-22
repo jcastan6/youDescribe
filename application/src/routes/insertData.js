@@ -28,7 +28,7 @@ function processCaptions(ratings, db) {
     console.log(query);
     db.query(query).then((results) => {
       results = results[0];
-
+      processRatings(results.insertId, rating.rating);
       processRatings(results.insertId, rating.rating);
     });
   }
