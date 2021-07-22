@@ -189,17 +189,14 @@ async function insertRatings(req, res, next) {
       let current_success = 0;
       let difference = Math.abs(current_rate - avg);
 
-      if (difference <= 0.3 * r) {
+      if (difference <= 0.5 * r) {
         current_score = 3;
-        current_success = 1;
-      } else if (difference <= 0.5 * r) {
+      } else if (difference <= r) {
         current_score = 2;
-        current_success = 1;
-      } else if (difference <= 0.75 * r) {
+      } else if (difference <= 1.5 * r) {
         current_score = 1;
-        current_success = 1;
-      } else if (difference <= 1 * r) {
-        current_score = 0;
+      } else if (difference <= 2 * r) {
+        current_score = 1;
       } else {
         current_score = -1;
       }
