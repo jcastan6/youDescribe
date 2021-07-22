@@ -3,10 +3,6 @@
   rel="stylesheet"
   id="bootstrap-css"
 />
-<link
-  href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap"
-  rel="stylesheet"
-/>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta
@@ -14,130 +10,122 @@
   content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
 />
 <style>
+  .body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #717ea1;
+    color: #000000;
+  }
+  .image {
+    /* margin-top: -90px;
+      margin-bottom: -90px; */
+    width: 100%;
+    /* display: block; */
+    /* margin-left: auto;
+    margin-right: auto; */
+  }
+  .heading-text {
+    color: #61259e;
+    font-weight: 800;
+    font-size: 36px;
+    padding: 3%;
+  }
+  .login-text {
+    color: #61259e;
+  }
+  .fields-text {
+    color: #306866;
+  }
+  .img-div {
+    box-shadow: 4px 4px 10px 4px #606883;
+    border-radius: 15px;
+    background-color: rgb(163, 196, 196);
+    width: 35%;
+  }
+
   @media screen and (max-width: 900px) {
     .wrapper {
-      background-color: #e0e1dd;
-      margin: 3%;
+      background-color: #dfddd4;
+      margin: 4%;
       box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
       border-radius: 10px;
     }
-    .image {
+    /* .image {
       width: 100%;
+    } */
+    .heading-text {
+      font-size: 30px;
     }
   }
   @media screen and (min-width: 900px) {
     .wrapper {
-      background-color: #e0e1dd;
+      background-color: #dfddd4;
       margin-left: 20%;
       margin-right: 20%;
-      margin-top: 5%;
+      margin-top: 2%;
+      margin-bottom: 2%;
       box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
       border-radius: 15px;
     }
-    .image {
-      width: 50%;
+    /* .image { */
+    /* margin-top: -90px;
+      margin-bottom: -90px; */
+    /* width: 100%;
       display: block;
       margin-left: auto;
       margin-right: auto;
-    }
-  }
-  .body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background-color: #778da9;
-    color: #000000;
-  }
-
-  .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .button_login {
-    background-color: #4caf50;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 40px 2px;
-    border-radius: 8px;
-    cursor: pointer;
-
-    /* margin-left: 250px;
-  margin-right: 250px; */
-  }
-
-  .button_register {
-    background-color: (35, 90, 134);
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 40px 2px;
-    border-radius: 8px;
-    cursor: pointer;
+    } */
   }
 </style>
 
 <body class="body">
   <div class="wrapper">
-    <br />
-    <div class="text-container">
-      <h2 class="text-center">Caption Rater</h2>
+    <h1 class="text-center heading-text">Caption Rater - The Game!</h1>
+    <div class="img-div d-block mx-auto">
+      <img src="https://caption.click/gifs/Loginregister.gif" class="image" />
     </div>
 
-    <img src="https://caption.click/gifs/Loginregister.gif" class="image" />
-    <div id="login">
-      <div class="container">
-        <div
-          id="login-row"
-          class="row justify-content-center align-items-center"
-        >
-          <div id="login-column" class="col-md-8">
-            <div id="login-box" class="col-md-12">
-              <form id="login-form" class="form" action="/login" method="post">
-                <%if (error_msg.length > 0) { %>
-                <h1 style="color: red">Login failed, please try again!</h1>
-                <% } %>
-                <h3 class="text-center">Login</h3>
-                <div class="form-group">
-                  <label for="email" class="">Email:</label><br />
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    class="form-control"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="password" class="">Password:</label><br />
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    class="form-control"
-                  />
-                </div>
-                <div id="register-link" class="text-left">
-                  <a href="/register" class="">Register here</a>
-                </div>
-                <div class="form-group text-center">
-                  <input
-                    type="submit"
-                    name="submit"
-                    class="btn btn-info btn-md"
-                    value="Submit"
-                  />
-                </div>
-              </form>
+    <div
+      id="login-row"
+      class="row justify-content-center align-items-center mt-5"
+    >
+      <div id="login-column" class="col-md-8">
+        <div id="login-box" class="col-md-12">
+          <form id="login-form" class="form" action="/login" method="post">
+            <%if (error_msg.length > 0) { %>
+            <h6 style="color: red">Login failed, please try again!</h6>
+            <% } %>
+            <div class="form-group">
+              <label for="email" class="fields-text">Email:</label><br />
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control"
+                required
+              />
             </div>
-          </div>
+            <div class="form-group">
+              <label for="password" class="fields-text">Password:</label><br />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                required
+              />
+            </div>
+            <div id="register-link" class="text-left">
+              <a href="/register" class="">Register here</a>
+            </div>
+            <div class="form-group text-center">
+              <input
+                type="submit"
+                name="submit"
+                class="btn btn-info btn-md"
+                value="Login"
+              />
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -24,9 +24,9 @@
       border-radius: 10px;
     }
     .image {
-      border-radius: 15px 15px 0 0px;
-      width: 100%;
-      /* width: fit-content; */
+      border-radius: 15px 15px 15px 15px;
+      /* width: 100%; */
+      width: fit-content;
       height: auto;
       /* background-size: 100% 100%; */
       }
@@ -60,7 +60,7 @@
     }
 
     .img-div {
-     /* background-color: rgb(109, 109, 109); */
+     background-color: rgb(178, 190, 185);
      border-radius: 15px;
      /* width: fit-content; */
     }
@@ -188,6 +188,7 @@
 </style>
 <script>
   function show_hide_instructions() {
+    event.preventDefault();
     var x = document.getElementById("myDIV");
     if (x.style.display !== "none") {
       x.style.display = "none";

@@ -59,12 +59,13 @@
     }
   }
   .image {
-    border-radius: 15px 15px 0 0px;
-    width: 100%;
+    border-radius: 15px 15px 15px 15px;
+    /* width: 100%; */
+    width: fit-content;
     height: auto;
   }
   .img-div {
-    /* background-color: rgb(109, 109, 109); */
+    background-color: rgb(178, 190, 185);
     border-radius: 15px;
     /* width: fit-content; */
   }
@@ -141,18 +142,79 @@
     width: 37% !important;
     font-size: 12;
   }
+
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(167, 165, 165);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .disappear {
+    animation: vanish 1s forwards;
+  }
+
+  @keyframes vanish {
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  .vanish-div {
+    box-shadow: 4px 4px 10px 4px #606883;
+    border-radius: 15px;
+    background-color: rgb(94, 94, 94);
+    width: 75%;
+  }
+  .vanish-text {
+    font-size: 50px;
+  }
+  .vanish-gif {
+    width: 50%;
+    margin-bottom: -100px;
+  }
+  @media screen and (max-width: 648px) {
+    .vanish-text {
+      font-size: 40px;
+    }
+  }
+  @media screen and (max-width: 800px) {
+    .vanish-gif {
+      width: 100%;
+    }
+    .vanish-div {
+      width: 100%;
+      padding: 10%;
+      margin: 10%;
+    }
+  }
 </style>
 <script>
   // $('#button').one('submit', function() {
   //     $(this).find('input[type="submit"]').attr('disabled','disabled');
   // })
   window.onload = function () {
+    // let audio = new Audio('Negative_tone.mp3');
+    // audio.play();
+    hide_loader();
     if (!window.location.hash) {
       window.location = window.location + '#modal-submit';
       window.location.reload();
     }
   };
 
+  function hide_loader() {
+    setTimeout(function () {
+      let x = document.getElementById('loader');
+      x.classList.add('disappear');
+    }, 1000);
+  }
   function changeToModal(index) {
     console.log(index);
     $('#hidden_input').val(index);
@@ -284,6 +346,38 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="loader" id="loader">
+    <div
+      class="
+        d-flex
+        justify-content-center
+        align-items-center
+        vanish-div
+        flex-wrap
+      "
+    >
+      <img src="<%= gif %>" class="vanish-gif" />
+       <% if(comment === 'Awesome!' || comment === 'Great Job!' || comment === 'Bullseye!' || comment === 'Nailed it!' || comment === 'Excellent!' || comment === 'I knew you had it in you!' || comment === 'Well done you!' || comment === 'Keep it up, champ!' || comment === 'Slam dunk!' || comment === 'Success!' || comment === 'You GOT this!' || comment ===  'Alriiiight!'
+      ){ %>
+      <audio id="audio-tone" autoplay>
+        <source src="Positive_tone.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <% } else { %>
+      <audio id="audio-tone" autoplay>
+        <source src="Negative_tone.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <% } %> 
+
+      <h1
+        class="text-center text-light font-italic font-weight-bold vanish-text"
+      >
+        <%= comment %>
+      </h1>
     </div>
   </div>
 </body>
