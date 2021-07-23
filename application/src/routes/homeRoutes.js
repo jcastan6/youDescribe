@@ -20,6 +20,7 @@ router.get("/chooseHome", function (req, res, next) {
 });
 router.get("/play_result", function (req, res, next) {
   console.log(req.query);
+  let confidence = req.confidence;
   let image = req.query.image;
   let caption = req.query.caption;
   let rate = req.query.rate;
@@ -32,6 +33,7 @@ router.get("/play_result", function (req, res, next) {
   let total_score = req.query.total_score;
 
   res.render("play_result", {
+    confidence: confidence,
     total_score: total_score,
     gif: gif,
     image: image,

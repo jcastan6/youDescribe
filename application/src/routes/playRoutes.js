@@ -198,6 +198,14 @@ async function insertRatings(req, res, next) {
       let current_success = 0;
       let difference = Math.abs(current_rate - avg);
 
+      if (r < 1.25) {
+        req.confidence = "High";
+      } else if (1.25 <= r <= 1.66) {
+        req.confidence = "Medium";
+      } else if (r > 1.66) {
+        req.confidence = "Low";
+      }
+
       if (difference <= 0.5 * r) {
         current_score = 3;
       } else if (difference <= r) {
@@ -211,7 +219,7 @@ async function insertRatings(req, res, next) {
       }
 
       let query =
-        "Insert INTO captionrater.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success ) VALUES  ( " +
+        "Insert INTO captionrater.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success, confidence ) VALUES  ( " +
         parseInt(req.body.inlineRadioOptions) +
         ", " +
         current_score +
@@ -223,8 +231,9 @@ async function insertRatings(req, res, next) {
         req.body.hidden_input +
         ", " +
         current_success +
+        ", " +
+        JSON.stringify(req.confidence) +
         " ) ";
-
       console.log(query);
 
       await db
@@ -433,6 +442,7 @@ router.post(
       url.format({
         pathname: "/play_result",
         query: {
+          confidence: req.confidence,
           total_score: req.total_score,
           gif: gif2,
           comment: ans,
