@@ -26,8 +26,9 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
     },
     confidence: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING(45),
       allowNull: false,
+      defaultValue: "Undertermined",
     },
     dispute_desc: {
       type: Sequelize.STRING(45),
