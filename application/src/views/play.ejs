@@ -243,10 +243,8 @@
               <div class="col caption">
                 <h5 class="font-weight-bold text-success">Total Score: <%= total_score %></h5>
                 <br>
-                <h6 class="text-center">
-                  Score X Accuracy: <%= (total_score*.01*accuracy).toFixed(2) %> (This is your
-                  reward calculation)
-                </h6>
+                <h6 class="text-center mt-3">
+                  Accuracy: <%= accuracy %>% </h6>    
                 <form method="GET" action="/dashboard" class="mt-3">
                   <input
                     type="submit"

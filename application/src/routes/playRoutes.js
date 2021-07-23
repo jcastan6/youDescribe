@@ -53,12 +53,11 @@ async function getImageidFromCaptions(req, res, next) {
   let userID = req.user.id;
   let query = "";
   if (req.tutorial) {
-    console.log("tutorial!!");
     query =
-      "SELECT * from captionrater.captions ORDER BY total_number_of_rates ASC;";
+      "SELECT * FROM captionrater.captions where total_number_of_rates = (select MIN(total_number_of_rates) from captions) order by RAND();";
   } else {
     query =
-      "SELECT * from captionrater.captions ORDER BY total_number_of_rates ASC;";
+      "SELECT * FROM captionrater.captions where total_number_of_rates = (select MIN(total_number_of_rates) from captions) order by RAND();";
   }
   await db.query(query).then((captions) => {
     var captions = captions[0];
@@ -110,9 +109,8 @@ async function getUserInfo(req, res, next) {
 
   //3 point system
   let query =
-    "SELECT count(*) as count, sum(scores) as sum FROM captionrater.ratings where users_user_id=" +
-    req.user.id +
-    " and createdAt >= '2020-06-18'";
+    "SELECT total_num_attempts as count, total_score as sum, level FROM captionrater.users where id=" +
+    req.user.id;
   let count = 0;
   let sum = 0;
 
@@ -157,11 +155,22 @@ async function getCurrentConsensus(req, res, next) {
 
 async function insertRatings(req, res, next) {
   //calculateScore and check the success (if true) -> add one to success column
-  let query2 = `SELECT ratings.rate FROM captionrater.ratings where captions_cap_id = ${req.body.hidden_input} `;
+  let query2 = `SELECT ratings.rate, ratings.rate_id, ratings.users_user_id as user_id FROM captionrater.ratings where captions_cap_id = ${req.body.hidden_input} `;
   await db
     .query(query2)
     .then(async (res) => {
+      //check how many ai ratings there are
+      //if any of them have userid = 1, let's replace them with the new human score
+      //otherwise, insert a new column
       res = res[0];
+      deleteQuery = "";
+      if (res.length === 2) {
+        res.forEach((rate) => {
+          if (rate.user_id === 1) {
+            deleteQuery = `DELETE from captionrater.ratings WHERE rate_id = ${rate.rate_id}`;
+          }
+        });
+      }
 
       const ratings = [];
       res.forEach((rate) => {
@@ -226,7 +235,16 @@ async function insertRatings(req, res, next) {
           req.current_score = current_score;
           req.rating = res.insertId;
           req.disputed = 0;
-          next();
+          if (deleteQuery !== "") {
+            req.replacingAI = true;
+            db.query(deleteQuery).then((res) => {
+              next();
+              console.log("deleted ai");
+            });
+          } else {
+            req.replacingAI = false;
+            next();
+          }
         })
         .catch();
     })
@@ -256,7 +274,7 @@ async function updateUsersTable(req, res, next) {
   let score = req.ratings[req.ratings.length - 1].scores;
   // add total_success to users table
   let success = req.ratings[req.ratings.length - 1].success;
-
+  req.total_score = parseInt(req.total_score) + parseInt(score);
   //increment the userAttempts by one
   let query =
     " UPDATE captionrater.users SET " +
@@ -299,34 +317,32 @@ async function updateConsensus(req, res, next) {
   //Scenario 1 : no consensus
   let current_consensus = req.consensus;
   let len = req.count_rate;
-  if (Math.abs(req.body.inlineRadioOptions - current_consensus) <= 2) {
-    new_consensus = req.ave_rate;
 
-    console.log("new_consensus = " + new_consensus);
+  new_consensus = req.ave_rate;
 
-    let query =
+  console.log("new_consensus = " + new_consensus);
+  let query = "";
+  if (req.replacingAI === true) {
+    query =
+      " update captionrater.captions SET consensus = " +
+      new_consensus +
+      ", total_number_of_rates = total_number_of_rates where cap_id = " +
+      req.body.hidden_input;
+  } else {
+    query =
       " update captionrater.captions SET consensus = " +
       new_consensus +
       ", total_number_of_rates = total_number_of_rates+1 where cap_id = " +
       req.body.hidden_input;
-    console.log(query);
-    await db.query(query).then((res) => {
-      req.old_consensus = current_consensus;
-      req.new_consensus = new_consensus;
-      // req.ratings = ratings;
-      next();
-    });
-  } else {
-    let query =
-      " update captionrater.captions SET consensus = " +
-      current_consensus +
-      ", total_number_of_rates = total_number_of_rates+1 where cap_id = " +
-      req.body.hidden_input;
-    console.log("rating too far from consensus. Consensus was not updated");
-    await db.query(query).then((res) => {
-      next();
-    });
   }
+
+  console.log(query);
+  await db.query(query).then((res) => {
+    req.old_consensus = current_consensus;
+    req.new_consensus = new_consensus;
+    // req.ratings = ratings;
+    next();
+  });
 }
 
 router.get(
@@ -412,11 +428,12 @@ router.post(
     console.log("req.current_score: " + req.current_score);
     console.log("req.imgURL 2: " + req.imgURL);
     console.log("req.consensus 2: " + req.consensus);
-
+    console.log(req.total_score);
     res.redirect(
       url.format({
         pathname: "/play_result",
         query: {
+          total_score: req.total_score,
           gif: gif2,
           comment: ans,
           rating: req.rating,

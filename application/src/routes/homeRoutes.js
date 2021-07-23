@@ -29,8 +29,10 @@ router.get("/play_result", function (req, res, next) {
   let rating = req.query.rating;
   let disputed = req.query.disputed;
   let gif = req.query.gif;
+  let total_score = req.query.total_score;
 
   res.render("play_result", {
+    total_score: total_score,
     gif: gif,
     image: image,
     caption: caption,

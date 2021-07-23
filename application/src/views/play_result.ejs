@@ -70,7 +70,7 @@
     /* width: fit-content; */
   }
   .body {
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: "Noto Sans JP", sans-serif;
     background-color: #717ea1;
     color: #000000;
   }
@@ -204,22 +204,22 @@
     // audio.play();
     hide_loader();
     if (!window.location.hash) {
-      window.location = window.location + '#modal-submit';
+      window.location = window.location + "#modal-submit";
       window.location.reload();
     }
   };
 
   function hide_loader() {
     setTimeout(function () {
-      let x = document.getElementById('loader');
-      x.classList.add('disappear');
+      let x = document.getElementById("loader");
+      x.classList.add("disappear");
     }, 1000);
   }
   function changeToModal(index) {
     console.log(index);
-    $('#hidden_input').val(index);
-    $('#location').val('result');
-    $('#myModal').modal('show');
+    $("#hidden_input").val(index);
+    $("#location").val("result");
+    $("#myModal").modal("show");
   }
 </script>
 <body class="body">
@@ -230,7 +230,11 @@
           <%= comment %>
         </h3>
         <img src="<%= gif %>" class="gif" />
-        <div id="hidden_div" class="box">
+
+        <div id="hidden_div" class="caption col">
+          <h5 class="font-weight-bold text-success caption1">
+            Total Score: <%= total_score %>
+          </h5>
           <h6 class="caption1">Your rating: <%= rate %></h6>
           <h6 class="caption1">Consensus: <%= consensus %></h6>
           <h6 class="caption1 font-weight-bold">
@@ -360,7 +364,11 @@
       "
     >
       <img src="<%= gif %>" class="vanish-gif" />
-       <% if(comment === 'Awesome!' || comment === 'Great Job!' || comment === 'Bullseye!' || comment === 'Nailed it!' || comment === 'Excellent!' || comment === 'I knew you had it in you!' || comment === 'Well done you!' || comment === 'Keep it up, champ!' || comment === 'Slam dunk!' || comment === 'Success!' || comment === 'You GOT this!' || comment ===  'Alriiiight!'
+      <% if(comment === 'Awesome!' || comment === 'Great Job!' || comment ===
+      'Bullseye!' || comment === 'Nailed it!' || comment === 'Excellent!' ||
+      comment === 'I knew you had it in you!' || comment === 'Well done you!' ||
+      comment === 'Keep it up, champ!' || comment === 'Slam dunk!' || comment
+      === 'Success!' || comment === 'You GOT this!' || comment === 'Alriiiight!'
       ){ %>
       <audio id="audio-tone" autoplay>
         <source src="Positive_tone.mp3" type="audio/mpeg" />
@@ -371,7 +379,7 @@
         <source src="Negative_tone.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
-      <% } %> 
+      <% } %>
 
       <h1
         class="text-center text-light font-italic font-weight-bold vanish-text"
