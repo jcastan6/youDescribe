@@ -285,13 +285,19 @@ async function updateUsersTable(req, res, next) {
   let success = req.ratings[req.ratings.length - 1].success;
   req.total_score = parseInt(req.total_score) + parseInt(score);
   //increment the userAttempts by one
+  let level = "";
+  if ((req.accuracy = "NaN")) {
+    level = 0;
+  } else {
+    level = req.accuracy;
+  }
   let query =
     " UPDATE captionrater.users SET " +
     "total_score = total_score  + " +
     score +
     " , " +
     "level = " +
-    req.accuracy +
+    level +
     " , " +
     "total_num_attempts = total_num_attempts + 1 " +
     " , " +
