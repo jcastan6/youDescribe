@@ -35,8 +35,7 @@ async function getUserInfo(req, res, next) {
 
     data = data[0];
     let total = sum;
-    let accuracy = (sum * 100) / (3 * count);
-
+    let accuracy = data.level;
     req.total_score = total;
 
     console.log("totalscore: " + req.total_score);
