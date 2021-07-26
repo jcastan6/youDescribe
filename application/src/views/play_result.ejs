@@ -221,6 +221,13 @@
     $("#location").val("result");
     $("#myModal").modal("show");
   }
+  function hideModal(index) {
+    console.log(index);
+    $("#hidden_input").val(index);
+    $("#location").val("result");
+    $("#myModal").modal("hide");
+    $("#dispute-button").val("Disputed");
+  }
 </script>
 <body class="body">
   <div class="container">
@@ -241,7 +248,8 @@
           <h6 class="caption1 font-weight-bold">
             <kbd class="p-1"> Score Earned: <%= score %></kbd>
           </h6>
-          <form action="/play" method="GET">
+
+          <form method="GET" action="/dashboard">
             <input
               type="submit"
               name="submit"
@@ -253,8 +261,7 @@
                 margin-dashboard-btn
                 font-weight-bold
               "
-              value="Next Image"
-              id="submitButton"
+              value="Back to Dashboard"
             />
           </form>
         </div>
@@ -270,18 +277,20 @@
         <h5 class="caption mt-3 font-weight-bold"><%= caption %></h5>
 
         <div class="form-group d-flex justify-content-center mx-auto w-25 mt-5">
-          <form method="GET" action="/dashboard">
+          <form action="/play" method="GET">
             <input
               type="submit"
               name="submit"
               class="btn btn-lg button_dashboard mr-4"
-              value="Back to Dashboard"
+              value="Next Image"
+              id="submitButton"
             />
           </form>
           <div>
             <input
               type="submit"
               name="submit"
+              id="dispute-button"
               class="btn btn-danger btn-lg ml-4"
               value="<% if(rating.dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
               onclick="changeToModal('<%= rating %>')"
@@ -344,6 +353,7 @@
                     value="Submit"
                     class="btn btn-unique"
                     style="background-color: goldenrod"
+                    onclick="hideModal('<%= rating %>')"
                   /><i class="fas fa-paper-plane-o ml-1"></i>
                 </div>
               </form>

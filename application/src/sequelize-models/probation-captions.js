@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const caption = sequelize.define("probation-caption", {
+  const caption = sequelize.define("probationCaption", {
     cap_id: {
       type: Sequelize.INTEGER,
       primaryKey: true,

@@ -205,16 +205,24 @@
       window.location = window.location + '#modal-submit';
       window.location.reload();
     }
+    
   }
-
+  var user = "<%= users[0].tutorial_images %>";
+  if(parseInt(user) > 0){
+    window.location.replace("/tutorial-intro");
+  }
+  
   function changeToModal(index) {
     console.log(index);
     $('#hidden_input').val(index);
     $('#myModal').modal('show');
   }
+  
 </script>
 
+
 <body class="body">
+  
 <div class="container wrapper">
   <div class="header">
     <br />

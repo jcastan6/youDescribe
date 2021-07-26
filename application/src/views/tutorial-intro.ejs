@@ -1,0 +1,146 @@
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  p {
+    margin-right: 20%;
+    margin-top: auto;
+    margin-bottom: 1rem;
+    margin-left: 20%;
+  }
+  .button_next {
+    background-color: rgb(224, 138, 80);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .table {
+    margin: auto;
+    width: 50% !important;
+  }
+</style>
+
+<div>
+  <br />
+  <h2 class="text-center text-info">Caption Rater - The Game!</h2>
+  <br />
+  <p class="text-center text-info">
+    You will be presented with a series of images, along with a caption that
+    describes the image.
+  </p>
+  <p class="text-center text-info">
+    Becoming our game player:
+    <br />
+    Before you begin the game, you will need to successfully complete a
+    tutorial. For the tutorial, you will complete 20 test ratings. You need to
+    earn at least 40 points in the tutorial to unlock and start the actual game.
+    If you don’t earn at least 40 points, you will be sent to another pass of
+    the tutorial and will complete 20 more test ratings. As it was explained in
+    “how your score is calculated”, we want game players to rate image-captions
+    with values that are closely aligned with the community consensus.
+  </p>
+  <p class="text-center">
+    How AWS gift card will be paid:
+    <br />
+    Points are accumulated for each rating you complete in the game. Once you
+    reach the points below, you will receive the award gift cards as described.
+    <br />
+    700 points: $10 Amazon Gift Card will be sent to you
+    <br />
+    2200 points: additional $25
+    <br />
+    4000 points: additional $25
+    <br />
+    6000 points: additional $25 8500 points: additional $25
+    <br />
+    We also award the daily top 3 players with a special bonus gift card.
+  </p>
+  <br />
+  <div id="myDIV">
+    <table
+      class="table table-bordered table-secondary table-responsive text-center"
+    >
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Rating</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>
+            Objects are incorrectly identified. The caption gives the wrong idea
+            about what is happening in the image.
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>
+            Objects are partially correctly identified with some errors, but the
+            caption is accurate enough to give an idea of what is happening in
+            the image. The caption identifies most of the objects but might not
+            identify everything. There is no interpretation of what anything
+            means.
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>
+            Relevant objects are correctly identified. The caption describes
+            what is seen but not where objects are in space. There is no
+            description of the overall setting and no interpretation of an
+            event.
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>
+            Objects and/or a general scene and/or an action are correctly
+            identified but not every element is completely identified. The
+            caption describes what is seen and where things are in space. There
+            is no interpretation of an event.
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>
+            Objects, a general scene, and actions are correctly identified if
+            present in the image. The caption describes what is seen and where
+            things are in space.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <form method="GET" action="/tutorial" class="form-group">
+    <input
+      class="button_next"
+      type="submit"
+      name="submit"
+      class="button_next"
+      value="Next"
+    />
+  </form>
+</div>

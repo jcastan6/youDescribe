@@ -285,12 +285,9 @@ async function updateUsersTable(req, res, next) {
   let success = req.ratings[req.ratings.length - 1].success;
   req.total_score = parseInt(req.total_score) + parseInt(score);
   //increment the userAttempts by one
-  let level = "";
-  if ((req.accuracy = "NaN")) {
-    level = 0;
-  } else {
-    level = req.accuracy;
-  }
+
+  level = req.accuracy;
+
   let query =
     " UPDATE captionrater.users SET " +
     "total_score = total_score  + " +
@@ -375,12 +372,18 @@ router.get(
     console.log("req.imgURL 1 : " + req.imgURL);
     console.log("req.consensus 1: " + req.consensus);
     console.log("cap id:" + req.caption_id);
+    if (req.accuracy === "NaN") {
+      req.accuracy = "Pending";
+    } else {
+      req.accuracy = Math.round(req.accuracy) + "%";
+    }
+
     res.render("play", {
       caption_from_captions: caption_from_captions,
       imgURL: imgURL,
       //    scores : scores,
       total_score: total_score,
-      accuracy: req.accuracy.toFixed(2),
+      accuracy: req.accuracy,
       caption_id: req.caption_id,
     });
   }
@@ -409,12 +412,15 @@ router.post(
   getImageidFromCaptions_playresult,
   getImageUrlfromImageId,
   getCurrentConsensus,
+
   insertRatings,
   getRatingsInfo,
   getUserInfo,
-  updateUsersTable,
+
   getRatingsAveForCap,
   updateConsensus,
+  getUserInfo,
+  updateUsersTable,
   insertDispute,
   (req, res) => {
     var random_good_answer =
@@ -467,7 +473,6 @@ router.post(
 
 router.post("/addDispute", insertDispute, async (req, res) => {
   console.log("dispute added");
-  res.redirect("back");
 });
 
 module.exports = router;

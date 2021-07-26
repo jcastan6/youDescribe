@@ -32,9 +32,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       defaultValue: 0,
     },
-    tutorial_completed: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
+    tutorial_images: {
+      type: Sequelize.INTEGER,
+      defaultValue: 10,
     },
     probation_images: {
       type: Sequelize.INTEGER,

@@ -1,0 +1,275 @@
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta charset="utf-8" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap"
+  rel="stylesheet"
+/>
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+/>
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+  .wrapper {
+    background-color: #dddfd4;
+    height: 30%;
+    margin: 3%;
+    box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+    padding: 0%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-radius: 15px;
+  }
+
+  .animation {
+    top: 50%;
+    background-color: #dddfd4;
+    box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+    height: 50%;
+    margin: 3%;
+    padding: 1%;
+    border-radius: 15px;
+  }
+  .gif {
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media screen and (max-width: 768px) {
+    .gif {
+      width: 50%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .animation {
+      padding: 20px;
+    }
+  }
+  .image {
+    border-radius: 15px 15px 15px 15px;
+    /* width: 100%; */
+    width: fit-content;
+    height: auto;
+  }
+  .img-div {
+    background-color: rgb(178, 190, 185);
+    border-radius: 15px;
+    /* width: fit-content; */
+  }
+  .body {
+    font-family: "Noto Sans JP", sans-serif;
+    background-color: #717ea1;
+    color: #000000;
+  }
+  .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .button_dashboard {
+    background-color: rgb(224, 138, 80);
+    color: white;
+  }
+  .margin-dashboard-btn {
+    margin-bottom: -10px;
+    margin-top: 15px;
+  }
+  .btn-lg {
+    padding: 8px 10px;
+  }
+  .button_instructions {
+    background-color: rgb(72, 83, 247);
+    border: none;
+    color: white;
+    padding: 13px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .box {
+    background-color: lightblue;
+    width: fit-content;
+    border: 4px solid rgb(96, 99, 96);
+    /* padding: 10px; */
+    /* margin: 15px; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+  .caption {
+    color: rgb(3, 14, 3);
+    display: block;
+    font-size: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90%;
+    background-color: white;
+    padding: 2%;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+  }
+  .caption2 {
+    color: rgb(3, 14, 3);
+    display: block;
+    font-size: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90%;
+    background-color: white;
+    padding: 2%;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+  }
+  .caption1 {
+    color: rgb(3, 14, 3);
+    padding: 2px;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 0px !important;
+  }
+
+  .table {
+    margin: auto;
+    width: 37% !important;
+    font-size: 12;
+  }
+
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(167, 165, 165);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .disappear {
+    animation: vanish 1s forwards;
+  }
+
+  @keyframes vanish {
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  .vanish-div {
+    box-shadow: 4px 4px 10px 4px #606883;
+    border-radius: 15px;
+    background-color: rgb(94, 94, 94);
+    width: 75%;
+  }
+  .vanish-text {
+    font-size: 50px;
+  }
+  .vanish-gif {
+    width: 50%;
+    margin-bottom: -100px;
+  }
+  @media screen and (max-width: 648px) {
+    .vanish-text {
+      font-size: 40px;
+    }
+  }
+  @media screen and (max-width: 800px) {
+    .vanish-gif {
+      width: 100%;
+    }
+    .vanish-div {
+      width: 100%;
+      padding: 10%;
+      margin: 10%;
+    }
+  }
+</style>
+<script>
+  // $('#button').one('submit', function() {
+  //     $(this).find('input[type="submit"]').attr('disabled','disabled');
+  // })
+  window.onload = function () {
+    // let audio = new Audio('Negative_tone.mp3');
+    // audio.play();
+    hide_loader();
+  };
+
+  function hide_loader() {
+    setTimeout(function () {
+      let x = document.getElementById("loader");
+      x.classList.add("disappear");
+    }, 1000);
+  }
+  function changeToModal(index) {
+    console.log(index);
+    $("#hidden_input").val(index);
+    $("#location").val("result");
+    $("#myModal").modal("show");
+  }
+</script>
+<body class="body">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 animation">
+        <h3 class="text-center text-info font-italic font-weight-bold">
+          <%= comment %>
+        </h3>
+        <img src="<%= gif %>" class="gif" />
+
+        <div id="hidden_div" class="caption col">
+          <h6 class="caption1">Your rating: <%= rate %></h6>
+          <h6 class="caption1">Consensus:<%= caption.consensus %></h6>
+        </div>
+      </div>
+      <div class="col-md-7 wrapper">
+        <!-- <img src="<%= image %>" class="center image" /> -->
+        <div class="text-center img-div mx-auto d-block">
+          <img src="<%= image.img_url %>" class="img-fluid image" />
+        </div>
+        <h5 class="caption"><%= caption.caption %></h5>
+        <div class="caption2">
+          <h4>Explanation For Consensus:</h4>
+          <br />
+          <%= caption.explanation %>
+        </div>
+        <div class="form-group d-flex justify-content-center mx-auto w-25 mt-5">
+          <form action="/tutorial" method="GET">
+            <div class="form-group">
+              <input
+                type="submit"
+                name="submit"
+                class="btn btn-lg button_dashboard mr-4"
+                value="Next"
+                id="submitButton"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

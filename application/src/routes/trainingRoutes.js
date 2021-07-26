@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+var http = require("http");
+const url = require("url");
 const db = require("../models/database.js");
 var good_guess = [
   "Awesome!",
@@ -32,78 +34,141 @@ var very_bad_guess = [
   "Whomp whomp!",
 ];
 
-////////first///////////////////first///////////////////first///////////
-router.get("/tutorial", (req, res) => {
-  console.log(req.params);
+async function getUserInfo(req, res, next) {
+  let query = " SELECT * FROM captionrater.users where id = " + req.user.id;
+  // console.log(query);
+  await db.execute(query).then((users) => {
+    req.users = users[0];
+    //  console.log("emaill: "+users[0].total_num_attempts);
 
-  res.render("training", {
+    req.accuracy = users[0][0].level;
+
+    next();
+  });
+  // console.log(users[3].email);
+}
+async function selectImage(req, res, next) {
+  let query =
+    "SELECT * FROM captionrater.tutorialCaptions where ratings = (select MIN(ratings) from tutorialCaptions) order by RAND();";
+  // console.log(query);
+  await db.execute(query).then(async (caption) => {
+    req.caption = caption[0][0];
+    let query = `SELECT * FROM captionrater.images where img_id =${req.caption.images_img_id}`;
+    await db.execute(query).then((image) => {
+      req.image = image[0];
+    });
+    next();
+  });
+  // console.log(users[3].email);
+}
+
+////////first///////////////////first///////////////////first///////////
+router.get("/tutorial-intro", getUserInfo, (req, res) => {
+  console.log(req.users);
+
+  res.render("tutorial-intro", {
     image: 0,
+    users: req.users,
   });
 });
-router.get("/tutorial/:image", (req, res) => {
-  console.log(req.params);
-  if (req.params.image === 11) {
-    //user has completed tutorial, send to dashboard
+router.get("/tutorial", selectImage, (req, res) => {
+  if (req.user.tutorial_images <= 0) {
+    res.redirect("/dashboard");
   } else {
-    res.render("trainingexample1", {
-      image: 1,
+    res.render("tutorial", {
+      caption: req.caption,
+      image: req.image[0],
     });
   }
 });
-
-async function calculateScore1(req, res, next) {
-  let current_consensus = 4;
-  let current_score = req.query.inlineRadioOptions;
-
-  let difference = Math.abs(current_consensus - current_score);
-  console.log("diff: " + difference);
-  if (current_consensus === -1) {
-    current_score = 0;
-  } else {
-    if (difference <= 0.1) {
-      current_score = 20;
-    } else if (0.1 < difference && difference <= 0.5) {
-      current_score = 10;
-    } else if (0.5 < difference && difference <= 1) {
-      current_score = 5;
-    } else {
-      current_score = 0;
-    }
-  }
-  console.log(current_score);
-  req.score = current_score;
-  next();
+async function updateCaption(req, res, next) {
+  let query = `UPDATE captionrater.tutorialCaptions set ratings = ratings+1 where cap_id = ${req.body.cap_id}`;
+  // console.log(query);
+  await db.execute(query).then(async (caption) => {
+    next();
+  });
+  // console.log(users[3].email);
 }
 
-router.get("/trainingres", calculateScore1, (req, res) => {
-  // console.log("rate is: "+parseInt(req.body.inlineRadioOptions));
+async function updateUserScore(req, res, next) {
+  let query = `UPDATE captionrater.users set tutorial_images = tutorial_images-1 where id = ${req.user.id}`;
+  // console.log(query);
+  await db.execute(query).then(async (caption) => {
+    next();
+  });
+  // console.log(users[3].email);
+}
+async function updateUser(req, res, next) {
+  let query = `select * from captionrater.users where id = ${req.user.id}`;
+  // console.log(query);
+  await db.execute(query).then(async (user) => {
+    req.user = user[0][0];
+    next();
+  });
+  // console.log(users[3].email);
+}
+
+async function calculateScore(req, res, next) {
+  req.rate = req.query.inlineRadioOptions;
   var random_good_answer =
     good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer =
     bad_guess[Math.floor(Math.random() * bad_guess.length)];
   var random_very_bad_answer =
     very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
-  var ans;
-  if (req.score < 5) {
-    ans = random_very_bad_answer;
-  } else if (req.score == 10) {
-    ans = "So close! Try harder next time!";
-  } else if (req.score == 5) {
-    ans = random_bad_answer;
+  if (req.rate < 1) {
+    req.gif = "https://caption.click/gifs/Actual_Animation_(3).gif";
+    req.ans = random_very_bad_answer;
+  } else if (req.current_score == 1) {
+    req.gif = "https://caption.click/gifs/Actual_Animation_(4).gif";
+    req.ans = "So close! Try harder next time!";
+  } else if (req.current_score == 2) {
+    req.gif = "https://caption.click/gifs/Actual_Animation_(5).gif";
+    req.ans = random_good_answer;
   } else {
-    ans = random_good_answer;
+    req.gif = "https://caption.click/gifs/play.gif";
+    req.ans = random_good_answer;
   }
-  console.log(req.query.inlineRadioOptions);
-  console.log(req.score);
-  let rate = req.query.inlineRadioOptions;
-  let score = req.score;
+  console.log(req.query);
+  let query = `SELECT * FROM captionrater.tutorialCaptions where cap_id = ${req.query.cap_id}`;
 
-  res.render("trainingres", {
-    image: 1,
-    rate: rate,
-    score: score,
-    ans: ans,
+  await db.execute(query).then(async (caption) => {
+    query = `SELECT * FROM captionrater.images where img_id =${caption[0][0].images_img_id}`;
+    await db.execute(query).then((image) => {
+      req.caption = caption[0][0];
+
+      req.image = image[0];
+      console.log(req.image[0]);
+      next();
+    });
   });
+}
+
+router.post("/tutorial_res", updateCaption, updateUserScore, (req, res) => {
+  res.redirect(
+    url.format({
+      pathname: "tutorial_res",
+      query: {
+        cap_id: req.body.cap_id,
+        rate: req.body.inlineRadioOptions,
+      },
+    })
+  );
+});
+
+router.get("/tutorial_res", calculateScore, updateUser, (req, res) => {
+  console.log(req.user);
+  if (req.user.tutorial_images <= 0) {
+    res.redirect("/dashboard");
+  } else {
+    res.render("tutorial_res", {
+      caption: req.caption,
+      image: req.image[0],
+      rate: req.query.rate,
+      gif: req.gif,
+      comment: req.ans,
+    });
+  }
 });
 
 module.exports = router;

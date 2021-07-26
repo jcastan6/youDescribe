@@ -31,7 +31,7 @@ module.exports = (sequelize, Sequelize) => {
       defaultValue: "Undertermined",
     },
     dispute_desc: {
-      type: Sequelize.STRING(45),
+      type: Sequelize.STRING(260),
       allowNull: true,
     },
     users_user_id: {

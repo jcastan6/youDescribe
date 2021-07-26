@@ -21,14 +21,33 @@ async function getUserInfoFromRatings(req, res, next) {
 }
 
 async function getUserInfo(req, res, next) {
-  let query = " SELECT * FROM captionrater.users where id = " + req.user.id;
-  // console.log(query);
-  await db.execute(query).then((users) => {
-    req.users = users[0];
-    //  console.log("emaill: "+users[0].total_num_attempts);
+  let query =
+    "SELECT *, total_num_attempts as count, total_score as sum, level FROM captionrater.users where id=" +
+    req.user.id;
+  let count = 0;
+  let sum = 0;
 
-    req.accuracy = users[0][0].level;
+  await db.query(query).then(async (data) => {
+    data = data[0];
+    req.users = data;
+    count = data[0].count;
+    sum = data[0].sum;
 
+    data = data[0];
+    let total = sum;
+    let accuracy = (sum * 100) / (3 * count);
+
+    req.total_score = total;
+
+    console.log("totalscore: " + req.total_score);
+
+    req.accuracy = Math.round(accuracy);
+    console.log("accuracy: " + req.accuracy);
+    if (count < 15 || accuracy < 66) {
+      req.tutorial = true;
+    } else {
+      req.tutorial = false;
+    }
     next();
   });
   // console.log(users[3].email);

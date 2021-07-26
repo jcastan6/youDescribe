@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const caption = sequelize.define("tutorial-caption", {
+  const caption = sequelize.define("tutorialCaption", {
     cap_id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
@@ -11,6 +11,14 @@ module.exports = (sequelize, Sequelize) => {
     },
     images_img_id: {
       type: Sequelize.INTEGER,
+      allowNull: true,
+    },
+    ratings: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+    explanation: {
+      type: Sequelize.STRING(250),
       allowNull: false,
     },
     consensus: {
