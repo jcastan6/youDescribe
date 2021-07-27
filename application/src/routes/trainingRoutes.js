@@ -71,7 +71,7 @@ router.get("/tutorial-intro", getUserInfo, (req, res) => {
     users: req.users,
   });
 });
-router.get("/tutorial", selectImage, (req, res) => {
+router.get("/tutorial", updateUser, selectImage, (req, res) => {
   if (req.user.tutorial_images <= 0) {
     res.redirect("/dashboard");
   } else {
@@ -109,26 +109,13 @@ async function updateUser(req, res, next) {
 }
 
 async function calculateScore(req, res, next) {
-  req.rate = req.query.inlineRadioOptions;
   var random_good_answer =
     good_guess[Math.floor(Math.random() * good_guess.length)];
   var random_bad_answer =
     bad_guess[Math.floor(Math.random() * bad_guess.length)];
   var random_very_bad_answer =
     very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
-  if (req.rate < 1) {
-    req.gif = "https://caption.click/gifs/Actual_Animation_(3).gif";
-    req.ans = random_very_bad_answer;
-  } else if (req.current_score == 1) {
-    req.gif = "https://caption.click/gifs/Actual_Animation_(4).gif";
-    req.ans = "So close! Try harder next time!";
-  } else if (req.current_score == 2) {
-    req.gif = "https://caption.click/gifs/Actual_Animation_(5).gif";
-    req.ans = random_good_answer;
-  } else {
-    req.gif = "https://caption.click/gifs/play.gif";
-    req.ans = random_good_answer;
-  }
+
   console.log(req.query);
   let query = `SELECT * FROM captionrater.tutorialCaptions where cap_id = ${req.query.cap_id}`;
 
@@ -136,7 +123,27 @@ async function calculateScore(req, res, next) {
     query = `SELECT * FROM captionrater.images where img_id =${caption[0][0].images_img_id}`;
     await db.execute(query).then((image) => {
       req.caption = caption[0][0];
+      let diff = Math.abs(req.query.rate - req.caption.consensus);
+      console.log(req.query.rate);
+      if (diff === 0) {
+        req.score = 3;
+        req.gif = "https://caption.click/gifs/play.gif";
 
+        req.ans = random_good_answer;
+      } else if (diff === 1) {
+        req.score = 2;
+        req.gif = "https://caption.click/gifs/Actual_Animation_(5).gif";
+
+        req.ans = "So close! Try harder next time!";
+      } else if (diff === 2) {
+        req.score = 1;
+        req.gif = "https://caption.click/gifs/Actual_Animation_(4).gif";
+        req.ans = random_bad_answer;
+      } else {
+        req.score = 0;
+        req.gif = "https://caption.click/gifs/Actual_Animation_(3).gif";
+        req.ans = random_very_bad_answer;
+      }
       req.image = image[0];
       console.log(req.image[0]);
       next();
@@ -151,17 +158,18 @@ router.post("/tutorial_res", updateCaption, updateUserScore, (req, res) => {
       query: {
         cap_id: req.body.cap_id,
         rate: req.body.inlineRadioOptions,
+        score: req.score,
       },
     })
   );
 });
 
 router.get("/tutorial_res", calculateScore, updateUser, (req, res) => {
-  console.log(req.user);
   if (req.user.tutorial_images <= 0) {
     res.redirect("/dashboard");
   } else {
     res.render("tutorial_res", {
+      score: req.score,
       caption: req.caption,
       image: req.image[0],
       rate: req.query.rate,

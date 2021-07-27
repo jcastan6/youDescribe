@@ -104,31 +104,26 @@ async function getImageUrlfromImageId(req, res, next) {
 }
 
 async function getUserInfo(req, res, next) {
-  //rating system changed, new scoring system puts 3 as maximum score. Accuracy is now calculated off of scores that were made before and after the change.
-  // rate = req.body.inlineRadioOptions;
-
-  //3 point system
   let query =
-    "SELECT total_num_attempts as count, total_score as sum, level FROM captionrater.users where id=" +
+    "SELECT *, total_num_attempts as count, total_score as sum, level FROM captionrater.users where id=" +
     req.user.id;
   let count = 0;
   let sum = 0;
 
   await db.query(query).then(async (data) => {
     data = data[0];
-
+    req.users = data;
     count = data[0].count;
     sum = data[0].sum;
 
     data = data[0];
     let total = sum;
     let accuracy = data.level;
-
     req.total_score = total;
 
     console.log("totalscore: " + req.total_score);
 
-    req.accuracy = accuracy;
+    req.accuracy = Math.round(accuracy);
     console.log("accuracy: " + req.accuracy);
     if (count < 15 || accuracy < 66) {
       req.tutorial = true;
@@ -137,6 +132,7 @@ async function getUserInfo(req, res, next) {
     }
     next();
   });
+  // console.log(users[3].email);
 }
 
 async function getCurrentConsensus(req, res, next) {
@@ -276,9 +272,6 @@ async function getRatingsInfo(req, res, next) {
 }
 
 async function updateUsersTable(req, res, next) {
-  //accuracy = score / (total_attempts X 20) x 100 (so percentage format)
-
-  // console.log("caption: "+req.ratings[req.ratings.length-1].caption);
   //add scores to user's total_score
   let score = req.ratings[req.ratings.length - 1].scores;
   // add total_success to users table
@@ -294,8 +287,10 @@ async function updateUsersTable(req, res, next) {
     user = user[0][0];
     let sum = parseInt(user.sum);
     let attempts = parseInt(user.attempts);
-    console.log(sum);
+    console.log("sum: " + sum);
+    console.log("score: " + score);
     let level = ((sum + score) / ((attempts + 1) * 3)) * 10;
+    req.accuracy = level;
     let query2 =
       " UPDATE captionrater.users SET " +
       "total_score = total_score  + " +
@@ -421,11 +416,8 @@ router.post(
   getImageidFromCaptions_playresult,
   getImageUrlfromImageId,
   getCurrentConsensus,
-
   insertRatings,
   getRatingsInfo,
-  getUserInfo,
-
   getRatingsAveForCap,
   updateConsensus,
   getUserInfo,
