@@ -238,6 +238,14 @@
     <form method="GET" action="/leaderboard" class="form-group mx-4" >
       <input type="submit" name="submit" class="btn button_next not-selected-tab" value="Leaderboard">
     </form>  
+    <form method="GET" action="/tutorial-intro" class="form-group mx-4" >
+      <input type="submit" name="" class="btn button_next not-selected-tab" value="Instructions">
+    </form>  
+    <form method="GET" action="/logout" class="form-group mx-4" >
+      <input type="submit" name="" class="btn btn-secondary not-selected-tab btn-logout" value="Log Out">
+    </form>  
+    
+<!--     
   <form class="form-group mx-4">
     <input
     class="btn btn-secondary not-selected-tab btn-logout"
@@ -247,21 +255,17 @@
     data-target="#signout"
     value="Logout">
 </input>
-</form>
+</form> -->
   </div>
   <h2 class="text-center text-info font-italic font-weight-bold"><u>Dashboard</u></h2>
-  <h4 class="text-center m-5 sound-text">Turn your sound on for some FUN..!!</h4>
+  
   <br />
   <div class="d-flex justify-content-around flex-wrap">
     <img src= "https://caption.click/gifs/dashboard.gif" class="img-fluid anime">
     <div  class="d-block mx-auto">
     <div class="card card-score p-3 m-3 align-items-center justify-content-center">
       <h4 class="attempt font-weight-bold text-success">Total Score: <%= users[0].total_score %></h5>
-      <h5 class="attempt">Accuracy:
-        <% if(typeof  accuracy != 'undefined'){ %>
-        <%=accuracy%>
-        <%}%>%
-      </h5>
+
       
       <h5 class="attempt">Number of Attempts: <%= users[0].total_num_attempts %></h5>
     </div>
@@ -329,7 +333,9 @@
                width=100% readonly />
               <p class="p-2 m-3"><kbd><%= ratings[i].caption %></kbd></p>
           <input style="width: fit-content;" type="text" name="consensus" value="Consensus: <%= ratings[i].consensus  %>" readonly />
-          <input style="width: fit-content;" type="text" name="rate" value="Your Rating: <%= ratings[i].rate %>" readonly />          
+          <input style="width: fit-content;" type="text" name="rate" value="Your Rating: <%= ratings[i].rate %>" readonly />         
+          <input style="width: fit-content;" type="text" name="confidence" value="Confidence Rating: <%= ratings[i].confidence %>" readonly />         
+          
           <input style="width: fit-content;" type="text" name="scores" value="Score: <%= ratings[i].scores %>"
               onloadeddata="myFunctionTest('<%= ratings[i].dispute %>')" readonly />
           <input type="hidden" id="secret" name="hidden_test" value="<%= ratings[i].dispute %>" />
@@ -399,8 +405,11 @@ aria-hidden="true"
     </div>
       <div>
       <form method="GET" action="/logout" class="" >
+        <form method="GET" action="/tutorial-intro" class="form-group mx-4" >
+      
+    </form>  
         <input type="submit" name="submit" class="btn bg-info btn-lg btn-block text-center text-white"
-        data-dismiss="modal" value="Yes" />     
+        value="Yes" />     
       </form>
         <button
         type="button"

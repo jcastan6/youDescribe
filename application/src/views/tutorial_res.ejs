@@ -155,7 +155,22 @@
     width: 37% !important;
     font-size: 12;
   }
-
+  .feedback-text {
+    overflow: hidden;
+    transform: translatey(0px);
+    animation: float 0.3s ease-in-out 2;
+  }
+  @keyframes float {
+    0% {
+      transform: translatey(0px);
+    }
+    50% {
+      transform: translatey(-10px);
+    }
+    100% {
+      transform: translatey(0px);
+    }
+  }
   .loader {
     position: fixed;
     top: 0;
@@ -230,11 +245,23 @@
     $("#location").val("result");
     $("#myModal").modal("show");
   }
+
+  window.onload = function () {
+    var imgurl = "<%= image.img_url  %>";
+
+    if (imgurl.includes("https")) {
+      document.getElementById("rating-image").src = imgurl;
+    } else {
+      document.getElementById(
+        "rating-image"
+      ).src = `https://caption.click/images${imgurl}`;
+    }
+  };
 </script>
 <body class="body">
   <div class="container">
     <div class="row">
-      <div class="col-md-3 animation">
+      <div class="col-md-3 animation feedback-text">
         <h3 class="text-center text-info font-italic font-weight-bold">
           <%= comment %>
         </h3>
@@ -252,7 +279,11 @@
       <div class="col-md-7 wrapper">
         <!-- <img src="<%= image %>" class="center image" /> -->
         <div class="text-center img-div mx-auto d-block">
-          <img src="<%= image.img_url %>" class="img-fluid image" />
+          <img
+            src="<%= image.img_url %>"
+            class="img-fluid image"
+            id="rating-image"
+          />
         </div>
         <h5 class="caption"><%= caption.caption %></h5>
         <div class="caption2">
