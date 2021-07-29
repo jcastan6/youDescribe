@@ -15,13 +15,16 @@
     background-color: #dfddd4;
     /* margin-left: 10%;
       margin-right: 10%; */
-    margin-top: 3%;
-    margin-bottom: 3%;
+
+    margin: auto;
+
     box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
     border-radius: 15px;
     padding-bottom: 20px;
   }
   .body {
+    padding: 3%;
+
     font-family: "Noto Sans JP", sans-serif;
     background-color: #717ea1;
     color: #000000;
@@ -32,10 +35,18 @@
     margin-right: auto;
   }
   p {
-    margin-right: 20%;
+    margin-right: 10%;
     margin-top: auto;
     margin-bottom: 1rem;
-    margin-left: 20%;
+    margin-left: 10%;
+  }
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+    background-color: rgb(255, 255, 255);
+    margin: auto;
+    padding: 3px;
+    width: 94%;
   }
   .button_next {
     background-color: rgb(224, 138, 80);
@@ -66,41 +77,50 @@
 <body class="body">
   <div class="container wrapper">
     <br />
-    <h2 class="text-center text-info">Caption Rater - The Game!</h2>
+
     <br />
-    <p class="text-center">
-      You will be presented with a series of images, along with a caption that
-      describes the image.
-    </p>
-    <p class="text-center">
-      Becoming our game player:
-      <br />
-      Before you begin the game, you will need to successfully complete a
-      tutorial. For the tutorial, you will complete 20 test ratings. You need to
-      earn at least 40 points in the tutorial to unlock and start the actual
-      game. If you don’t earn at least 40 points, you will be sent to another
-      pass of the tutorial and will complete 20 more test ratings. As it was
-      explained in “how your score is calculated”, we want game players to rate
-      image-captions with values that are closely aligned with the community
-      consensus.
-    </p>
-    <p class="text-center">
-      How AWS gift card will be paid:
-      <br />
-      Points are accumulated for each rating you complete in the game. Once you
-      reach the points below, you will receive the award gift cards as
-      described.
-      <br />
-      700 points: $10 Amazon Gift Card will be sent to you
-      <br />
-      2200 points: additional $25
-      <br />
-      4000 points: additional $25
-      <br />
-      6000 points: additional $25 8500 points: additional $25
-      <br />
-      We also award the daily top 3 players with a special bonus gift card.
-    </p>
+    <div class="card">
+      <h2 class="text-center text-info">Caption Rater - The Game!</h2>
+      <p class="text-center">
+        You will be presented with a series of images, along with a caption that
+        describes the image. Rate how well the caption fits the image to gain
+        points. As more users agree on how well a caption fits the image, the
+        confidence level will rise. The higher the confidence level, the more
+        accurate you will have to be with your rating to earn points. You are
+        encouraged to submit a dispute to your score, and given the option to do
+        so in the dashboard and during gameplay.
+      </p>
+      <h2 class="text-center text-info">Becoming A Player</h2>
+      <p class="text-center">
+        Before you begin the game, you will need to successfully complete a
+        tutorial. First, you will rate 10 images to familiarize yourself with
+        the game and the rating system. Then, you will complete 20 test ratings
+        as a "probation period" to ensure your ratings are in line with the
+        expected rating. You need to earn at least 40 points in the tutorial to
+        unlock and start the actual game. If you don’t earn at least 40 points,
+        you will be sent to another pass of the tutorial and will complete 20
+        more "probation period" test ratings. As it is explained in “how your
+        score is calculated” below, we want game players to rate image-captions
+        with values that are closely aligned with the community consensus.
+      </p>
+      <h2 class="text-center text-info">How AWS gift cards will be paid:</h2>
+      <p class="text-center">
+        Points are accumulated for each rating you complete in the game. Once
+        you reach the points below, you will be sent a gift card. Please allow
+        some time for this process, as it is not automated.
+        <br />
+        700 points: $10 Amazon Gift Card will be sent to you
+        <br />
+        2200 points: additional $25
+        <br />
+        4000 points: additional $25
+        <br />
+        6000 points: additional $25 8500 points: additional $25
+        <br />
+        We will also reward the daily top 3 players with a special bonus gift
+        card! Keep an eye out on the leaderboard page.
+      </p>
+    </div>
     <br />
     <div id="myDIV">
       <table

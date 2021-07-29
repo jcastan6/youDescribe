@@ -136,7 +136,7 @@ async function getUserInfo(req, res, next) {
       console.log("tutorial");
       req.tutorial = true;
       req.probation_comment =
-        "You are currently on probation. Your score will not be updated until enough data is collected from you. Rate some captions and get your points up!";
+        "You are currently on probation. Your attempt count will not be updated until enough valid data is collected from you. Rate some captions and get your points up!";
       next();
     } else if (req.users.total_score < 40) {
       req.tutorial = true;
