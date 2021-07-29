@@ -329,8 +329,8 @@ async function updateUsersTable(req, res, next) {
   console.log("query is: " + query);
   await db.query(query).then(async (user) => {
     user = user[0][0];
-
-    if (req.tutorial) {
+    let query2 = "";
+    if (req.tutorial === true) {
       req.total_score = parseInt(req.total_score) + parseInt(req.current_score);
       query2 =
         " UPDATE captionrater.users SET " +
@@ -348,7 +348,7 @@ async function updateUsersTable(req, res, next) {
       console.log("score: " + score);
       let level = ((sum + score) / ((attempts + 1) * 3)) * 10;
       req.accuracy = level;
-      let query2 = "";
+
       req.total_score = parseInt(req.total_score) + parseInt(score);
       query2 =
         " UPDATE captionrater.users SET " +
