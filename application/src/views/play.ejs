@@ -23,26 +23,7 @@
       border: 3.5px solid rgb(99, 99, 155);
       border-radius: 10px;
     }
-    .image {
-      border-radius: 15px 15px 15px 15px;
-      /* width: 100%; */
-      width: fit-content;
-      height: auto;
-      /* background-size: 100% 100%; */
-      }
-    .wrapper {
-      background-color: #dddfd4;
-      /* margin-left: 30%;
-      margin-right: 10%; */
-      height: 30%;
-      margin:3%;
-      box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
-      padding: 0%;
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-      border-radius: 15px;
-      /* width: fit-content; */
-    }
+
 
     .animation{  
       /* top: 50%; */
@@ -60,12 +41,15 @@
     }
 
     .img-div {
-     background-color: rgb(178, 190, 185);
-     border-radius: 15px;
+     background-color: rgba(178, 190, 185 , 0);
+     border-radius: 15px 15px 0px 0px;
+    
      /* width: fit-content; */
     }
 
     .caption {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
     color: rgb(3, 14, 3);   
     width: fit-content;
     margin: auto;
@@ -83,7 +67,63 @@
     margin-right: auto;
   }
 
+  @media screen and (min-width: 769px) {
+    .image {
+      border-radius: 15px 15px 0px 0px;
+      max-height: 500 !important;     
+      width: 100%;
+      /* background-size: 100% 100%; */
+      }
+    .wrapper {
+      
+      background-color: #dddfd4;
+      /* margin-left: 30%;
+      margin-right: 10%; */
+      
+      display: inline-block;
+      margin-left:auto;
+      margin-right: auto;
+      margin-top: 3%;
+      box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
+      padding: 0%;
+      
+      flex: 0 0 auto;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      border-radius: 15px;
+      width: auto !important;
+      
+      /* width: fit-content; */
+    }
+  }
   @media screen and (max-width: 768px) {
+    .image {
+      border-radius: 15px 15px 0px 0px;
+   
+      width: 100%;
+      /* background-size: 100% 100%; */
+      }
+    .wrapper {
+      
+      background-color: #dddfd4;
+      /* margin-left: 30%;
+      margin-right: 10%; */
+      
+      
+      
+      margin: 3%;
+      box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
+      padding: 0%;
+      
+      
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      border-radius: 15px;
+     
+      
+      width: fit-content;
+    }
+
     .gif{
     width: 50%;
     display: block;
@@ -275,7 +315,7 @@
           </div>
         </div>
         <div class="text-center img-div mx-auto d-block">
-        <img src="https://caption.click/images<%= imgURL %>" class="img-fluid image" id="rating-image"/>
+        <img src="https://caption.click/images<%= imgURL %>" class=" image" id="rating-image"/>
         <!-- <img src="https://caption.click/images/val2014/COCO_val2014_000000052155.jpg" class="image" /> -->
         <!-- https://caption.click/images/val2014/COCO_val2014_000000052155.jpg -->
       </div>
