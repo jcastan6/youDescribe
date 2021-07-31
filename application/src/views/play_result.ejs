@@ -104,7 +104,7 @@
     color: white;
   }
   .margin-dashboard-btn {
-    width: 100%;
+    width: 50%;
     margin-bottom: -10px;
     margin-top: 15px;
     text-align: center;
@@ -280,22 +280,23 @@
             <kbd class="p-1"> Score Earned: <%= score %></kbd>
           </h6>
 
-          <form method="GET" action="/dashboard">
-            <input
-              type="submit"
-              name="submit"
-              class="
-                btn btn-lg btn-warning
-                text-dark
-                mx-auto
-                d-block
-                margin-dashboard-btn
-                font-weight-bold
-              "
-              value="Back to Dashboard"
-            />
-          </form>
+          
         </div>
+        <form method="GET" action="/dashboard">
+          <input
+            type="submit"
+            name="submit"
+            class="
+              btn btn-lg btn-warning
+              text-dark
+              mx-auto
+              d-block
+              margin-dashboard-btn
+              font-weight-bold
+            "
+            value="Back to Dashboard"
+          />
+        </form>
       </div>
       <div class="col-md-7 wrapper">
         <!-- <img src="<%= image %>" class="center image" /> -->

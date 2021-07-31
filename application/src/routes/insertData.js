@@ -9,22 +9,31 @@ async function insertImages(req, res, next) {
   console.log("My database is connected!");
 
   var i;
-  const content = fs.readFileSync(
-    "/home/ubuntu/caption-rater/application/src/newdata/coco_with_pythia_12800-14900_vsepp_ratings.json"
+  // const content = fs.readFileSync(
+  //   "C:\\Users\\Jose\\Documents\\captionrater\\application\\src\\newdata\\coco_human_11400-12800_vsepp_ratings.json"
+  // );
+
+  var files = fs.readdirSync(
+    "C:\\Users\\Jose\\Documents\\captionrater\\application\\src\\newdata\\"
   );
 
-  images = JSON.parse(content).images;
+  files.forEach((file) => {
+    const content = fs.readFileSync(
+      `C:\\Users\\Jose\\Documents\\captionrater\\application\\src\\newdata\\${file}`
+    );
+    images = JSON.parse(content).images;
 
-  ratings = JSON.parse(content).annotations;
-  //processImages(images);
-  processCaptions(ratings, db);
+    ratings = JSON.parse(content).annotations;
+    processImages(images);
+    //processCaptions(ratings, db);
+  });
 
   res.send();
 }
 
 function processCaptions(ratings, db) {
   for (const rating of ratings) {
-    let query = `INSERT INTO captionrater.captions (caption, images_img_id, consensus,dataset_name) VALUES ( "${rating.caption}" , ${rating.image_id}  , ${rating.rating} , "COCO" ) `;
+    let query = `INSERT INTO captionrater.captions (caption, images_img_id, consensus,dataset_name) VALUES ( "${rating.caption}" , ${rating.id}  , ${rating.rating} , "COCO" ) `;
     console.log(query);
     db.query(query).then((results) => {
       results = results[0];
@@ -42,8 +51,7 @@ function processRatings(cap_id, consensus) {
 
 function processImages(images) {
   for (const image of images) {
-    console.log(image);
-    let imgID = image.image_id;
+    let imgID = image.id;
     let imgName = image.file_name;
     let imgURL = image.coco_url;
     inner(imgID, imgName, imgURL);
@@ -60,7 +68,7 @@ async function inner(id, name, url) {
     url +
     "' ) ";
   console.log(query);
-  db.query(query).catch();
+  db.query(query).catch(() => console.log(query));
 }
 
 router.get("/insertData", insertImages, (req, res, next) => {

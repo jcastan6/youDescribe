@@ -135,13 +135,14 @@ async function getUserInfo(req, res, next) {
     if (req.users.probation_images > 0) {
       console.log("tutorial");
       req.tutorial = true;
-      req.probation_comment =
-        "You are currently on probation. Your attempt count will not be updated until enough valid data is collected from you. Rate some captions and get your points up!";
+      req.probation_comment = `You are currently on probation. Your attempt count will not be updated until enough valid data is collected from you. Rate ${req.users.probation_images} more captions and get your points up! If your score does not meet our quota, this number and your score will be reset.`;
       next();
-    } else if (req.users.total_score < 40) {
+    } else if (parseInt(req.users.total_score) < 40) {
+      console.log("here! \n \n");
       req.tutorial = true;
-      " UPDATE captionrater.users SET " +
-        "probation_images = 20" +
+      query =
+        " UPDATE captionrater.users SET " +
+        "probation_images = probation_images + 20, total_score = 0" +
         " where id = " +
         req.users.id;
       await db.query(query).then(async (data) => {
@@ -197,7 +198,10 @@ async function insertRatings(req, res, next) {
       req.current_score = -1;
     }
     req.disputed = 0;
-    next();
+    let query = `UPDATE probationCaptions SET ratings = ratings +  1 WHERE cap_id = ${req.caption_id}`;
+    await db.query(query).then((res) => {
+      next();
+    });
   } else {
     let query2 = `SELECT ratings.rate, ratings.rate_id, ratings.users_user_id as user_id FROM captionrater.ratings where captions_cap_id = ${req.body.hidden_input} `;
     await db
@@ -434,6 +438,7 @@ router.get(
   getImageidFromCaptions,
   getImageUrlfromImageId,
   getCurrentConsensus,
+
   (req, res) => {
     let caption_from_captions = req.caption_from_captions;
     let imgURL = req.imgURL;
@@ -450,6 +455,7 @@ router.get(
     }
 
     res.render("play", {
+      probation_images: req.users.probation_images,
       caption_from_captions: caption_from_captions,
       imgURL: imgURL,
       probation_comment: req.probation_comment,

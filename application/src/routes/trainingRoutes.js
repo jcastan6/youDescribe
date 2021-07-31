@@ -38,7 +38,7 @@ async function getUserInfo(req, res, next) {
   let query = " SELECT * FROM captionrater.users where id = " + req.user.id;
   // console.log(query);
   await db.execute(query).then((users) => {
-    req.users = users[0];
+    req.user = users[0];
     //  console.log("emaill: "+users[0].total_num_attempts);
 
     req.accuracy = users[0][0].level;
@@ -76,6 +76,7 @@ router.get("/tutorial", updateUser, selectImage, (req, res) => {
     res.redirect("/dashboard");
   } else {
     res.render("tutorial", {
+      user: req.user,
       caption: req.caption,
       image: req.image[0],
     });
