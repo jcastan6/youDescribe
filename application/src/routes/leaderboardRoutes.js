@@ -5,7 +5,7 @@ const db = require("../models/database.js");
 async function sortByTotalScore(req, res, next) {
   // rate = req.body.inlineRadioOptions;
   let query =
-    "SELECT * FROM captionrater.users  where id not in (21,22) order by total_score desc LIMIT 5";
+    "SELECT * FROM captionrater.users  where id not in (1) order by total_score desc LIMIT 5";
   console.log(query);
   const result = await db.query(query);
   console.log(result);
