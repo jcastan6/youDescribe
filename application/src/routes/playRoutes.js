@@ -135,7 +135,9 @@ async function getUserInfo(req, res, next) {
     if (req.users.probation_images > 0) {
       console.log("tutorial");
       req.tutorial = true;
-      req.probation_comment = `You are currently on probation. Your attempt count will not be updated until enough valid data is collected from you. Rate ${req.users.probation_images} more captions and get your points up! If your score does not meet our quota, this number and your score will be reset.`;
+      req.probation_comment = `You are currently on probation. Your attempt count will not be updated until enough valid data is collected from you. Rate 
+        ${req.users.probation_images}
+       more captions and get your points up! If your score does not meet our quota, this number and your score will be reset.`;
       next();
     } else if (parseInt(req.users.total_score) < 40) {
       console.log("here! \n \n");
@@ -184,7 +186,8 @@ async function getCurrentConsensus(req, res, next) {
 async function insertRatings(req, res, next) {
   //calculateScore and check the success (if true) -> add one to success column
   if (req.tutorial) {
-    let difference = parseInt(req.body.inlineRadioOptions - req.consensus);
+    console.log("tutorial!! + \n\n");
+    let difference = Math.abs(req.body.inlineRadioOptions - req.consensus);
     req.confidence = "High";
     if (difference <= 0) {
       req.current_score = 3;
@@ -193,10 +196,11 @@ async function insertRatings(req, res, next) {
     } else if (difference <= 2) {
       req.current_score = 1;
     } else if (difference <= 3) {
-      req.current_score = 1;
+      req.current_score = 0;
     } else {
       req.current_score = -1;
     }
+    console.log(difference);
     req.disputed = 0;
     let query = `UPDATE probationCaptions SET ratings = ratings +  1 WHERE cap_id = ${req.caption_id}`;
     await db.query(query).then((res) => {
@@ -512,10 +516,10 @@ router.post(
       ans = random_very_bad_answer;
     } else if (req.current_score == 1) {
       gif2 = "https://caption.click/gifs/Actual_Animation_(4).gif";
-      ans = "So close! Try harder next time!";
+      ans = random_bad_answer;
     } else if (req.current_score == 2) {
       gif2 = "https://caption.click/gifs/Actual_Animation_(5).gif";
-      ans = random_good_answer;
+      ans = "So close! Try harder next time!";
     } else {
       gif2 = "https://caption.click/gifs/play.gif";
       ans = random_good_answer;
