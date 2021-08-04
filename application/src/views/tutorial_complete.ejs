@@ -1,0 +1,119 @@
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+/>
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style>
+  @media screen and (min-width: 769px) {
+    .wrapper {
+      background-color: #dfddd4;
+      /* margin-left: 10%;
+      margin-right: 10%; */
+      width: 50%;
+      margin: auto;
+
+      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+      border-radius: 15px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .wrapper {
+      background-color: #dfddd4;
+      /* margin-left: 10%;
+      margin-right: 10%; */
+      width: 100%;
+      margin: auto;
+
+      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+      border-radius: 15px;
+    }
+  }
+
+  .body {
+    padding: 3%;
+    font-family: "Noto Sans JP", sans-serif;
+    background-color: #717ea1;
+    color: #000000;
+  }
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  p {
+    margin-right: 10%;
+    margin-top: auto;
+    margin-bottom: 1rem;
+    margin-left: 10%;
+  }
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+    background-color: rgb(255, 255, 255);
+    margin: auto;
+    padding: 3px;
+    width: 94%;
+  }
+  .button_next {
+    background-color: rgb(224, 138, 80);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .table {
+    margin: auto;
+    width: 70% !important;
+    font-size: 14;
+    border: 3.5px solid rgb(99, 99, 155);
+    border-radius: 10px;
+  }
+</style>
+
+<body class="body">
+  <div class="container wrapper">
+    <br />
+
+    <br />
+    <div class="card">
+      <h2 class="text-center text-info">Caption Rater - The Game!</h2>
+      <p class="text-center">
+        Thank you for completing the tutorial! You will now be placed on
+        probation to ensure the quality of our captions. Rate 20 captions and
+        get your points up! If your score does not meet our quota by the end of
+        these 20 captions, that number and your score will be reset. If your
+        score does meet the quota, you will keep all of your points earned
+        during probation.
+      </p>
+
+      <br />
+    </div>
+
+    <form method="GET" action="/dashboard" class="form-group">
+      <input
+        class="button_next"
+        type="submit"
+        name="submit"
+        class="button_next"
+        value="Next"
+      />
+    </form>
+  </div>
+</body>

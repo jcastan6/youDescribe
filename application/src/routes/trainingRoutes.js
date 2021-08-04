@@ -73,7 +73,7 @@ router.get("/tutorial-intro", getUserInfo, (req, res) => {
 });
 router.get("/tutorial", updateUser, selectImage, (req, res) => {
   if (req.user.tutorial_images <= 0) {
-    res.redirect("/dashboard");
+    res.redirect("/tutorial_complete");
   } else {
     res.render("tutorial", {
       user: req.user,
@@ -166,18 +166,17 @@ router.post("/tutorial_res", updateCaption, updateUserScore, (req, res) => {
 });
 
 router.get("/tutorial_res", calculateScore, updateUser, (req, res) => {
-  if (req.user.tutorial_images <= 0) {
-    res.redirect("/dashboard");
-  } else {
-    res.render("tutorial_res", {
-      score: req.score,
-      caption: req.caption,
-      image: req.image[0],
-      rate: req.query.rate,
-      gif: req.gif,
-      comment: req.ans,
-    });
-  }
+  res.render("tutorial_res", {
+    score: req.score,
+    caption: req.caption,
+    image: req.image[0],
+    rate: req.query.rate,
+    gif: req.gif,
+    comment: req.ans,
+  });
 });
 
+router.get("/tutorial_complete", (req, res) => {
+  res.render("tutorial_complete");
+});
 module.exports = router;

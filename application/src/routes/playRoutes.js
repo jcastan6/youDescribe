@@ -135,9 +135,8 @@ async function getUserInfo(req, res, next) {
     if (req.users.probation_images > 0) {
       console.log("tutorial");
       req.tutorial = true;
-      req.probation_comment = `You are currently on probation. Your attempt count will not be updated until enough valid data is collected from you. Rate 
-        ${req.users.probation_images}
-       more captions and get your points up! If your score does not meet our quota, this number and your score will be reset.`;
+      req.probation_comment =
+        "Probation Images Remaining: \n" + req.users.probation_images;
       next();
     } else if (parseInt(req.users.total_score) < 40) {
       console.log("here! \n \n");
