@@ -255,17 +255,13 @@
   }
 
  
-  function changeToModal(index) {
+  function changeToModal() {
     event.preventDefault();
-    console.log(index);
-    $("#hidden_input").val(index);
     $("#location").val("result");
     $("#myModal").modal("show");
   }
-  function hideModal(index) {
+  function hideModal() {
     event.preventDefault();
-    console.log(index);
-    $("#hidden_input").val(index);
     $("#location").val("result");
     $("#myModal").modal("hide");
   }
@@ -437,18 +433,17 @@
                 </div>
               </div>
             </form>
-            <div class = "col">
-            <button class="button_instructions" onclick="changeToModal()">
-              Rating Guide
-            </button>
-           
-            </div>
-            
-       
-        </div>
           
         </div>
-        <div
+             
+        <button class="button_instructions" onclick="changeToModal()">
+          Rating Guide
+        </button>
+       
+        </div>
+  
+</div>
+<div
         class="modal fade"
         id="myModal"
         tabindex="-1"
@@ -518,7 +513,6 @@
               </tbody>
             </table>
       </div>
- 
-  
-</div>
+      </div>
+
 </body>
