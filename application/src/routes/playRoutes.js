@@ -143,7 +143,7 @@ async function getUserInfo(req, res, next) {
       req.tutorial = true;
       query =
         " UPDATE captionrater.users SET " +
-        "probation_images = probation_images + 20, total_score = 0" +
+        "probation_images = probation_images + 20, total_score = 0, total_num_attempts = 0" +
         " where id = " +
         req.users.id;
       await db.query(query).then(async (data) => {
@@ -341,7 +341,7 @@ async function updateUsersTable(req, res, next) {
       req.total_score = parseInt(req.total_score) + parseInt(req.current_score);
       query2 =
         " UPDATE captionrater.users SET " +
-        `probation_images = probation_images - 1, total_score =  ${req.total_score}` +
+        `probation_images = probation_images - 1, total_score =  ${req.total_score}, total_num_attempts = total_num_attempts + 1` +
         " where id = " +
         req.user.id;
     } else {
