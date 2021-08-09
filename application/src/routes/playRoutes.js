@@ -415,7 +415,7 @@ async function updateConsensus(req, res, next) {
       query =
         " update captionrater.captions SET consensus = " +
         new_consensus +
-        ", total_number_of_rates = total_number_of_rates where cap_id = " +
+        ", total_number_of_rates = total_number_of_rates+1 where cap_id = " +
         req.body.hidden_input;
     } else {
       query =
