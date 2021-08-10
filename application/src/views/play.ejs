@@ -275,6 +275,14 @@
     window.location.reload();
   }
 });
+
+  function checkForm(){
+    var x = document.getElementById("submit");
+    x.setAttribute("disabled", "true");
+    x.classList.add("button_next_before");
+    x.classList.remove("button_next");
+    x.value = "Submitting..."
+  }
   
   window.onload = setTimeout(function () {  
     var x = document.getElementById("submit");
@@ -364,7 +372,7 @@
         <h5 class="caption mt-3 font-weight-bold"><%= caption_from_captions %></h5>
         <br />
       
-        <form class="form-group" action="/play" method="post">
+        <form class="form-group" action="/play" method="post" onsubmit="return checkForm()">
           <div style="text-align: center">
             <div class="form-check form-check-inline">
               <input
@@ -437,6 +445,7 @@
                   class="button_next_before"
                   value="Submit"
                   disabled
+                 
                 />
                 </div>
               </div>
