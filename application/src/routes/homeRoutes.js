@@ -8,7 +8,7 @@ const router = express.Router();
 // const content = fs.readFileSync('/Users/rayafarshad/Documents/SFSU/SPRING2020/Independent\ Study/JSON/vsepp_glac_with_rating_5000-6000.json');
 
 router.get("/", function (req, res, next) {
-  res.render("home", {
+  res.render("home-test", {
     error_msg: "",
     title: "Login",
     isLoggedIn: req.isAuthenticated(),
