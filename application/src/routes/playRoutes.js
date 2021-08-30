@@ -53,8 +53,7 @@ async function getImageidFromCaptions(req, res, next) {
   let userID = req.user.id;
   let query = "";
   if (req.tutorial) {
-    query =
-      "SELECT * FROM captionrater.probationCaptions where ratings = (select MIN(ratings) from probationCaptions) order by RAND();";
+    query = `SELECT * FROM captionrater.probationCaptions where cap_id = ${req.users.probation_images}`;
   } else {
     query =
       "select * from captions where cap_id = (select captions_cap_id from (select captions_cap_id, count(captions_cap_id) as count  from ratings group by captions_cap_id order by count) t1 limit 1)";
