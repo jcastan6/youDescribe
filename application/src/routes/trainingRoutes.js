@@ -48,8 +48,9 @@ async function getUserInfo(req, res, next) {
   // console.log(users[3].email);
 }
 async function selectImage(req, res, next) {
-  let query =
-    "SELECT * FROM captionrater.tutorialCaptions where ratings = (select MIN(ratings) from tutorialCaptions) order by RAND();";
+  let query = `SELECT * FROM captionrater.tutorialCaptions where cap_id = ${
+    req.user.tutorial_images + 1
+  }`;
   // console.log(query);
   await db.execute(query).then(async (caption) => {
     req.caption = caption[0][0];
@@ -63,6 +64,9 @@ async function selectImage(req, res, next) {
 }
 
 ////////first///////////////////first///////////////////first///////////
+router.get("/completed", getUserInfo, (req, res) => {
+  res.render("completed", {});
+});
 router.get("/tutorial-intro", getUserInfo, (req, res) => {
   console.log(req.users);
 

@@ -24,8 +24,8 @@ async function insertImages(req, res, next) {
     images = JSON.parse(content).images;
 
     ratings = JSON.parse(content).annotations;
-    processImages(images);
-    //processCaptions(ratings, db);
+    //processImages(images);
+    processCaptions(ratings, db);
   });
 
   res.send();
@@ -37,14 +37,19 @@ function processCaptions(ratings, db) {
     console.log(query);
     db.query(query).then((results) => {
       results = results[0];
-      processRatings(results.insertId, rating.rating);
-      processRatings(results.insertId, rating.rating);
+      processAIRatings(results.insertId, rating.rating);
     });
   }
 }
 
 function processRatings(cap_id, consensus) {
   let query = ` INSERT INTO captionrater.ratings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 3, ${consensus}, 1, ${cap_id}, 1 ) `;
+  db.query(query).then((results) => {});
+  console.log(query);
+}
+
+function processAIRatings(cap_id, consensus) {
+  let query = ` INSERT INTO captionrater.aiRatings (rate , scores, consensus ,users_user_id, captions_cap_id, success) VALUES ( ${consensus} , 3, ${consensus}, 1, ${cap_id}, 1 ) `;
   db.query(query).then((results) => {});
   console.log(query);
 }

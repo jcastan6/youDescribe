@@ -11,8 +11,8 @@ class User {
     // console.log(username);
     return db
       .query(
-        "Insert Into users (username, email, password) VALUES (?, ?, ?) ",
-        [username, email, hash]
+        "Insert Into users (username, email, password, probation_images) VALUES (?, ?, ?, ?) ",
+        [username, email, hash, 25]
       )
       .then((results) => {
         return results[0].insertId;

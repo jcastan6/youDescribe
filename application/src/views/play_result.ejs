@@ -328,31 +328,11 @@
         <img src="<%= gif %>" class="gif" />
 
         <div id="hidden_div" class="caption col">
-          <h5 class="font-weight-bold text-success caption1">
-            Total Score: <%= total_score %>
-          </h5>
           <h6 class="caption1">Your rating: <%= rate %></h6>
           <h6 class="caption1">Consensus: <%= consensus %></h6>
-          <h6 class="caption1">Confidence: <%= confidence %></h6>
-          <h6 class="caption1 font-weight-bold">
-            <kbd class="p-1"> Score Earned: <%= score %></kbd>
-          </h6>
-
           
         </div>
         <br>
-        <form method="GET" action="/dashboard">
-          <input
-            type="submit"
-            name="submit"
-            class="
-              
-              margin-dashboard-btn
-              
-            "
-            value="Back to Dashboard"
-          />
-        </form>
       </div>
       <div class="col-md-7 wrapper">
         <!-- <img src="<%= image %>" class="center image" /> -->

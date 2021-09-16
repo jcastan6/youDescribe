@@ -52,12 +52,11 @@ var very_bad_guess = [
 async function getImageidFromCaptions(req, res, next) {
   let userID = req.user.id;
   let query = "";
-  if (req.tutorial) {
-    query = `SELECT * FROM captionrater.probationCaptions where cap_id = ${req.users.probation_images}`;
-  } else {
-    query =
-      "select * from captions where cap_id = (select captions_cap_id from (select captions_cap_id, count(captions_cap_id) as count  from ratings group by captions_cap_id order by count) t1 limit 1)";
-  }
+
+  query = `SELECT * FROM captionrater.probationCaptions where cap_id = ${
+    req.users.probation_images + 1
+  }`;
+
   await db.query(query).then((captions) => {
     var captions = captions[0];
     console.log("captions[0].cap_id : " + captions[0].cap_id);
@@ -75,16 +74,11 @@ async function getImageidFromCaptions(req, res, next) {
 async function getImageidFromCaptions_playresult(req, res, next) {
   let userID = req.user.id;
   let query = "";
-  if (req.tutorial) {
-    query =
-      " SELECT * from captionrater.probationCaptions where cap_id=" +
-      req.body.hidden_input;
-  } else {
-    query =
-      " SELECT * from captionrater.captions where cap_id=" +
-      req.body.hidden_input;
-    // console.log(userID);
-  }
+
+  query =
+    " SELECT * from captionrater.probationCaptions where cap_id=" +
+    req.body.hidden_input;
+
   await db.query(query).then((captions) => {
     // console.log("captions[0].cap_id : "+captions[0].cap_id);
     captions = captions[0];
@@ -135,19 +129,8 @@ async function getUserInfo(req, res, next) {
       console.log("tutorial");
       req.tutorial = true;
       req.probation_comment =
-        "Probation Images Remaining: \n" + req.users.probation_images;
+        "Images Remaining: \n" + req.users.probation_images;
       next();
-    } else if (parseInt(req.users.total_score) < 40) {
-      console.log("here! \n \n");
-      req.tutorial = true;
-      query =
-        " UPDATE captionrater.users SET " +
-        "probation_images = probation_images + 20, total_score = 0, total_num_attempts = 0" +
-        " where id = " +
-        req.users.id;
-      await db.query(query).then(async (data) => {
-        next();
-      });
     } else {
       req.tutorial = false;
       next();
@@ -182,133 +165,30 @@ async function getCurrentConsensus(req, res, next) {
 }
 
 async function insertRatings(req, res, next) {
-  //calculateScore and check the success (if true) -> add one to success column
-  if (req.tutorial) {
-    console.log("tutorial!! + \n\n");
-    let difference = Math.abs(req.body.inlineRadioOptions - req.consensus);
-    req.confidence = "High";
-    if (difference <= 0) {
-      req.current_score = 3;
-    } else if (difference <= 1) {
-      req.current_score = 2;
-    } else if (difference <= 2) {
-      req.current_score = 1;
-    } else if (difference <= 3) {
-      req.current_score = 0;
-    } else {
-      req.current_score = -1;
-    }
-    console.log(difference);
-    req.disputed = 0;
-    let query = `UPDATE probationCaptions SET ratings = ratings +  1 WHERE cap_id = ${req.caption_id}`;
-    await db.query(query).then((res) => {
-      next();
-    });
-  } else {
-    let query2 = `SELECT ratings.rate, ratings.rate_id, ratings.users_user_id as user_id FROM captionrater.ratings where captions_cap_id = ${req.body.hidden_input} `;
-    await db
-      .query(query2)
-      .then(async (res) => {
-        //check how many ai ratings there are
-        //if any of them have userid = 1, let's replace them with the new human score
-        //otherwise, insert a new column
-        res = res[0];
-        deleteQuery = "";
-        if (res.length === 2) {
-          res.forEach((rate) => {
-            if (rate.user_id === 1) {
-              deleteQuery = `DELETE from captionrater.ratings WHERE rate_id = ${rate.rate_id}`;
-            }
-          });
-        }
+  let query =
+    "Insert INTO captionrater.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success, confidence) VALUES  ( " +
+    parseInt(req.body.inlineRadioOptions) +
+    ", " +
+    0 +
+    ", " +
+    req.consensus +
+    ", " +
+    req.user.id +
+    ", " +
+    req.body.hidden_input +
+    ", " +
+    0 +
+    "," +
+    `"tutorial"` +
+    ") ";
+  console.log(query);
 
-        const ratings = [];
-        res.forEach((rate) => {
-          ratings.push(rate["rate"]);
-        });
-        console.log(ratings);
-        req.past_ratings = ratings;
-
-        let n = ratings.length;
-        const average = (arr) => arr.reduce((acc, v) => acc + v) / arr.length;
-        const variance = (arr) =>
-          arr.reduce((acc, v) => avg + Math.pow(v - avg, 2)) / n;
-        let avg = average(ratings);
-        let Var = variance(ratings);
-        let r = 1 + (1 + ((n - 1) * Var) / 4) / n;
-        console.log(`average: ${avg}`);
-        console.log(`variance: ${Var}`);
-        console.log(`r: ${r}`);
-
-        let current_consensus = req.consensus;
-        let current_score = 0;
-
-        let current_rate = parseInt(req.body.inlineRadioOptions);
-
-        let current_success = 0;
-        let difference = Math.abs(current_rate - avg);
-
-        if (r < 1.25) {
-          req.confidence = "High";
-        } else if (1.25 <= r <= 1.66) {
-          req.confidence = "Medium";
-        } else if (r > 1.66) {
-          req.confidence = "Low";
-        }
-
-        if (difference <= 0.5 * r) {
-          current_score = 3;
-        } else if (difference <= r) {
-          current_score = 2;
-        } else if (difference <= 1.5 * r) {
-          current_score = 1;
-        } else if (difference <= 2 * r) {
-          current_score = 1;
-        } else {
-          current_score = -1;
-        }
-
-        let query =
-          "Insert INTO captionrater.ratings (rate, scores, consensus, users_user_id, captions_cap_id, success, confidence ) VALUES  ( " +
-          parseInt(req.body.inlineRadioOptions) +
-          ", " +
-          current_score +
-          ", " +
-          current_consensus +
-          ", " +
-          req.user.id +
-          ", " +
-          req.body.hidden_input +
-          ", " +
-          current_success +
-          ", " +
-          JSON.stringify(req.confidence) +
-          " ) ";
-        console.log(query);
-
-        await db
-          .query(query)
-          .then((res) => {
-            res = res[0];
-            console.log("\n\n" + res);
-            req.current_score = current_score;
-            req.rating = res.insertId;
-            req.disputed = 0;
-            if (deleteQuery !== "") {
-              req.replacingAI = true;
-              db.query(deleteQuery).then((res) => {
-                next();
-                console.log("deleted ai");
-              });
-            } else {
-              req.replacingAI = false;
-              next();
-            }
-          })
-          .catch();
-      })
-      .catch();
-  }
+  await db
+    .query(query)
+    .then((res) => {
+      res = res[0];
+    })
+    .catch();
 }
 
 async function getRatingsInfo(req, res, next) {
@@ -455,17 +335,20 @@ router.get(
     } else {
       req.accuracy = Math.round(req.accuracy) + "%";
     }
-
-    res.render("play", {
-      probation_images: req.users.probation_images,
-      caption_from_captions: caption_from_captions,
-      imgURL: imgURL,
-      probation_comment: req.probation_comment,
-      //    scores : scores,
-      total_score: total_score,
-      accuracy: req.accuracy,
-      caption_id: req.caption_id,
-    });
+    if (req.users.probation_images > 0) {
+      res.render("play", {
+        probation_images: req.users.probation_images,
+        caption_from_captions: caption_from_captions,
+        imgURL: imgURL,
+        probation_comment: req.probation_comment,
+        //    scores : scores,
+        total_score: total_score,
+        accuracy: req.accuracy,
+        caption_id: req.caption_id,
+      });
+    } else {
+      res.redirect("/completed");
+    }
   }
 );
 
