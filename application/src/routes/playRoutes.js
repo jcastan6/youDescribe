@@ -187,6 +187,7 @@ async function insertRatings(req, res, next) {
     .query(query)
     .then((res) => {
       res = res[0];
+      next();
     })
     .catch();
 }
@@ -216,41 +217,13 @@ async function updateUsersTable(req, res, next) {
   await db.query(query).then(async (user) => {
     user = user[0][0];
     let query2 = "";
-    if (req.tutorial === true) {
-      req.total_score = parseInt(req.total_score) + parseInt(req.current_score);
-      query2 =
-        " UPDATE captionrater.users SET " +
-        `probation_images = probation_images - 1, total_score =  ${req.total_score}, total_num_attempts = total_num_attempts + 1` +
-        " where id = " +
-        req.user.id;
-    } else {
-      //add scores to user's total_score
-      let score = req.ratings[req.ratings.length - 1].scores;
-      // add total_success to users table
-      let success = req.ratings[req.ratings.length - 1].success;
-      let sum = parseInt(user.sum);
-      let attempts = parseInt(user.attempts);
-      console.log("sum: " + sum);
-      console.log("score: " + score);
-      let level = ((sum + score) / ((attempts + 1) * 3)) * 10;
-      req.accuracy = level;
 
-      req.total_score = parseInt(req.total_score) + parseInt(score);
-      query2 =
-        " UPDATE captionrater.users SET " +
-        "total_score = total_score  + " +
-        score +
-        " , " +
-        "level = " +
-        level +
-        " , " +
-        "total_num_attempts = total_num_attempts + 1 " +
-        " , " +
-        "total_num_success = total_num_success + " +
-        success +
-        " where id = " +
-        req.user.id;
-    }
+    req.total_score = parseInt(req.total_score) + parseInt(req.current_score);
+    query2 =
+      " UPDATE captionrater.users SET " +
+      `probation_images = probation_images - 1, total_num_attempts = total_num_attempts + 1` +
+      " where id = " +
+      req.user.id;
 
     console.log(query2);
     await db.query(query2).then((user) => {
