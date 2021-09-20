@@ -365,19 +365,10 @@ router.post(
       very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
     var ans;
     let gif2 = "";
-    if (req.current_score < 1) {
-      gif2 = "https://caption.click/gifs/Actual_Animation_(3).gif";
-      ans = random_very_bad_answer;
-    } else if (req.current_score == 1) {
-      gif2 = "https://caption.click/gifs/Actual_Animation_(4).gif";
-      ans = random_bad_answer;
-    } else if (req.current_score == 2) {
-      gif2 = "https://caption.click/gifs/Actual_Animation_(5).gif";
-      ans = "So close! Try harder next time!";
-    } else {
-      gif2 = "https://caption.click/gifs/play.gif";
-      ans = random_good_answer;
-    }
+
+    gif2 = "https://caption.click/gifs/play.gif";
+    ans = random_good_answer;
+
     // ans = (req.current_score <= 5) ? random_bad_answer : random_good_answer;
     // if(req.consensus == -1){ans = "You will recieve your score later :)"};
     console.log("req.current_score: " + req.current_score);

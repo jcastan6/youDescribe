@@ -321,15 +321,12 @@
     <div class="row">
       <div class="col-md-3 animation feedback-text">
         <div class="">
-          <h3 class="text-center text-info font-italic font-weight-bold">
-            <%= comment %>
-          </h3>
+      
         </div>
         <img src="<%= gif %>" class="gif" />
 
         <div id="hidden_div" class="caption col">
           <h6 class="caption1">Your rating: <%= rate %></h6>
-          <h6 class="caption1">Consensus: <%= consensus %></h6>
           
         </div>
         <br>
@@ -355,16 +352,7 @@
               id="submitButton"
             />
           </form>
-          <div>
-            <input
-              type="submit"
-              name="submit"
-              id="dispute-button"
-              class="btn btn-danger btn-lg ml-4"
-              value="<% if(rating.dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
-              onclick="changeToModal('<%= rating %>')"
-            />
-          </div>
+         
         </div>
 
         <!-- Modal -->
