@@ -8,7 +8,7 @@ var LocalStrategy = require("passport-local").Strategy;
 var expressValidator = require("express-validator");
 const db = require("../application/src/sequelize-models/index.js");
 
-const PORT = 3000;
+const PORT = 4000;
 
 var options = {
   database: "captionrater",
