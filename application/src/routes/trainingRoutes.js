@@ -48,9 +48,11 @@ async function getUserInfo(req, res, next) {
   // console.log(users[3].email);
 }
 async function selectImage(req, res, next) {
-  let query = `SELECT * FROM captionrater.tutorialCaptions where cap_id = ${
-    req.user.tutorial_images + 1
-  }`;
+  let image = req.user.tutorial_images;
+  if (image === 0) {
+    image = 1;
+  }
+  let query = `SELECT * FROM captionrater.tutorialCaptions where cap_id = ${image}`;
   // console.log(query);
   await db.execute(query).then(async (caption) => {
     req.caption = caption[0][0];
@@ -130,25 +132,8 @@ async function calculateScore(req, res, next) {
       req.caption = caption[0][0];
       let diff = Math.abs(req.query.rate - req.caption.consensus);
       console.log(req.query.rate);
-      if (diff === 0) {
-        req.score = 3;
-        req.gif = "https://caption.click/gifs/play.gif";
+      req.gif = "https://caption.click/gifs/play.gif";
 
-        req.ans = random_good_answer;
-      } else if (diff === 1) {
-        req.score = 2;
-        req.gif = "https://caption.click/gifs/Actual_Animation_(5).gif";
-
-        req.ans = "So close! Try harder next time!";
-      } else if (diff === 2) {
-        req.score = 1;
-        req.gif = "https://caption.click/gifs/Actual_Animation_(4).gif";
-        req.ans = random_bad_answer;
-      } else {
-        req.score = 0;
-        req.gif = "https://caption.click/gifs/Actual_Animation_(3).gif";
-        req.ans = random_very_bad_answer;
-      }
       req.image = image[0];
       console.log(req.image[0]);
       next();
