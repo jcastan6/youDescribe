@@ -53,9 +53,7 @@ async function getImageidFromCaptions(req, res, next) {
   let userID = req.user.id;
   let query = "";
 
-  query = `SELECT * FROM captionrater.probationCaptions where cap_id = ${
-    req.users.probation_images + 1
-  }`;
+  query = `SELECT * FROM captionrater.probationCaptions where cap_id = ${req.users.probation_images}`;
 
   await db.query(query).then((captions) => {
     var captions = captions[0];

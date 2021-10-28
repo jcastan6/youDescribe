@@ -82,7 +82,7 @@
       /* background-size: 100% 100%; */
       }
     .wrapper {
-      
+
       background-color: #dddfd4;
       /* margin-left: 30%;
       margin-right: 10%; */
@@ -98,7 +98,7 @@
       padding-left: 0 !important;
       padding-right: 0 !important;
       border-radius: 15px;
-      width: auto !important;
+      width: 100% !important;
       height: auto  !important;
       /* width: fit-content; */
     }
@@ -291,17 +291,16 @@
     x.classList.add("button_next");
   }, 3000);
 
-  window.onload = function() {
+  window.onload = function () {
     var imgurl = "<%= imgURL  %>";
-    
-    if (imgurl.includes("https")){
-      
-      document.getElementById("rating-image").src=imgurl;  
-    }
-    else{
-      document.getElementById("rating-image").src=`https://caption.click/images${imgurl}`;
-    }
 
+    if (imgurl.includes("https")) {
+      document.getElementById("rating-image").src = imgurl;
+    } else {
+      document.getElementById(
+        "rating-image"
+      ).src = `https://caption.click/images${imgurl}`;
+    }
   };
 
   

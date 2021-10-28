@@ -12,7 +12,7 @@
 
 <style>
   .wrapper {
-    background-color: #dfddd4;
+    background-color: #ffffff;
     /* margin-left: 10%;
       margin-right: 10%; */
 
@@ -39,6 +39,7 @@
     margin-bottom: 1rem;
     margin-left: 10%;
   }
+
   .card {
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
@@ -64,12 +65,36 @@
     margin-right: auto;
   }
 
-  .table {
-    margin: auto;
-    width: 70% !important;
-    font-size: 14;
-    border: 3.5px solid rgb(99, 99, 155);
-    border-radius: 10px;
+  @media screen and (max-width: 800px) {
+    .table {
+      margin: auto;
+      width: 95% !important;
+      font-size: 14;
+      border: 3.5px solid rgb(99, 99, 155);
+      border-radius: 10px;
+    }
+    .image {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px;
+    }
+  }
+  @media screen and (min-width: 800px) {
+    .table {
+      margin: auto;
+      width: 70% !important;
+      font-size: 14;
+      border: 3.5px solid rgb(99, 99, 155);
+      border-radius: 10px;
+    }
+    .image {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px;
+      width: 40%;
+    }
   }
 </style>
 
@@ -78,83 +103,140 @@
     <br />
 
     <br />
-    <div class="card">
-      <h2 class="text-center text-info">Caption Rater - The Game!</h2>
-      <p class="text-center">
-        You will be presented with a series of images, along with a caption that
-        describes the image. Rate how well the caption fits the image using the
-        guide provided.
-      </p>
+    <h2 class="text-center text-info">Caption Rater - The Game!</h2>
+    <p class="text-center">
+      You will be presented with a series of images, along with a caption that
+      describes the image. Rate how well the caption fits the image using the
+      guide provided.
+    </p>
 
-      <p class="text-center">
-        Before you begin the game, you will need to successfully complete a
-        tutorial. First, you will rate 10 images to familiarize yourself with
-        the game and the rating system. Then, you will complete 25 ratings
-        without feedback.
-      </p>
+    <p class="text-center">
+      Before you begin the game, you will need to successfully complete a
+      tutorial. First, you will rate 10 images to familiarize yourself with the
+      game and the rating system. Then, you will complete 25 ratings without
+      feedback.
+    </p>
 
-      <h2 class="text-center text-info">Rating Guide</h2>
-      <p class="text-center">
-        This guide is available to you during gameplay. Please use it as
-        necessary to ensure the most accurate ratings!
-      </p>
-      <div id="myDIV">
-        <table class="table table-bordered table-secondary table-responsive">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">Rating</th>
-              <th scope="col">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>
-                Objects are incorrectly identified. The caption gives the wrong
-                idea about what is happening in the image.
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>
-                Objects are partially correctly identified with some errors, but
-                the caption is accurate enough to give an idea of what is
-                happening in the image. The caption identifies most of the
-                objects but might not identify everything. There is no
-                interpretation of what anything means.
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>
-                Relevant objects are correctly identified. The caption describes
-                what is seen but not where objects are in space. There is no
-                description of the overall setting and no interpretation of an
-                event.
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>
-                Objects and/or a general scene and/or an action are correctly
-                identified but not every element is completely identified. The
-                caption describes what is seen and where things are in space.
-                There is no interpretation of an event.
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>
-                Objects, a general scene, and actions are correctly identified
-                if present in the image. The caption describes what is seen and
-                where things are in space.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <br />
+    <h2 class="text-center text-info">Rating Guide</h2>
+    <p class="text-center">
+      This guide is available to you during gameplay. Please use it as necessary
+      to ensure the most accurate ratings!
+    </p>
+    <div id="myDIV">
+      <table class="table table-bordered table-secondary table-responsive">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Rating</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>
+              Objects are incorrectly identified. The caption gives the wrong
+              idea about what is happening in the image.
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>
+              Objects are partially correctly identified with some errors, but
+              the caption is accurate enough to give an idea of what is
+              happening in the image. The caption identifies most of the objects
+              but might not identify everything. There is no interpretation of
+              what anything means.
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>
+              Relevant objects are correctly identified. The caption describes
+              what is seen but not where objects are in space. There is no
+              description of the overall setting and no interpretation of an
+              event.
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>
+              Objects and/or a general scene and/or an action are correctly
+              identified but not every element is completely identified. The
+              caption describes what is seen and where things are in space.
+              There is no interpretation of an event.
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>
+              Objects, a general scene, and actions are correctly identified if
+              present in the image. The caption describes what is seen and where
+              things are in space.
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <br />
+
+    <h2 class="text-center text-info">Examples</h2>
+    <p class="text-center">
+      Use the following rating examples to guide your ratings.
+    </p>
+    <img
+      class="image"
+      src="https://134.100.15.200/flickr8k/Images/1131932671_c8d17751b3.jpg"
+    />
+    <table class="table table-bordered table-secondary table-responsive">
+      <thead>
+        <tr class="tableizer-firstrow">
+          <th>Caption</th>
+          <th>Rating/Explanation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A woman plays guitar by a round light</td>
+          <td>
+            1 - A viewer would have a completely wrong understanding of the
+            image. 
+          </td>
+        </tr>
+        <tr>
+          <td>A child jumping on a tennis court</td>
+          <td>
+            2 - A viewer would have a partial understanding of the objects in
+            the image and no understanding of the scene, context, or actions in
+            the image. 
+          </td>
+        </tr>
+        <tr>
+          <td>A child is jumping in a room (TS) </td>
+          <td>
+            3 - A viewer would understand what objects are in the image but
+            unable to identify the scene, context, or actions that are in the
+            image.
+          </td>
+        </tr>
+        <tr>
+          <td>A child jumps on a bed (TS)</td>
+          <td>
+            4 - A viewer would understand what objects are in the image but only
+            able to partially identify some part of the scene, context, or
+            actions that are in the image.
+          </td>
+        </tr>
+        <tr>
+          <td>A boy jumps from one bed to another</td>
+          <td>
+            5 - A viewer would accurately understand the objects, and accurately
+            and completely identify the scene, context, and actions that are in
+            the image. 
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
 
     <form method="GET" action="/tutorial" class="form-group">
       <input
