@@ -52,7 +52,7 @@ var very_bad_guess = [
 async function getImageidFromCaptions(req, res, next) {
   let userID = req.user.id;
   let query = "";
-  let image = req.user.probation_images;
+  let image = req.users.probation_images;
   if (image === 0) {
     image = 1;
   }
