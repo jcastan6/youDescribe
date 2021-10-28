@@ -57,22 +57,17 @@ router.post("/register", function (req, res, next) {
         console.log("valid");
         User.register(username, email, password).then((userID) => {
           const user_id = userID;
-          req.login({ id: userID }, () =>
-            res.render("home", {
-              error_msg: "",
-              title: "Login",
-              isLoggedIn: req.isAuthenticated(),
-            })
-          );
+          req.login({ id: userID }, () => {});
           console.log("goes here ..." + user_id);
           console.log("user register post: " + req.user.id);
           console.log("isAthenticated: " + req.isAuthenticated());
+          res.redirect("tutorial-intro");
         });
 
         //if there is similar user exists in the table --> show error
       } else {
         console.log("not valid");
-        res.send('<script>alert("Hello")</script>');
+        res.send('<script>alert("Similar User Exists")</script>');
         res.render("register", {
           title: "Error : Similar user exists",
           // errors: errors
