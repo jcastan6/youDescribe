@@ -1,12 +1,12 @@
 <link
-  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-  rel="stylesheet"
-  id="bootstrap-css"
-/>
+   href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+   rel="stylesheet"
+   id="bootstrap-css"
+   />
 <meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
-/>
+   name="viewport"
+   content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+   />
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -16,517 +16,484 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <style>
-    .animation{  
-      /* top: 50%; */
-      background-color: #dfddd4;
-      /* margin-left: 30%;
-      margin-right: 10%; */
-      box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
-      height: 50%;
-      margin:3%;
-      padding: 1%;
-      border-radius: 15px;
-    }
-    .info{
-      display: none;
-    }
-
-    .img-div {
-     background-color: rgba(178, 190, 185 , 0);
-     border-radius: 15px 15px 0px 0px;
-    
-     /* width: fit-content; */
-    }
-
-    .caption {
-      padding-left: 5% !important;
-      padding-right: 5% !important;
-      color: rgb(3, 14, 3); 
-      width: fit-content;  
-      max-width: 95%;
-      margin: auto;
-      /* padding: 4px; */
-      background-color: white;
-      box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
-      padding: 8px;
-      border-radius: 8px;
-      text-align: center;
-  }
-  .gif{
-    width: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  @media screen and (min-width: 769px) {
-    .table {
-      display: inline-block;
-  
-
-      box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
-      padding: 0%;
-      
- 
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-      border-radius: 15px;
- 
-    }
-    .image {
-      border-radius: 15px 15px 0px 0px;
-    
-      width:100%;
-      max-height:500;
-       
-      /* background-size: 100% 100%; */
-      }
-    .wrapper {
-
-      background-color: #dddfd4;
-      /* margin-left: 30%;
-      margin-right: 10%; */
-      
-      display: inline-block;
-      margin-left:auto;
-      margin-right: auto;
-      margin-top: 3%;
-      box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
-      padding: 0%;
-      
-      flex: 0 1 auto;
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-      border-radius: 15px;
-      width: 100% !important;
-      height: auto  !important;
-      /* width: fit-content; */
-    }
-  }
-  @media screen and (max-width: 768px) {
-    .table {
-      margin: auto;
-      width: 90% !important;
-      font-size: 14;
-      border: 3.5px solid rgb(99, 99, 155);
-      border-radius: 10px;
-    }
-
-    .image {
-      
-      border-radius: 15px 15px 0px 0px;
-   
-      width: 100%;
-      /* background-size: 100% 100%; */
-      }
-    .wrapper {
-      
-      background-color: #dddfd4;
-      /* margin-left: 30%;
-      margin-right: 10%; */
-      
-      
-      margin-left:auto;
-      margin-right: auto;
-      margin: 3%;
-      box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
-      padding: 0%;
-      
-      
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-      border-radius: 15px;
-     
-      
-      width: fit-content;
-    }
-
-    .gif{
-    width: 50%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .animation{
-    padding: 25px;
-  }
-  }
-
-  .body {
-    font-family: "Noto Sans JP", sans-serif;
-    background-color: #717ea1;
-    color: #000000;
-  }
-  .button_next_before {
-    /* background-color: rgb(224, 138, 80); */
-    background: #afadad;
-    border: none;
-    color: rgb(0, 0, 0);
-    padding: 10px 16px;
-    text-align: center;
-    text-decoration: none;
-    /* display: inline-block; */
-    font-size: 18px;
-    line-height: 1.333;
-    font-weight: 400;
-    /* margin: 2 0px; */
-    border-radius: 8px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .button_dashboard {
-    background-color: rgb(224, 138, 80);
-    border: none;
-    color: white;
-    padding: 10px 10px;
-    text-align: center;
-    text-decoration: none;
-    /* display: inline-block; */
-    font-size: 14px;
-    line-height: 1.333;
-    font-weight: 400;
-    /* margin: 2 0px; */
-    border-radius: 8px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .button_next {
-    background-color: rgb(224, 138, 80);
-    border: none;
-    color: white;
-    padding: 10px 16px;
-    text-align: center;
-    text-decoration: none;
-    /* display: inline-block; */
-    font-size: 18px;
-    line-height: 1.333;
-    font-weight: 400;
-    /* margin: 2 0px; */
-    border-radius: 8px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .button_instructions {
-    background-color: rgb(72, 83, 247);
-    border: none;
-    color: white;
-    padding: 10px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 30px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #myDIV {   
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .hide {
-    display: none;
-  }
-  .show {
-    display: block;
-  }
-
+   .animation{  
+   /* top: 50%; */
+   background-color: #dfddd4;
+   /* margin-left: 30%;
+   margin-right: 10%; */
+   box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
+   height: 50%;
+   margin:1%;
+   padding: 0%;
+   border-radius: 15px;
+   }
+   .info{
+   display: none;
+   }
+   .img-div {
+   background-color: rgba(178, 190, 185 , 0);
+   border-radius: 15px 15px 0px 0px;
+   /* width: fit-content; */
+   }
+   .caption {
+   padding-left: 5% !important;
+   padding-right: 5% !important;
+   color: rgb(3, 14, 3); 
+   width: fit-content;  
+   max-width: 95%;
+   margin: auto;
+   /* padding: 4px; */
+   background-color: white;
+   box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
+   padding: 8px;
+   border-radius: 8px;
+   text-align: center;
+   }
+   .gif{
+   width: 30%;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   }
+   caption {
+   display: table-caption;
+   text-align: center;
+   }
+   @media screen and (min-width: 769px) {
+   .table {
+   display: inline-block;
+   box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
+   padding: 0%;
+   padding-left: 0 !important;
+   padding-right: 0 !important;
+   border-radius: 15px;
+   }
+   .image {
+   border-radius: 15px 15px 0px 0px;
+   width:100%;
+   /* background-size: 100% 100%; */
+   }
+   .wrapper {
+   background-color: #dddfd4;
+   /* margin-left: 30%;
+   margin-right: 10%; */
+   display: inline-block;
+   margin-left:auto;
+   margin-right: auto;
+   margin-top: 1%;
+   box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
+   flex: 0 1 auto;
+   padding-left: 0 !important;
+   padding-right: 0 !important;
+   border-radius: 15px;
+   width: 100% !important;
+   height: 100%  !important;
+   /* width: fit-content; */
+   }
+   .wrapper-image {
+   background-color: #dddfd4;
+   /* margin-left: 30%;
+   margin-right: 10%; */
+   display: inline-block;
+   margin-left:auto;
+   margin-right: auto;
+   margin-top: 1%;
+   box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
+   margin-bottom: 1%;
+   flex: 0 1 auto;
+   padding-left: 0 !important;
+   padding-right: 0 !important;
+   border-radius: 15px;
+   width: 100% !important;
+   height: 100%  !important;
+   /* width: fit-content; */
+   }
+   }
+   @media screen and (max-width: 768px) {
+   .table {
+   margin: auto;
+   width: 90% !important;
+   font-size: 14;
+   border: 3.5px solid rgb(99, 99, 155);
+   border-radius: 10px;
+   }
+   .image {
+   border-radius: 15px 15px 0px 0px;
+   width: 100%;
+   /* background-size: 100% 100%; */
+   }
+   .wrapper {  
+   background-color: #dddfd4;
+   /* margin-left: 30%;
+   margin-right: 10%; */
+   margin-left:auto;
+   margin-right: auto;
+   margin: 3%;
+   box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
+   padding: 0%;
+   padding-left: 0 !important;
+   padding-right: 0 !important;
+   border-radius: 15px;
+   width: fit-content;
+   }
+   .wrapper-image {  
+   background-color: #dddfd4;
+   /* margin-left: 30%;
+   margin-right: 10%; */
+   margin-left:auto;
+   margin-right: auto;
+   margin: 1%;
+   box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
+   padding-left: 0 !important;
+   padding-right: 0 !important;
+   border-radius: 15px;
+   width: fit-content;
+   }
+   .gif{
+   width: 50%;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   }
+   .animation{
+   padding: 25px;
+   }
+   }
+   .body {
+   font-family: "Noto Sans JP", sans-serif;
+   background-color: #717ea1;
+   color: #000000;
+   }
+   .button_next_before {
+   /* background-color: rgb(224, 138, 80); */
+   background: #afadad;
+   border: none;
+   color: rgb(0, 0, 0);
+   padding: 10px 16px;
+   text-align: center;
+   text-decoration: none;
+   /* display: inline-block; */
+   font-size: 18px;
+   line-height: 1.333;
+   font-weight: 400;
+   /* margin: 2 0px; */
+   border-radius: 8px;
+   cursor: pointer;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   }
+   .button_dashboard {
+   background-color: rgb(224, 138, 80);
+   border: none;
+   color: white;
+   padding: 10px 10px;
+   text-align: center;
+   text-decoration: none;
+   /* display: inline-block; */
+   font-size: 14px;
+   line-height: 1.333;
+   font-weight: 400;
+   /* margin: 2 0px; */
+   border-radius: 8px;
+   cursor: pointer;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   }
+   .button_next {
+   background-color: rgb(224, 138, 80);
+   border: none;
+   color: white;
+   padding: 10px 16px;
+   text-align: center;
+   text-decoration: none;
+   /* display: inline-block; */
+   font-size: 18px;
+   line-height: 1.333;
+   font-weight: 400;
+   /* margin: 2 0px; */
+   border-radius: 8px;
+   cursor: pointer;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   }
+   .button_instructions {
+   background-color: rgb(72, 83, 247);
+   border: none;
+   color: white;
+   padding: 10px 10px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 14px;
+   margin: 30px;
+   border-radius: 8px;
+   cursor: pointer;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   }
+   #myDIV {   
+   text-align: center;
+   margin-top: 20px;
+   margin-bottom: 20px;
+   }
+   .hide {
+   display: none;
+   }
+   .show {
+   display: block;
+   }
 </style>
 <script>
-  function show_hide_instructions() {
-    event.preventDefault();
-    var x = document.getElementById("myDIV");
-    if (x.style.display !== "none") {
-      x.style.display = "none";
-    } else {
-      x.style.display = "block";
-    }
-  }
-
- 
-  function changeToModal() {
-    event.preventDefault();
-    $("#location").val("result");
-    $("#myModal").modal("show");
-  }
-  function hideModal() {
-    event.preventDefault();
-    $("#location").val("result");
-    $("#myModal").modal("hide");
-  }
-  
-  window.addEventListener( "pageshow", function ( event ) {
-  var historyTraversal = event.persisted || 
-                         ( typeof window.performance != "undefined" && 
-                              window.performance.navigation.type === 2 );
-  if ( historyTraversal ) {
-    // Handle page restore.
-    window.location.reload();
-  }
-});
-
-  function checkForm(){
-    var x = document.getElementById("submit");
-    x.setAttribute("disabled", "true");
-    x.classList.add("button_next_before");
-    x.classList.remove("button_next");
-    x.value = "Submitting..."
-  }
-  
-  window.onload = setTimeout(function () {  
-    var x = document.getElementById("submit");
-    x.removeAttribute("disabled");
-    x.classList.remove("button_next_before");
-    x.classList.add("button_next");
-  }, 3000);
-
-  window.onload = function () {
-    var imgurl = "<%= imgURL  %>";
-
-    if (imgurl.includes("https")) {
-      document.getElementById("rating-image").src = imgurl;
-    } else {
-      document.getElementById(
-        "rating-image"
-      ).src = `https://caption.click/images${imgurl}`;
-    }
-  };
-
-  
+   function show_hide_instructions() {
+     event.preventDefault();
+     var x = document.getElementById("myDIV");
+     if (x.style.display !== "none") {
+       x.style.display = "none";
+     } else {
+       x.style.display = "block";
+     }
+   }
+   
+   
+   function changeToModal() {
+     event.preventDefault();
+     $("#location").val("result");
+     $("#myModal").modal("show");
+   }
+   function hideModal() {
+     event.preventDefault();
+     $("#location").val("result");
+     $("#myModal").modal("hide");
+   }
+   
+   window.addEventListener( "pageshow", function ( event ) {
+   var historyTraversal = event.persisted || 
+                          ( typeof window.performance != "undefined" && 
+                               window.performance.navigation.type === 2 );
+   if ( historyTraversal ) {
+     // Handle page restore.
+     window.location.reload();
+   }
+   });
+   
+   function checkForm(){
+     var x = document.getElementById("submit");
+     x.setAttribute("disabled", "true");
+     x.classList.add("button_next_before");
+     x.classList.remove("button_next");
+     x.value = "Submitting..."
+   }
+   
+   window.onload = setTimeout(function () {  
+     var x = document.getElementById("submit");
+     x.removeAttribute("disabled");
+     x.classList.remove("button_next_before");
+     x.classList.add("button_next");
+   }, 3000);
+   
+   window.onload = function () {
+     var imgurl = "<%= imgURL  %>";
+   
+     if (imgurl.includes("https")) {
+       document.getElementById("rating-image").src = imgurl;
+     } else {
+       document.getElementById(
+         "rating-image"
+       ).src = `https://caption.click/images${imgurl}`;
+     }
+   };
+   
+   
 </script>
-
 <body class="body">
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3 animation">
-        <h3 class="text-center text-info font-italic font-weight-bold">Let's Play!!</h3>
-        <img src= "https://caption.click/gifs/play.gif" class="gif">
-
-        <div class="caption">
-     
-
-      
-  
-        <h5 class="font-weight-bold"><%= probation_comment %></h5>
-        </div>
-
-        <!-- <form method="GET" action="/dashboard" class="mt-3">
-          <input
-          type="submit"
-          name="submit"
-          class="button_dashboard"
-          value="Back To Dashboard"
-          />
-        </form> -->
+   <div class="container-fluid">
+   <div class="row">
+   <div class="col-md-4 animation wrapper">
+      <h3 class="text-center text-info font-italic font-weight-bold">Let's Play!!</h3>
+      <img src= "https://caption.click/gifs/play.gif" class="gif">
+      <div class="caption">
+         <h5 class="font-weight-bold"><%= probation_comment %></h5>
       </div>
-      
-      <div class="col-md-7 wrapper">
-        <div class="info">         
-           
-          <br />
-          <div class="container">
+      <br>
+      <h2 class=" text-center"><b><u>Rating Guide</u></b></h2>
+      <table
+         class="
+         table table-bordered table-secondary table-responsive
+         "
+         >
+         <thead class="thead-light"></thead>
+         <tr>
+            <th scope="col">Rating</th>
+            <th scope="col">Description</th>
+         </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <th scope="row">1</th>
+               <td>
+                  A viewer would have a completely wrong understanding of the image. 
+               </td>
+            </tr>
+            <tr>
+               <th scope="row">2</th>
+               <td>
+                  A viewer would have a partial understanding of the objects in the image and no understanding of the scene, context, or actions in the image. 
+               </td>
+            </tr>
+            <tr>
+               <th scope="row">3</th>
+               <td>
+                  A viewer would understand what objects are in the image but unable to identify the scene, context, or actions that are in the image.
+               </td>
+            </tr>
+            <tr>
+               <th scope="row">4</th>
+               <td>
+                  A viewer would understand what objects are in the image but only able to partially identify <b>some</b> part of the scene, context, or actions that are in the image.
+               </td>
+            </tr>
+            <tr>
+               <th scope="row">5</th>
+               <td>
+                  A viewer would accurately understand the objects, and accurately and completely identify the scene, context, and actions that are in the image. 
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <!-- <form method="GET" action="/dashboard" class="mt-3">
+         <input
+         type="submit"
+         name="submit"
+         class="button_dashboard"
+         value="Back To Dashboard"
+         />
+         </form> -->
+   </div>
+   <div class="col-md-7 wrapper-image">
+      <div class="info">
+         <br />
+         <div class="container">
             <div class="row">
-              <div class="col">
-                <h3 class="text-center text-info font-italic font-weight-bold">Let's Play!!</h3>
-               <img src= "https://caption.click/gifs/play.gif" class="gif">
-              </div>
-              <div class="col caption">
-               
-             
-                <br>
-<!--                 
-                <form method="GET" action="/dashboard" class="mt-3">
-                  <input
-                    type="submit"
-                    name="submit"
-                    class="button_dashboard"
-                    value="Back To Dashboard"
+               <div class="col">
+                  <h3 class="text-center text-info font-italic font-weight-bold">Let's Play!!</h3>
+                  <img src= "https://caption.click/gifs/play.gif" class="gif">
+               </div>
+               <div class="col caption">
+                  <br>
+                  <!--                 
+                     <form method="GET" action="/dashboard" class="mt-3">
+                       <input
+                         type="submit"
+                         name="submit"
+                         class="button_dashboard"
+                         value="Back To Dashboard"
+                       />
+                     </form> -->
+                  <h5 class="font-weight-bold"><%= probation_comment %></h5>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="text-center img-div mx-auto d-block">
+         <img src="https://caption.click/images<%= imgURL %>" class=" image" id="rating-image"/>
+         <!-- <img src="https://caption.click/images/val2014/COCO_val2014_000000052155.jpg" class="image" /> -->
+         <!-- https://caption.click/images/val2014/COCO_val2014_000000052155.jpg -->
+      </div>
+      <br />
+      <h5 class="caption mt-3 font-weight-bold"><%= caption_from_captions %></h5>
+      <br />
+      <form class="form-group" action="/play" method="post" onsubmit="return checkForm()">
+         <div style="text-align: center">
+            <div class="form-check form-check-inline">
+               <input
+                  class="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio1"
+                  value="1"
                   />
-                </form> -->
-                <h5 class="font-weight-bold"><%= probation_comment %></h5>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="text-center img-div mx-auto d-block">
-        <img src="https://caption.click/images<%= imgURL %>" class=" image" id="rating-image"/>
-        <!-- <img src="https://caption.click/images/val2014/COCO_val2014_000000052155.jpg" class="image" /> -->
-        <!-- https://caption.click/images/val2014/COCO_val2014_000000052155.jpg -->
-      </div>
-        <br />
-        <h5 class="caption mt-3 font-weight-bold"><%= caption_from_captions %></h5>
-        <br />
-      
-        <form class="form-group" action="/play" method="post" onsubmit="return checkForm()">
-          <div style="text-align: center">
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio1"
-                value="1"
-              />
-              <label class="form-check-label" for="inlineRadio1">1</label>
+               <label class="form-check-label" for="inlineRadio1">1</label>
             </div>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio2"
-                value="2"
-              />
-              <label class="form-check-label" for="inlineRadio2">2</label>
+               <input
+                  class="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio2"
+                  value="2"
+                  />
+               <label class="form-check-label" for="inlineRadio2">2</label>
             </div>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio3"
-                value="3"
-              />
-              <label class="form-check-label" for="inlineRadio3">3</label>
+               <input
+                  class="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio3"
+                  value="3"
+                  />
+               <label class="form-check-label" for="inlineRadio3">3</label>
             </div>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio4"
-                value="4"
-              />
-              <label class="form-check-label" for="inlineRadio3">4</label>
+               <input
+                  class="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio4"
+                  value="4"
+                  />
+               <label class="form-check-label" for="inlineRadio3">4</label>
             </div>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio5"
-                value="5"
-              />
-              <label class="form-check-label" for="inlineRadio3">5</label>
+               <input
+                  class="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio5"
+                  value="5"
+                  />
+               <label class="form-check-label" for="inlineRadio3">5</label>
             </div>
-      
             <input
-              type="hidden"
-              id="hidden_input"
-              name="hidden_input"
-              value="<%=
-            caption_id %>"
-            />
-          </div>
-          <br>
-          <div>
+               type="hidden"
+               id="hidden_input"
+               name="hidden_input"
+               value="<%=
+                  caption_id %>"
+               />
+         </div>
+         <br>
+         <div>
             <div class="container">
-              <div class="row">
-                <div class="col">
-                <input
-                  id="submit"
-                  type="submit"
-                  name="submit"
-                  class="button_next_before"
-                  value="Submit"
-                  disabled
-                 
-                />
-                </div>
-              </div>
-            </form>
-          
-        </div>
-             
-        <button class="button_instructions" onclick="changeToModal()">
-          Rating Guide
-        </button>
-       
-        </div>
-  
-</div>
-<div
-        class="modal fade"
-        id="myModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myModalLabel"
-        aria-hidden="true"
+               <div class="row">
+                  <div class="col">
+                     <input
+                        id="submit"
+                        type="submit"
+                        name="submit"
+                        class="button_next_before"
+                        value="Submit"
+                        disabled
+                        />
+                  </div>
+               </div>
+      </form>
+      </div>
+      </div>
+   </div>
+   <div
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
       >
-        <div class="modal-dialog" role="document">
-
-          
-          <table
-              class="
-                table table-bordered table-secondary table-responsive
-                
-              "
-            >
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">Rating</th>
-                  <th scope="col">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>
-                    Objects are incorrectly identified. The caption gives the
-                    wrong idea about what is happening in the image.
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>
-                    Objects are partially correctly identified with some errors,
-                    but the caption is accurate enough to give an idea of what is
-                    happening in the image. The caption identifies most of the
-                    objects but might not identify everything. There is no
-                    interpretation of what anything means.
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>
-                    Relevant objects are correctly identified. The caption
-                    describes what is seen but not where objects are in space.
-                    There is no description of the overall setting and no
-                    interpretation of an event.
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td>
-                    Objects and/or a general scene and/or an action are correctly
-                    identified but not every element is completely identified. The
-                    caption describes what is seen and where things are in space.
-                    There is no interpretation of an event.
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>
-                    Objects, a general scene, and actions are correctly identified
-                    if present in the image. The caption describes what is seen
-                    and where things are in space.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+      <div class="modal-dialog" role="document">
       </div>
-      </div>
-
+   </div>
 </body>

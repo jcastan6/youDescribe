@@ -72,7 +72,7 @@
     text-align: center;
   }
   .gif {
-    width: 100%;
+    width: 50%;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -83,28 +83,42 @@
       border-radius: 15px 15px 0px 0px;
 
       width: 100%;
-      max-height: 500;
 
       /* background-size: 100% 100%; */
     }
     .wrapper {
       background-color: #dddfd4;
       /* margin-left: 30%;
-      margin-right: 10%; */
-
+   margin-right: 10%; */
       display: inline-block;
       margin-left: auto;
       margin-right: auto;
-      margin-top: 3%;
+      margin-top: 1%;
       box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
-      padding: 0%;
-
       flex: 0 1 auto;
       padding-left: 0 !important;
       padding-right: 0 !important;
       border-radius: 15px;
       width: 100% !important;
-      height: auto !important;
+      height: 100% !important;
+      /* width: fit-content; */
+    }
+    .wrapper-image {
+      background-color: #dddfd4;
+      /* margin-left: 30%;
+   margin-right: 10%; */
+      display: inline-block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 1%;
+      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+      margin-bottom: 1%;
+      flex: 0 1 auto;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      border-radius: 15px;
+      width: 100% !important;
+      height: 100% !important;
       /* width: fit-content; */
     }
   }
@@ -118,21 +132,31 @@
     .wrapper {
       background-color: #dddfd4;
       /* margin-left: 30%;
-      margin-right: 10%; */
-
+   margin-right: 10%; */
       margin-left: auto;
       margin-right: auto;
       margin: 3%;
       box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
       padding: 0%;
-
       padding-left: 0 !important;
       padding-right: 0 !important;
       border-radius: 15px;
-
       width: fit-content;
     }
 
+    .wrapper-image {
+      background-color: #dddfd4;
+      /* margin-left: 30%;
+   margin-right: 10%; */
+      margin-left: auto;
+      margin-right: auto;
+      margin: 1%;
+      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      border-radius: 15px;
+      width: fit-content;
+    }
     .gif {
       width: 50%;
       display: block;
@@ -252,9 +276,9 @@
 </script>
 
 <body class="body">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3 animation">
+      <div class="col-md-4 animation wrapper">
         <h3 class="text-center text-info font-italic font-weight-bold">
           Let's Learn How To Play!
         </h3>
@@ -268,8 +292,54 @@
             Select the score that best matches the caption to the image!
           </h6>
         </div>
+        <br>
+        <h2 class=" text-center"><b><u>Rating Guide</u></b></h2>
+      <table
+         class="
+         table table-bordered table-secondary table-responsive
+         "
+         >
+         <thead class="thead-light"></thead>
+         <tr>
+            <th scope="col">Rating</th>
+            <th scope="col">Description</th>
+         </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <th scope="row">1</th>
+               <td>
+                  A viewer would have a completely wrong understanding of the image. 
+               </td>
+            </tr>
+            <tr>
+               <th scope="row">2</th>
+               <td>
+                  A viewer would have a partial understanding of the objects in the image and no understanding of the scene, context, or actions in the image. 
+               </td>
+            </tr>
+            <tr>
+               <th scope="row">3</th>
+               <td>
+                  A viewer would understand what objects are in the image but unable to identify the scene, context, or actions that are in the image.
+               </td>
+            </tr>
+            <tr>
+               <th scope="row">4</th>
+               <td>
+                  A viewer would understand what objects are in the image but only able to partially identify <b>some</b> part of the scene, context, or actions that are in the image.
+               </td>
+            </tr>
+            <tr>
+               <th scope="row">5</th>
+               <td>
+                  A viewer would accurately understand the objects, and accurately and completely identify the scene, context, and actions that are in the image. 
+               </td>
+            </tr>
+         </tbody>
+      </table>
       </div>
-      <div class="col-md-7 wrapper">
+      <div class="col-md-7 wrapper-image">
         <div class="info">
           <br />
           <div class="container">
@@ -349,9 +419,7 @@
               <label class="form-check-label" for="inlineRadio3">5</label>
             </div>
           </div>
-          <!-- <div onclick="showHide();change(); return false;">
-      <input type="submit" name="submit" class="button_next" value="Submit" id="nextButton">
-    </div> -->
+
           <br />
           <div class="form-group">
             <input
@@ -371,14 +439,14 @@
   caption.cap_id %>"
           />
         </form>
-        <div class="col">
+        <!-- <div class="col">
           <button
             class="button_instructions"
             onclick="show_hide_instructions()"
           >
             Rating Guide
           </button>
-        </div>
+        </div> -->
         <div id="myDIV" style="display: none">
           <table class="table table-bordered table-secondary table-responsive">
             <thead class="thead-light">

@@ -31,7 +31,7 @@
     border-radius: 15px;
   }
   .gif {
-    width: 100%;
+    width: 50%;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -42,28 +42,42 @@
       border-radius: 15px 15px 0px 0px;
 
       width: 100%;
-      max-height: 500;
 
       /* background-size: 100% 100%; */
     }
     .wrapper {
       background-color: #dddfd4;
       /* margin-left: 30%;
-      margin-right: 10%; */
-
+   margin-right: 10%; */
       display: inline-block;
       margin-left: auto;
       margin-right: auto;
-      margin-top: 3%;
+      margin-top: 1%;
       box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
-      padding: 0%;
-
       flex: 0 1 auto;
       padding-left: 0 !important;
       padding-right: 0 !important;
       border-radius: 15px;
-      width: auto !important;
-      height: auto !important;
+      width: 100% !important;
+      height: 100% !important;
+      /* width: fit-content; */
+    }
+    .wrapper-image {
+      background-color: #dddfd4;
+      /* margin-left: 30%;
+   margin-right: 10%; */
+      display: inline-block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 1%;
+      box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
+      margin-bottom: 1%;
+      flex: 0 1 auto;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      border-radius: 15px;
+      width: 100% !important;
+      height: 100% !important;
       /* width: fit-content; */
     }
   }
@@ -278,9 +292,9 @@
   };
 </script>
 <body class="body">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3 animation feedback-text">
+      <div class="col-md-4 animation wrapper feedback-text">
         <img src="<%= gif %>" class="gif" />
 
         <div id="hidden_div" class="caption col">
@@ -289,7 +303,7 @@
           <h6 class="caption1">Consensus: <%= caption.consensus %></h6>
         </div>
       </div>
-      <div class="col-md-7 wrapper">
+      <div class="col-md-7 wrapper-image">
         <!-- <img src="<%= image %>" class="center image" /> -->
         <div class="text-center img-div mx-auto d-block">
           <img
@@ -300,7 +314,9 @@
         </div>
         <h5 class="caption"><%= caption.caption %></h5>
         <div class="caption2">
-          <h4>Explanation For Consensus:</h4>
+          <u>
+            <h4>Explanation For Consensus:</h4>
+          </u>
           <br />
           <%= caption.explanation %>
         </div>

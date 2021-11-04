@@ -53,12 +53,12 @@
       transform: translatey(0px);
     }
   }
-  .gif {
-    width: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  .gif{
+   width: 50%;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   }
   @media screen and (max-width: 768px) {
     .image {
       border-radius: 15px 15px 0px 0px;
@@ -67,6 +67,27 @@
       /* background-size: 100% 100%; */
       }
     .wrapper {
+      
+      background-color: #dddfd4;
+      /* margin-left: 30%;
+      margin-right: 10%; */
+      
+      
+      margin-left:auto;
+      margin-right: auto;
+      margin: 3%;
+      box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
+      padding: 0%;
+      
+      
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      border-radius: 15px;
+     
+      
+      width: fit-content;
+    }
+    .wrapper-image {
       
       background-color: #dddfd4;
       /* margin-left: 30%;
@@ -101,10 +122,7 @@
   @media screen and (min-width: 769px) {
     .image {
       border-radius: 15px 15px 0px 0px;
-    
       width:100%;
-      max-height:500;
-       
       /* background-size: 100% 100%; */
       }
     .wrapper {
@@ -116,7 +134,7 @@
       display: inline-block;
       margin-left:auto;
       margin-right: auto;
-      margin-top: 3%;
+      margin-top: 1%;
       box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
       padding: 0%;
       
@@ -127,6 +145,27 @@
       width: 100% !important;
       height: auto  !important;
     }
+
+    
+    .wrapper-image {  
+      background-color: #dddfd4;
+      /* margin-left: 30%;
+      margin-right: 10%; */
+      margin-left:auto;
+      margin-right: auto;
+      margin: 3%;
+      box-shadow:2px 5px 10px 2px rgb(0 0 0 / 20%);
+      padding: 0%;
+      
+      
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      border-radius: 15px;
+     
+      
+      width: fit-content;
+    }
+
   }
  
   .img-div {
@@ -316,12 +355,9 @@
   };
 </script>
 <body class="body">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3 animation feedback-text">
-        <div class="">
-      
-        </div>
+      <div class="col-md-3 animation">
         <img src="<%= gif %>" class="gif" />
 
         <div id="hidden_div" class="caption col">
@@ -330,7 +366,7 @@
         </div>
         <br>
       </div>
-      <div class="col-md-7 wrapper">
+      <div class="col-md-7 wrapper-image">
         <!-- <img src="<%= image %>" class="center image" /> -->
         <div class="text-center img-div mx-auto d-block">
           <img
