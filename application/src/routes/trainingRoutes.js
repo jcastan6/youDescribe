@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 var http = require("http");
+const Sequelize = require("sequelize");
 const url = require("url");
 const db = require("../models/database.js");
+const models = require("../sequelize-models");
 var good_guess = [
   "Awesome!",
   "Great Job!",
@@ -77,7 +79,8 @@ router.get("/tutorial-intro", getUserInfo, (req, res) => {
     users: req.users,
   });
 });
-router.get("/tutorial", updateUser, selectImage, (req, res) => {
+
+router.get("/tutorial", updateUser, checkFail, selectImage, (req, res) => {
   if (req.user.tutorial_images <= 0) {
     res.redirect("/tutorial_complete");
   } else {
@@ -97,43 +100,59 @@ async function updateCaption(req, res, next) {
   // console.log(users[3].email);
 }
 
-async function updateUserScore(req, res, next) {
-  let query = `UPDATE captionrater.users set tutorial_images = tutorial_images-1 where id = ${req.user.id}`;
-  // console.log(query);
-  await db.execute(query).then(async (caption) => {
-    next();
+async function checkFail(req, res, next) {
+  let user = await models.user.findOne({
+    where: { id: req.user.id },
   });
-  // console.log(users[3].email);
+  if (user.tutorial_images === 0 && user.total_num_success < 4) {
+    user.tutorial_images = 10;
+    user.total_num_success = 0;
+    await user.save();
+    res.redirect("/tutorial_repeat");
+  }
+  next();
+}
+
+async function updateUserScore(req, res, next) {
+  console.log(req.success);
+  let user = await models.user.findOne({
+    where: { id: req.user.id },
+  });
+
+  user.tutorial_images = user.tutorial_images - 1;
+
+  if (req.success === true) {
+    user.total_num_success = user.total_num_success + 1;
+  }
+
+  await user.save();
+  next();
 }
 async function updateUser(req, res, next) {
   let query = `select * from captionrater.users where id = ${req.user.id}`;
   // console.log(query);
   await db.execute(query).then(async (user) => {
     req.user = user[0][0];
-    next();
   });
-  // console.log(users[3].email);
+
+  next();
 }
 
 async function calculateScore(req, res, next) {
-  var random_good_answer =
-    good_guess[Math.floor(Math.random() * good_guess.length)];
-  var random_bad_answer =
-    bad_guess[Math.floor(Math.random() * bad_guess.length)];
-  var random_very_bad_answer =
-    very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
-
-  console.log(req.query);
   let query = `SELECT * FROM captionrater.tutorialCaptions where cap_id = ${req.query.cap_id}`;
 
   await db.execute(query).then(async (caption) => {
+    req.caption = caption[0][0];
     query = `SELECT * FROM captionrater.images where img_id =${caption[0][0].images_img_id}`;
-    await db.execute(query).then((image) => {
-      req.caption = caption[0][0];
-      let diff = Math.abs(req.query.rate - req.caption.consensus);
-      console.log(req.query.rate);
-      req.gif = "https://caption.click/gifs/play.gif";
+    let consensus = caption[0][0].consensus;
+    console.log(consensus + "\n\n");
+    req.success = true;
 
+    if (consensus !== parseInt(req.query.rate)) {
+      req.success = false;
+    }
+    await db.execute(query).then((image) => {
+      req.gif = "https://caption.click/gifs/play.gif";
       req.image = image[0];
       console.log(req.image[0]);
       next();
@@ -141,7 +160,7 @@ async function calculateScore(req, res, next) {
   });
 }
 
-router.post("/tutorial_res", updateCaption, updateUserScore, (req, res) => {
+router.post("/tutorial_res", updateCaption, (req, res) => {
   res.redirect(
     url.format({
       pathname: "tutorial_res",
@@ -154,18 +173,28 @@ router.post("/tutorial_res", updateCaption, updateUserScore, (req, res) => {
   );
 });
 
-router.get("/tutorial_res", calculateScore, updateUser, (req, res) => {
-  res.render("tutorial_res", {
-    score: req.score,
-    caption: req.caption,
-    image: req.image[0],
-    rate: req.query.rate,
-    gif: req.gif,
-    comment: req.ans,
-  });
-});
+router.get(
+  "/tutorial_res",
+  calculateScore,
+  updateUserScore,
+  updateUser,
+  (req, res) => {
+    res.render("tutorial_res", {
+      score: req.score,
+      caption: req.caption,
+      image: req.image[0],
+      rate: req.query.rate,
+      gif: req.gif,
+      comment: req.ans,
+    });
+  }
+);
 
 router.get("/tutorial_complete", (req, res) => {
   res.render("tutorial_complete");
+});
+
+router.get("/tutorial_repeat", (req, res) => {
+  res.render("tutorial_repeat");
 });
 module.exports = router;

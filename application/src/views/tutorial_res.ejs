@@ -21,6 +21,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
+   .table {
+    margin: auto;
+    width: 80% !important;
+    font-size: 14;
+    border: 3.5px solid rgb(99, 99, 155);
+    border-radius: 10px;
+  }
   .animation {
     top: 50%;
     background-color: #dddfd4;
@@ -300,8 +307,55 @@
         <div id="hidden_div" class="caption col">
           <br />
           <h6 class="caption1">Your rating: <%= rate %></h6>
-          <h6 class="caption1">Consensus: <%= caption.consensus %></h6>
+          <h6 class="caption1"><b>Consensus: <%= caption.consensus %></b></h6>
+          <br>
         </div>
+          <h2 class=" text-center"><b><u>Rating Guide</u></b></h2>
+        <table
+           class="
+           table table-bordered table-secondary table-responsive
+           "
+           >
+           <thead class="thead-light"></thead>
+           <tr>
+              <th scope="col">Rating</th>
+              <th scope="col">Description</th>
+           </tr>
+           </thead>
+           <tbody>
+              <tr>
+                 <th scope="row">1</th>
+                 <td>
+                    A viewer would have a completely wrong understanding of the image. 
+                 </td>
+              </tr>
+              <tr>
+                 <th scope="row">2</th>
+                 <td>
+                    A viewer would have a partial understanding of the objects in the image and no understanding of the scene, context, or actions in the image. 
+                 </td>
+              </tr>
+              <tr>
+                 <th scope="row">3</th>
+                 <td>
+                    A viewer would understand what objects are in the image but unable to identify the scene, context, or actions that are in the image.
+                 </td>
+              </tr>
+              <tr>
+                 <th scope="row">4</th>
+                 <td>
+                    A viewer would understand what objects are in the image but only able to partially identify <b>some</b> part of the scene, context, or actions that are in the image.
+                 </td>
+              </tr>
+              <tr>
+                 <th scope="row">5</th>
+                 <td>
+                    A viewer would accurately understand the objects, and accurately and completely identify the scene, context, and actions that are in the image. 
+                 </td>
+              </tr>
+           </tbody>
+        </table>
+   
       </div>
       <div class="col-md-7 wrapper-image">
         <!-- <img src="<%= image %>" class="center image" /> -->
