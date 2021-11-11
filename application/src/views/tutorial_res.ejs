@@ -305,10 +305,12 @@
         <img src="<%= gif %>" class="gif" />
 
         <div id="hidden_div" class="caption col">
-          <br />
-          <h6 class="caption1">Your rating: <%= rate %></h6>
-          <h6 class="caption1"><b>Consensus: <%= caption.consensus %></b></h6>
-          <br>
+          <h5 class="caption1">
+            <b><%= user.total_num_success %>/10 captions rated correctly.</b>
+          </h5>
+          <h5 class="caption1">Your rating: <%= rate %></h5>
+          <h5 class="caption1"><b>Consensus: <%= caption.consensus %></b></h5>
+         
         </div>
           <h2 class=" text-center"><b><u>Rating Guide</u></b></h2>
         <table

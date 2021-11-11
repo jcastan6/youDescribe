@@ -58,6 +58,7 @@ async function selectImage(req, res, next) {
   // console.log(query);
   await db.execute(query).then(async (caption) => {
     req.caption = caption[0][0];
+
     let query = `SELECT * FROM captionrater.images where img_id =${req.caption.images_img_id}`;
     await db.execute(query).then((image) => {
       req.image = image[0];
@@ -80,17 +81,6 @@ router.get("/tutorial-intro", getUserInfo, (req, res) => {
   });
 });
 
-router.get("/tutorial", updateUser, checkFail, selectImage, (req, res) => {
-  if (req.user.tutorial_images <= 0) {
-    res.redirect("/tutorial_complete");
-  } else {
-    res.render("tutorial", {
-      user: req.user,
-      caption: req.caption,
-      image: req.image[0],
-    });
-  }
-});
 async function updateCaption(req, res, next) {
   let query = `UPDATE captionrater.tutorialCaptions set ratings = ratings+1 where cap_id = ${req.body.cap_id}`;
   // console.log(query);
@@ -183,12 +173,25 @@ router.get(
       score: req.score,
       caption: req.caption,
       image: req.image[0],
+      user: req.user,
       rate: req.query.rate,
       gif: req.gif,
       comment: req.ans,
     });
   }
 );
+
+router.get("/tutorial", updateUser, checkFail, selectImage, (req, res) => {
+  if (req.user.tutorial_images <= 0) {
+    res.redirect("/tutorial_complete");
+  } else {
+    res.render("tutorial", {
+      user: req.user,
+      caption: req.caption,
+      image: req.image[0],
+    });
+  }
+});
 
 router.get("/tutorial_complete", (req, res) => {
   res.render("tutorial_complete");
