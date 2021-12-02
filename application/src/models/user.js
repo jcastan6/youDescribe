@@ -6,15 +6,16 @@ const bcrypt = require("bcryptjs");
 const db = require("./database.js");
 const saltRounds = 10;
 class User {
-  static async register(username, email, pass) {
+  static async register(username, email, pass, sona) {
     const hash = bcrypt.hashSync(pass, saltRounds);
     // console.log(username);
     return db
       .query(
-        "Insert Into users (username, email, password, probation_images) VALUES (?, ?, ?, ?) ",
-        [username, email, hash, 25]
+        "Insert Into users (username, email, sona, password, probation_images) VALUES (?, ?, ?, ?, ?) ",
+        [username, email, sona, hash, 25]
       )
       .then((results) => {
+        console.log(results[0]);
         return results[0].insertId;
       });
   }

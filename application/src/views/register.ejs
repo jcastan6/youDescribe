@@ -7,7 +7,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
   .body {
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: "Noto Sans JP", sans-serif;
     background-color: #717ea1;
     color: #000000;
   }
@@ -66,7 +66,7 @@
 <script>
   function checkForm(form) {
     if (
-      form.password.value != '' &&
+      form.password.value != "" &&
       form.password.value == form.passwordMatch.value
     ) {
       //alert("Good Job");
@@ -143,6 +143,18 @@
                   required
                 />
               </div>
+
+              <div class="form-group">
+                <label for="sona" class="fields-text">SONA ID:</label><br />
+                <input
+                  type="text"
+                  name="sona"
+                  id="sona"
+                  class="form-control"
+                  required
+                />
+              </div>
+
               <div id="register-link" class="text-left mb-3">
                 <a href="/" class="">Already have an account?</a>
               </div>

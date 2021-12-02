@@ -48,14 +48,15 @@ router.post("/register", function (req, res, next) {
     //   errors: errors
     // });
   } else {
-    const { username, email, password, passwordMatch } = req.body;
+    const { username, email, password, passwordMatch, sona } = req.body;
     console.log("email is: " + req.body.email);
     console.log("username is: " + req.body.username);
+    console.log("sona is: " + req.body.sona);
     User.checkValid(email).then((isValid) => {
       //if there is no similar user in the the user table--> insert the user
       if (isValid) {
         console.log("valid");
-        User.register(username, email, password).then((userID) => {
+        User.register(username, email, password, sona).then((userID) => {
           const user_id = userID;
           req.login({ id: userID }, () => {});
           console.log("goes here ..." + user_id);

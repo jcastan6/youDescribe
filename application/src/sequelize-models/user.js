@@ -20,6 +20,10 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       unique: true,
     },
+    sona: {
+      type: Sequelize.STRING(45),
+      defaultValue: "",
+    },
     password: {
       type: Sequelize.STRING(255),
       allowNull: false,
