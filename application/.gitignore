@@ -98,6 +98,9 @@ typings/
 .env
 .env.test
 
+# db config
+src/config/config.json
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
