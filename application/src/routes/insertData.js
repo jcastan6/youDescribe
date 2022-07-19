@@ -25,7 +25,7 @@ async function insertImages(req, res, next) {
 
     ratings = JSON.parse(content).annotations;
     processImages(images);
-    //processCaptions(ratings, db);
+    processCaptions(ratings, db);
   });
 
   res.send();

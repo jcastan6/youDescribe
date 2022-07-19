@@ -14,3 +14,6 @@ WHERE ratings.date_time > DATE_SUB(CURDATE(), INTERVAL 2 DAY);
 
 //users with 500+ points
 SELECT email, (total_score*level)/100 as result  FROM captionrater.users  where id not in (21,22,55) and (total_score*level)/100 > 500 order by result desc LIMIT 50 
+
+//check how many ratings each image has
+SELECT captions_cap_id, COUNT(*) g from ratings where confidence !='tutorial' GROUP BY captions_cap_id; 
