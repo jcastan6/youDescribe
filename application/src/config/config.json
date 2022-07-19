@@ -1,23 +1,23 @@
 {
   "development": {
     "username": "root",
-    "password": "csc648database",
-    "database": "captionrater",
-    "host": "54.177.22.144",
+    "password": "",
+    "database": "",
+    "host": "",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "csc648database",
-    "database": "captionrater",
-    "host": "54.177.22.144",
+    "password": "",
+    "database": "",
+    "host": "",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "csc648database",
-    "database": "captionrater",
-    "host": "54.177.22.144",
+    "password": "",
+    "database": "",
+    "host": "",
     "dialect": "mysql"
   }
 }
