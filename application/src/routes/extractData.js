@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../models/database.js");
 const url = require("url");
 const fs = require("fs");
-const oldData = require("../newdata/old.json");
+// const oldData = require("../newdata/old.json");
 
 router.get("/extractData", async (req, res) => {
   let query =
