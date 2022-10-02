@@ -28,7 +28,7 @@ module.exports = (sequelize, Sequelize) => {
     confidence: {
       type: Sequelize.STRING(45),
       allowNull: false,
-      defaultValue: "Undertermined",
+      defaultValue: "Undetermined",
     },
     dispute_desc: {
       type: Sequelize.STRING(260),

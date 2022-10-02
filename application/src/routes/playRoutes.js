@@ -133,12 +133,12 @@ async function getUserInfo(req, res, next) {
     console.log("accuracy: " + req.accuracy);
     console.log(req.users);
     if (req.users.probation_images > 0) {
-      console.log("tutorial");
+      console.log("probation");
       req.tutorial = true;
       req.probation_comment =
         "Probation Images Remaining: \n" + req.users.probation_images;
       next();
-    } else if (parseInt(req.users.total_score) < 40) {
+    } else if (parseInt(req.users.total_score) < 40 && count >= 20) {
       console.log("here! \n \n");
       req.tutorial = true;
       query =
@@ -502,6 +502,7 @@ router.post(
   updateUsersTable,
   insertDispute,
   (req, res) => {
+    console.log(req.body);
     var random_good_answer =
       good_guess[Math.floor(Math.random() * good_guess.length)];
     var random_bad_answer =
@@ -511,16 +512,16 @@ router.post(
     var ans;
     let gif2 = "";
     if (req.current_score < 1) {
-      gif2 = "https://caption.click/gifs/Actual_Animation_(3).gif";
+      gif2 = "./Actual_Animation_(3).gif";
       ans = random_very_bad_answer;
     } else if (req.current_score == 1) {
-      gif2 = "https://caption.click/gifs/Actual_Animation_(4).gif";
+      gif2 = "./Actual_Animation_(4).gif";
       ans = random_bad_answer;
     } else if (req.current_score == 2) {
-      gif2 = "https://caption.click/gifs/Actual_Animation_(5).gif";
+      gif2 = "./Actual_Animation_(5).gif";
       ans = "So close! Try harder next time!";
     } else {
-      gif2 = "https://caption.click/gifs/play.gif";
+      gif2 = "./play.gif";
       ans = random_good_answer;
     }
     // ans = (req.current_score <= 5) ? random_bad_answer : random_good_answer;

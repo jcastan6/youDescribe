@@ -28,6 +28,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.DATE,
       defaultValue: sequelize.literal("NOW()"),
     },
+    total_score_tutorial: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    }, 
     total_score: {
       type: Sequelize.INTEGER,
       defaultValue: 0,
@@ -38,13 +42,21 @@ module.exports = (sequelize, Sequelize) => {
     },
     probation_images: {
       type: Sequelize.INTEGER,
-      defaultValue: 20,
+      defaultValue: 0,
     },
     level: {
       type: Sequelize.INTEGER,
       defaultValue: 0,
     },
+    total_num_attempts_tutorial: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
     total_num_attempts: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+    total_num_success_tutorial: {
       type: Sequelize.INTEGER,
       defaultValue: 0,
     },

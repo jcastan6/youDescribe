@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
     },
     images_img_id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
       allowNull: false,
     },
     total_number_of_rates: {

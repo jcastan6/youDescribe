@@ -10,16 +10,30 @@ const db = require("../application/src/sequelize-models/index.js");
 
 const PORT = 3000;
 
-var options = {
-  database: "captionrater",
-  user: "root",
-  port: 3306,
-  password: "",
-  host: "localhost",
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-};
+
+if(process.env.NODE_ENV == 'development') {
+  var options = {
+    database: "captionrater",
+    user: "root",
+    port: 3306,
+    password: "root",
+    host: "localhost",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+  };
+} else {
+  var options = {
+    database: "captionrater",
+    user: "root",
+    port: 3306,
+    password: "8@Af6o96FFIk",
+    host: "localhost",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+  };
+}
 
 var sessionStore = new MySQLStore(options);
 const app = express();
@@ -52,7 +66,9 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static("./public"));
+
+console.log(path.join(__dirname, 'src/gifs'))
+app.use(express.static(path.join(__dirname, 'src/gifs')))
 
 //routes path
 const loginRouter = require("./src/routes/loginRoutes");
@@ -63,6 +79,8 @@ const trainingRouter = require("./src/routes/trainingRoutes");
 const insertDataRouter = require("./src/routes/insertData");
 const leaderboardRouter = require("./src/routes/leaderboardRoutes");
 const extractDataRouter = require("./src/routes/extractData");
+
+app.use("/images", express.static(path.join(__dirname, 'src/flickr8kImages')));
 
 app.use("/", loginRouter);
 app.use("/", homeRouter);
@@ -81,7 +99,7 @@ passport.use(
     },
     function (email, password, done) {
       const isValid = User.findUser(email, password);
-      console.log("isvalis? " + isValid);
+      console.log("isvalid? " + isValid);
       console.log("email is: " + email);
       console.log("password is: " + password);
 

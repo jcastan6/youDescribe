@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
   const image = sequelize.define("image", {
     img_id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
       primaryKey: true,
     },
     img_name: {

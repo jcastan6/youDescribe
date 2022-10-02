@@ -1,23 +1,10 @@
-<link
-  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-  rel="stylesheet"
-  id="bootstrap-css"
-/>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="utf-8" />
-<link
-  href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap"
-  rel="stylesheet"
-/>
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
-/>
-<link
-  rel="stylesheet"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
@@ -30,6 +17,7 @@
     padding: 1%;
     border-radius: 15px;
   }
+
   .gif {
     width: 100%;
     display: block;
@@ -46,6 +34,7 @@
 
       /* background-size: 100% 100%; */
     }
+
     .wrapper {
       background-color: #dddfd4;
       /* margin-left: 30%;
@@ -67,6 +56,7 @@
       /* width: fit-content; */
     }
   }
+
   @media screen and (max-width: 768px) {
     .image {
       border-radius: 15px 15px 0px 0px;
@@ -74,6 +64,7 @@
       width: 100%;
       /* background-size: 100% 100%; */
     }
+
     .wrapper {
       background-color: #dddfd4;
       /* margin-left: 30%;
@@ -98,6 +89,7 @@
       margin-left: auto;
       margin-right: auto;
     }
+
     .animation {
       padding: 25px;
     }
@@ -108,21 +100,26 @@
     background-color: #717ea1;
     color: #000000;
   }
+
   .row {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
+
   .button_dashboard {
     background-color: rgb(224, 138, 80);
     color: white;
   }
+
   .margin-dashboard-btn {
     margin-bottom: -10px;
     margin-top: 15px;
   }
+
   .btn-lg {
     padding: 8px 10px;
   }
+
   .button_instructions {
     background-color: rgb(72, 83, 247);
     border: none;
@@ -153,6 +150,7 @@
     text-align: center;
     box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
   }
+
   .caption2 {
     color: rgb(3, 14, 3);
     display: block;
@@ -166,6 +164,7 @@
     text-align: center;
     box-shadow: 2px 5px 10px 2px rgb(0 0 0 / 20%);
   }
+
   .caption1 {
     color: rgb(3, 14, 3);
     padding: 2px;
@@ -179,17 +178,21 @@
     transform: translatey(0px);
     animation: float 0.3s ease-in-out 2;
   }
+
   @keyframes float {
     0% {
       transform: translatey(0px);
     }
+
     50% {
       transform: translatey(-10px);
     }
+
     100% {
       transform: translatey(0px);
     }
   }
+
   .loader {
     position: fixed;
     top: 0;
@@ -219,22 +222,27 @@
     background-color: rgb(94, 94, 94);
     width: 75%;
   }
+
   .vanish-text {
     font-size: 50px;
   }
+
   .vanish-gif {
     width: 50%;
     margin-bottom: -100px;
   }
+
   @media screen and (max-width: 648px) {
     .vanish-text {
       font-size: 40px;
     }
   }
+
   @media screen and (max-width: 800px) {
     .vanish-gif {
       width: 100%;
     }
+
     .vanish-div {
       width: 100%;
       padding: 10%;
@@ -273,10 +281,13 @@
     } else {
       document.getElementById(
         "rating-image"
-      ).src = `https://caption.click/images${imgurl}`;
+      )
+        .src = `https://validatedicr.org/images/${imgurl}`;
+      // .src = `./images${imgurl}`;
     }
   };
 </script>
+
 <body class="body">
   <div class="container">
     <div class="row">
@@ -288,23 +299,26 @@
 
         <div id="hidden_div" class="caption col">
           <br />
+          <h5 class="font-weight-bold text-success caption1">
+            Total Score: <%= total_score %>
+          </h5>
           <h6 class="caption1 font-weight-bold">
             <kbd class="p-1"> Score Earned: <%= score %></kbd>
           </h6>
-          <h6 class="caption1">Your rating: <%= rate %></h6>
-          <h6 class="caption1">Consensus:<%= caption.consensus %></h6>
+          <h6 class="caption1">Your rating: <%= rate %>
+          </h6>
+          <h6 class="caption1">Consensus:<%= caption.consensus %>
+          </h6>
         </div>
       </div>
       <div class="col-md-7 wrapper">
         <!-- <img src="<%= image %>" class="center image" /> -->
         <div class="text-center img-div mx-auto d-block">
-          <img
-            src="<%= image.img_url %>"
-            class="img-fluid image"
-            id="rating-image"
-          />
+          <img src="<%= image.img_url %>" class="img-fluid image" id="rating-image" />
         </div>
-        <h5 class="caption"><%= caption.caption %></h5>
+        <h5 class="caption">
+          <%= caption.caption %>
+        </h5>
         <div class="caption2">
           <h4>Explanation For Consensus:</h4>
           <br />
@@ -313,13 +327,8 @@
         <div class="form-group d-flex justify-content-center mx-auto w-25 mt-5">
           <form action="/tutorial" method="GET">
             <div class="form-group">
-              <input
-                type="submit"
-                name="submit"
-                class="btn btn-lg button_dashboard mr-4"
-                value="Next"
-                id="submitButton"
-              />
+              <input type="submit" name="submit" class="btn btn-lg button_dashboard mr-4" value="Next"
+                id="submitButton" />
             </div>
           </form>
         </div>

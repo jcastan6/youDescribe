@@ -1,0 +1,11 @@
+cap_id,caption,images_img_id,ratings,explanation,consensus,createdAt,updatedAt
+1,"A person crouches on the ground, next to drawings on the sidewalk",4,182,"A viewer would understand what objects are in the image but only able to partially identify some part of the scene, context, or actions that are in the image.",4,NULL,NULL
+2,"A dog jumps to catch a Frisbee in the yard",4,179,"A viewer would have a completely wrong understanding of the image. ",1,NULL,NULL
+3,"An artist crouches on the ground, drawing sidewalk art with chalk",4,179,"A viewer would accurately understand the objects, and accurately and completely identify the scene, context, and actions that are in the image. ",5,NULL,NULL
+4,"A small brown and white dog running through tall grass",17,179,"A viewer would accurately understand the objects, and accurately and completely identify the scene, context, and actions that are in the image. ",5,NULL,NULL
+5,"A person sitting on the ground",4,180,"A viewer would have a partial understanding of the objects in the image and no understanding of the scene, context, or actions in the image. ",2,NULL,NULL
+6,"A person and drawings on the sidewalk ",4,181,"A viewer would understand what objects are in the image but unable to identify the scene, context, or actions that are in the image.",3,NULL,NULL
+7,"A white dog runs through grass",17,185,"A viewer would understand what objects are in the image but only able to partially identify some part of the scene, context, or actions that are in the image.",4,NULL,NULL
+8,"Two dogs are playing together outside",17,183,"A viewer would have a partial understanding of the objects in the image and no understanding of the scene, context, or actions in the image. ",2,NULL,NULL
+9,"A young boy dressed in a black hoodie crawling through a large, white tube .",17,179,"A viewer would have a completely wrong understanding of the image. ",1,NULL,NULL
+10,"A dog rolling in the grass",17,180,"A viewer would understand what objects are in the image but unable to identify the scene, context, or actions that are in the image.",3,NULL,NULL

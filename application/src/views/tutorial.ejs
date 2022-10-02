@@ -1,35 +1,16 @@
-<link
-  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-  rel="stylesheet"
-  id="bootstrap-css"
-/>
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
-/>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
 <link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-  href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap"
-  rel="stylesheet"
-/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet" />
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <title>Play</title>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-  crossorigin="anonymous"
-></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <style>
   .table {
     margin: auto;
@@ -50,6 +31,7 @@
     padding: 1%;
     border-radius: 15px;
   }
+
   .info {
     display: none;
   }
@@ -71,6 +53,7 @@
     border-radius: 8px;
     text-align: center;
   }
+
   .gif {
     width: 100%;
     display: block;
@@ -87,6 +70,7 @@
 
       /* background-size: 100% 100%; */
     }
+
     .wrapper {
       background-color: #dddfd4;
       /* margin-left: 30%;
@@ -108,6 +92,7 @@
       /* width: fit-content; */
     }
   }
+
   @media screen and (max-width: 768px) {
     .image {
       border-radius: 15px 15px 0px 0px;
@@ -115,6 +100,7 @@
       width: 100%;
       /* background-size: 100% 100%; */
     }
+
     .wrapper {
       background-color: #dddfd4;
       /* margin-left: 30%;
@@ -139,15 +125,18 @@
       margin-left: auto;
       margin-right: auto;
     }
+
     .animation {
       padding: 25px;
     }
   }
+
   .body {
     font-family: "Noto Sans JP", sans-serif;
     background-color: #717ea1;
     color: #000000;
   }
+
   .button_next_before {
     /* background-color: rgb(224, 138, 80); */
     background: #afadad;
@@ -167,6 +156,7 @@
     margin-left: auto;
     margin-right: auto;
   }
+
   .button_dashboard {
     background-color: rgb(224, 138, 80);
     border: none;
@@ -185,6 +175,7 @@
     margin-left: auto;
     margin-right: auto;
   }
+
   .button_next {
     background-color: rgb(224, 138, 80);
     border: none;
@@ -203,6 +194,7 @@
     margin-left: auto;
     margin-right: auto;
   }
+
   .button_instructions {
     background-color: rgb(72, 83, 247);
     border: none;
@@ -229,6 +221,7 @@
   .hide {
     display: none;
   }
+
   .show {
     display: block;
   }
@@ -260,9 +253,9 @@
         </h3>
         <h4 class="text-center text-info font-italic font-weight-bold">
           Rate <%= user.tutorial_images %> more images and use the rating guide
-          to get familiarized with the scale.
+            to get familiarized with the scale.
         </h4>
-        <img src="https://caption.click/gifs/play.gif" class="gif" />
+        <img src="https://validatedicr.org/gifs/play.gif" class="gif" />
         <div class="caption">
           <h6 class="text-center mt-3">
             Select the score that best matches the caption to the image!
@@ -278,74 +271,48 @@
                 <h3 class="text-center text-info font-italic font-weight-bold">
                   Let's Learn How To Play!!
                 </h3>
-                <img src="https://caption.click/gifs/play.gif" class="gif" />
+                <img src="https://validatedicr.org/gifs/play.gif" class="gif" />
               </div>
             </div>
           </div>
         </div>
+
         <div class="text-center img-div mx-auto d-block">
-          <img
-            src="<%= image.img_url %>"
-            class="img-fluid image"
-            id="rating-image"
-          />
-          <!-- <img src="https://caption.click/images/val2014/COCO_val2014_000000052155.jpg" class="image" /> -->
-          <!-- https://caption.click/images/val2014/COCO_val2014_000000052155.jpg -->
+          <% if (image.img_url=="https://c4.staticflickr.com/4/3627/3432280295_9bda253b7b_z.jpg" ) { %>
+            <img src="<%= image.img_url %>" class="img-fluid image" id="rating-image" />
+            <%} else { %>
+              <img src="https://validatedicr.org/images/<%= image.img_url %>" class="img-fluid image"
+                id="rating-image" />
+              <%} %>
+                <!-- <img src="./images/val2014/COCO_val2014_000000052155.jpg" class="image" /> -->
+                <!-- ./images/val2014/COCO_val2014_000000052155.jpg -->
         </div>
         <br />
-        <h5 class="caption mt-3 font-weight-bold"><%= caption.caption %></h5>
+        <h5 class="caption mt-3 font-weight-bold">
+          <%= caption.caption %>
+        </h5>
         <br />
 
         <form action="/tutorial_res" method="post">
           <div style="text-align: center">
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio1"
-                value="1"
-              />
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" />
               <label class="form-check-label" for="inlineRadio1">1</label>
             </div>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio2"
-                value="2"
-              />
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2" />
               <label class="form-check-label" for="inlineRadio2">2</label>
             </div>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio3"
-                value="3"
-              />
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3" />
               <label class="form-check-label" for="inlineRadio3">3</label>
             </div>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio4"
-                value="4"
-              />
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4" />
               <label class="form-check-label" for="inlineRadio3">4</label>
             </div>
             <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio5"
-                value="5"
-              />
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="5" />
               <label class="form-check-label" for="inlineRadio3">5</label>
             </div>
           </div>
@@ -354,28 +321,14 @@
     </div> -->
           <br />
           <div class="form-group">
-            <input
-              type="submit"
-              nme="submit"
-              class="button_next"
-              value="Submit"
-              id="submitButton"
-            />
+            <input type="submit" nme="submit" class="button_next" value="Submit" id="submitButton" />
           </div>
 
-          <input
-            type="hidden"
-            id="cap_id"
-            name="cap_id"
-            value="<%=
-  caption.cap_id %>"
-          />
+          <input type="hidden" id="cap_id" name="cap_id" value="<%=
+  caption.cap_id %>" />
         </form>
         <div class="col">
-          <button
-            class="button_instructions"
-            onclick="show_hide_instructions()"
-          >
+          <button class="button_instructions" onclick="show_hide_instructions()">
             Rating Guide
           </button>
         </div>
