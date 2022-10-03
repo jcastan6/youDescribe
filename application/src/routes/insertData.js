@@ -14,12 +14,12 @@ async function insertImages(req, res, next) {
   // );
 
   var files = fs.readdirSync(
-    "C:\\Users\\benja\\Desktop_Offline\\SF State\\Masters_Project_YouDescribe\\caption-rater\\python-scripts\\data\\"
+    "/home/ubuntu/code/caption-rater/python-scripts/data/"
   );
 
   files.forEach(async (file) => {
     const content = fs.readFileSync(
-      `C:\\Users\\benja\\Desktop_Offline\\SF State\\Masters_Project_YouDescribe\\caption-rater\\python-scripts\\data\\${file}`
+      `/home/ubuntu/code/caption-rater/python-scripts/data/${file}`
     );
     images = JSON.parse(content).images;
 
