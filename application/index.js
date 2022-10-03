@@ -81,6 +81,8 @@ const leaderboardRouter = require("./src/routes/leaderboardRoutes");
 const extractDataRouter = require("./src/routes/extractData");
 
 app.use("/images", express.static(path.join(__dirname, 'src/flickr8kImages')));
+app.use("/gifs", express.static(path.join(__dirname, 'src/gifs')));
+
 
 app.use("/", loginRouter);
 app.use("/", homeRouter);
