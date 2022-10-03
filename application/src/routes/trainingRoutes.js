@@ -104,20 +104,20 @@ async function insertTrainingRatings(req, res, next) {
     // console.log(req.body.inlineRadioOptions);
     if (diff === 0) {
       req.score = 3;
-      req.gif = "./play.gif";
+      req.gif = "play.gif";
       req.ans = random_good_answer;
     } else if (diff === 1) {
       req.score = 2;
-      req.gif = "./Actual_Animation_(5).gif";
+      req.gif = "Actual_Animation_(5).gif";
 
       req.ans = "So close! Try harder next time!";
     } else if (diff === 2) {
       req.score = 1;
-      req.gif = "./Actual_Animation_(4).gif";
+      req.gif = "Actual_Animation_(4).gif";
       req.ans = random_bad_answer;
     } else {
       req.score = 0;
-      req.gif = "./Actual_Animation_(3).gif";
+      req.gif = "Actual_Animation_(3).gif";
       req.ans = random_very_bad_answer;
     }
     
