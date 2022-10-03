@@ -244,6 +244,7 @@ updateUserScore,
         cap_id: req.body.cap_id,
         rate: req.body.inlineRadioOptions,
         score: req.score,
+        gif: req.gif,
       },
     })
   );
