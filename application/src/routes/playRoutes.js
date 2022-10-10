@@ -189,15 +189,15 @@ async function insertRatings(req, res, next) {
     let difference = Math.abs(req.body.inlineRadioOptions - req.consensus);
     req.confidence = "High";
     if (difference <= 0) {
-      req.current_score = 3;
-    } else if (difference <= 1) {
       req.current_score = 2;
-    } else if (difference <= 2) {
+    } else if (difference <= 1) {
       req.current_score = 1;
-    } else if (difference <= 3) {
+    } else if (difference <= 2) {
       req.current_score = 0;
-    } else {
+    } else if (difference <= 3) {
       req.current_score = -1;
+    } else {
+      req.current_score = -2;
     }
     console.log(difference);
     req.disputed = 0;
@@ -258,15 +258,15 @@ async function insertRatings(req, res, next) {
         }
 
         if (difference <= 0.5 * r) {
-          current_score = 3;
-        } else if (difference <= r) {
           current_score = 2;
+        } else if (difference <= r) {
+          current_score = 1;
         } else if (difference <= 1.5 * r) {
-          current_score = 1;
+          current_score = 0;
         } else if (difference <= 2 * r) {
-          current_score = 1;
-        } else {
           current_score = -1;
+        } else {
+          current_score = -2;
         }
 
         let query =
