@@ -257,13 +257,13 @@ async function insertRatings(req, res, next) {
           req.confidence = "Low";
         }
 
-        if (difference <= 0.5 * r) {
+        if (difference <= 0.25 * r) {
           current_score = 2;
-        } else if (difference <= r) {
+        } else if (difference <= 0.50 * r) {
           current_score = 1;
-        } else if (difference <= 1.5 * r) {
+        } else if (difference <= r) {
           current_score = 0;
-        } else if (difference <= 2 * r) {
+        } else if (difference <= 1.75 * r) {
           current_score = -1;
         } else {
           current_score = -2;
