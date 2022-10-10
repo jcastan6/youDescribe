@@ -353,7 +353,7 @@ async function updateUsersTable(req, res, next) {
       let attempts = parseInt(user.attempts);
       console.log("sum: " + sum);
       console.log("score: " + score);
-      let level = ((sum + score) / ((attempts + 1) * 3)) * 10;
+      let level = ((sum + parseInt(score)) / ((attempts + 1) * 3)) * 10;
       req.accuracy = level;
 
       req.total_score = parseInt(req.total_score) + parseInt(score);
