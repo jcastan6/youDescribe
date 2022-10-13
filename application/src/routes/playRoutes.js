@@ -138,7 +138,7 @@ async function getUserInfo(req, res, next) {
       req.probation_comment =
         "Probation Images Remaining: \n" + req.users.probation_images;
       next();
-    } else if (parseInt(req.users.total_score) < 40 && count >= 20) {
+    } else if (parseInt(req.users.total_score) < 25 && count >= 20) {
       console.log("here! \n \n");
       req.tutorial = true;
       query =
