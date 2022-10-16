@@ -511,13 +511,13 @@ router.post(
       very_bad_guess[Math.floor(Math.random() * very_bad_guess.length)];
     var ans;
     let gif2 = "";
-    if (req.current_score < 1) {
+    if (req.current_score < 0) {
       gif2 = "./Actual_Animation_(3).gif";
       ans = random_very_bad_answer;
-    } else if (req.current_score == 1) {
+    } else if (req.current_score == 0) {
       gif2 = "./Actual_Animation_(4).gif";
       ans = random_bad_answer;
-    } else if (req.current_score == 2) {
+    } else if (req.current_score == 1) {
       gif2 = "./Actual_Animation_(5).gif";
       ans = "So close! Try harder next time!";
     } else {
