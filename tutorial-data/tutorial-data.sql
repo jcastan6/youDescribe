@@ -50,3 +50,23 @@ INSERT INTO captionrater.images (img_id,img_name,img_url,createdAt,updatedAt) VA
 (20,"1282392036_5a0328eb86.jpg","./1282392036_5a0328eb86.jpg","2021-10-27 12:38:06","2021-10-27 12:38:06"),
 (21,"114051287_dd85625a04.jpg","./114051287_dd85625a04.jpg","2021-10-27 12:38:06","2021-10-27 12:38:06"),
 (22,"113678030_87a6a6e42e.jpg","./113678030_87a6a6e42e.jpg","2021-10-27 12:38:06","2021-10-27 12:38:06");
+
+
+-- These are the extra tutorial images and captions that weren't in the old database for some reason
+INSERT INTO captionrater.images (img_id,img_name,img_url,createdAt,updatedAt) VALUES
+(127488876,"127488876_f2d2a89588.jpg","./127488876_f2d2a89588.jpg",NULL,NULL),
+(1131932671,"1131932671_c8d17751b3.jpg","./1131932671_c8d17751b3.jpg",NULL,NULL)
+
+INSERT INTO captionrater.tutorialCaptions (cap_id,caption,images_img_id,ratings,explanation,consensus) VALUES
+(11,"A dog jumps over an obstacle",127488876,179,"A viewer would have a completely wrong understanding of the image.",1),
+(12,"A dog in a grassy field, looking up",127488876,179,"A viewer would have a partial understanding of the objects in the image and no understanding of the scene, context, or actions in the image. ",2),
+(13,"Two people in a grassy field with trees",127488876,179,"A view would understand what objects are in the image but unable to identify the scene, context, or actions that are in the image.",3),
+(14,"Two people stand in a grassy field looking at trees",127488876,179,"A viewer would understand what objects are in the image but only able to partially identify some part of the scene, context, or actions that are in the image.",4),
+(15,"Two golfers stand in a grassy field looking towards trees",127488876,179,"A viewer would accurately understand the objects, and accurately and completely identify the scene, context, and actions that are in the image.",5),
+(16,"A woman plays guitar by a round light",1131932671,179,"A viewer would have a completely wrong understanding of the image. ",1),
+(17,"A child jumping on a tennis court",1131932671,179,"A viewer would have a partial understanding of the objects in the image and no understanding of the scene, context, or actions in the image. ",2),
+(18,"A child is jumping in a room",1131932671,179,"A viewer would understand what objects are in the image but unable to identify the scene, context, or actions that are in the image.",3),
+(19,"A child jumps on a bed",1131932671,179,"A viewer would understand what objects are in the image but only able to partially identify some part of the scene, context, or actions that are in the image.",4),
+(20,"A boy jumps from one bed to another",1131932671,179,"A viewer would accurately understand the objects, and accurately and completely identify the scene, context, and actions that are in the image. ",5);
+
+

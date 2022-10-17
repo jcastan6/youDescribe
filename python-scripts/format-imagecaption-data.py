@@ -149,7 +149,7 @@ def downloadImages(inputFile):
 def main():
     opt = parseArgs()
 
-    downloadImages(opt.inputFile)
+    formatData(opt.inputFile)
 
 
 if __name__== "__main__":
