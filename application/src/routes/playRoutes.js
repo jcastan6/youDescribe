@@ -484,7 +484,11 @@ async function insertDispute(req, res, next) {
 
       req.disputed = 1;
       next();
-    });
+    })
+    .catch((err) => {
+    	console.log(err);
+	next();
+    })
   }
 }
 
@@ -553,6 +557,7 @@ router.post(
 
 router.post("/addDispute", insertDispute, async (req, res) => {
   console.log("dispute added");
+  res.redirect('/play');
 });
 
 module.exports = router;
