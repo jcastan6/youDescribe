@@ -10,8 +10,9 @@ module.exports = (sequelize, Sequelize) => {
       autoIncrement: true,
     },
     dispute: {
-      type: Sequelize.BOOLEAN,
-      allowNull: true,
+      type: Sequelize.TINYINT,
+      allowNull: false,
+      defaultValue: 0,
     },
     rate: {
       type: Sequelize.INTEGER,

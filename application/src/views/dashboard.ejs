@@ -140,8 +140,16 @@
     border-radius: 13px;
   }
 
-  input[value="Disputed"] {
+  input[value="Disputed"]  {
     background: rgb(141, 122, 109);
+  }
+
+  input[value="Declined"]  {
+    background: rgb(132, 100, 80);
+  }
+
+  input[value="Accepted"]  {
+    background: rgb(89, 134, 90);
   }
 
   input[type=text],
@@ -332,7 +340,7 @@
               <input type="hidden" id="secret" name="hidden_test" value="<%= ratings[i].dispute %>" />
               <!-- <td><input type="submit" name="submit" class="button_dispute" value="Dispute" onclick="return foo();" /> -->
               <td><input style="width:100px;" class="btn btn-danger btn-lg mx-auto p-3" id="button" name="submit"
-                  value="<% if(ratings[i].dispute !== 1){ %>Dispute<% } else{ %>Disputed<% } %>"
+                  value="<% if(ratings[i].dispute === 0){ %>Dispute<% } else if(ratings[i].dispute === 1) { %>Disputed<% } else if(ratings[i].dispute === 2) { %>Declined<% } else { %>Accepted<%} %>"
                   onclick="changeToModal('<%= ratings[i].rate_id %>')" /></td>
               <!-- data-toggle="modal" data-target="#myModal" -->
               </td>
