@@ -3,17 +3,35 @@ CAPTION RATER SQL QUERIES
 //how many ratings in the last 24hrs
 SELECT COUNT(*) from (SELECT * 
 FROM ratings
-WHERE ratings.date_time > DATE_SUB(CURDATE(), INTERVAL 2 DAY)) T1;
+WHERE ratings.createdAt > DATE_SUB(CURDATE(), INTERVAL 2 DAY)) T1;
 
 //who has played in the last 24hrs
 SELECT distinct user.email as Email
 FROM ratings
 INNER JOIN users user
 ON users_user_id = user.id
-WHERE ratings.date_time > DATE_SUB(CURDATE(), INTERVAL 2 DAY);
+WHERE ratings.createdAt > DATE_SUB(CURDATE(), INTERVAL 2 DAY);
+
+// Who has played in the last 3 days along with their total_score
+SELECT distinct user.email as Email, 
+user.total_score as "Total Score" 
+FROM ratings 
+INNER JOIN users user ON users_user_id = user.id 
+WHERE ratings.createdAt > DATE_SUB(CURDATE(), INTERVAL 3 DAY);
 
 //users with 500+ points
 SELECT email, (total_score*level)/100 as result  FROM captionrater.users  where id not in (21,22,55) and (total_score*level)/100 > 500 order by result desc LIMIT 50 
 
 //check how many ratings each image has
 SELECT captions_cap_id, COUNT(*) g from ratings where confidence !='tutorial' GROUP BY captions_cap_id; 
+
+// Get all disputed ratings along with image name and caption
+SELECT images.img_url, captions.caption, ratings.rate_id, ratings.dispute, ratings.rate, ratings.scores, ratings.consensus, ratings.confidence, ratings.dispute_desc, ratings.users_user_id  FROM ratings 
+JOIN captions ON captions.cap_id=ratings.captions_cap_id 
+JOIN images ON images.img_id=captions.images_img_id
+WHERE ratings.dispute=1 AND NOT(ratings.dispute_desc="undefined") INTO OUTFILE '/var/lib/mysql-files/<DATE>.csv' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n';
+
+
+// Check how many AI ratings there are
+SELECT COUNT(*) from ratings 
+WHERE dispute=1 AND dispute_desc="undefined" AND users_user_id=1;

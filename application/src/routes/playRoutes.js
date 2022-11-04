@@ -56,8 +56,9 @@ async function getImageidFromCaptions(req, res, next) {
     query =
       "SELECT * FROM captionrater.probationCaptions where ratings = (select MIN(ratings) from probationCaptions) order by RAND();";
   } else {
-    query =
-      "select * from captions where cap_id = (select captions_cap_id from (select captions_cap_id, count(captions_cap_id) as count  from ratings group by captions_cap_id order by count) t1 limit 1)";
+    // query =
+    //   "select * from captions where cap_id = (select captions_cap_id from (select captions_cap_id, count(captions_cap_id) as count  from ratings group by captions_cap_id order by count) t1 limit 1)";
+    query = "SELECT * FROM captions WHERE total_number_of_rates=(SELECT MIN(total_number_of_rates) FROM captions) ORDER BY RAND();"
   }
   await db.query(query).then((captions) => {
     var captions = captions[0];
