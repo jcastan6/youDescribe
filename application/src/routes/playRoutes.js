@@ -248,7 +248,7 @@ async function insertRatings(req, res, next) {
         let current_rate = parseInt(req.body.inlineRadioOptions);
 
         let current_success = 0;
-        let difference = Math.abs(current_rate - avg);
+        let difference = Math.abs(current_rate - current_consensus);
 
         if (r < 1.25) {
           req.confidence = "High";
